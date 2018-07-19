@@ -1,0 +1,76 @@
+
+{{inlinecss file="email-inline.css"}}
+
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+        <tr>
+            <td align="center" valign="top" style="border: 1px solid #EAEAEA;">
+                <table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="100%">
+                    <tr class="head">
+                        <td valign="top" style="padding:20px; background-color: #d32128;">
+                            <a href="{{store url=''}}" style="color:#1E7EC8;"><img src="{{var logo_url}}" alt="{{var logo_alt}}" border="0"/></a>
+                        </td>
+                    </tr>
+                    <tr class="main-content">
+                        <td valign="top" style="padding:20px; line-height:20px; color:#575757;">
+                            <p>
+                                Estimado {{var customer_firstname}}!<br>
+                                Tu Cr&eacute;dito en Tienda ha sido actualizado.
+                            </p>
+
+                            <p>
+                                <b>Tú estado de cuenta actual es: {{var store_credit_balance_formatted}}</b>.
+                            </p>
+                            {{if store_credit_balance}}
+                            <p>
+                                Ahora pod&eacute;s <a href="{{var link_to_landing_page}}">volver</a> a la tienda y usar tu Cr&eacute;dito en Tienda en una nueva orden!.
+                            </p>
+                            {{/if}}
+                            {{if store_credit_added_by_admin}}
+                            <p>
+                                El Administrador {{var store_name}} cambi&oacute; tu Cr&eacute;dito en Tienda a: <b>{{var store_credit_delta_balance_formatted}}</b>.<br>
+                                Comentario del administrador: <b>{{var store_credit_admin_comment}}</b>
+                            </p>
+                            {{/if}}
+                            {{if store_credit_has_creditmemo}}
+                            <p>
+                                Recibiste <b>{{var store_credit_delta_balance_formatted}}</b> debido a la devoluci&oacute;n de la orden <a href="{{var order_url}}">{{var order_increment_id}}</a>.
+                            </p>
+                            {{/if}}
+                            {{if store_credit_product_bought}}
+                            <p>
+                                <b>{{var credit_spent}}</b> de tu Cr&eacute;dito en Tienda fueron gastados en <a href="{{var order_url}}">{{var order_increment_id}}</a>.
+                            </p>
+                            {{/if}}
+                            {{if store_credit_redeemed_from_giftcard}}
+                            <p>
+                                Tarjeta de regalo: {{var gift_card_code}}. Recibiste <b>{{var store_credit_delta_balance_formatted}}</b>.
+                            </p>
+                            {{/if}}
+                            <p>
+                                Entr&aacute; para ver el Estado e historial de tu cuenta - <a href="{{var link_to_customer_storecredit_tab}}">click ac&aacute;</a>.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr class="footer-one">
+                        <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center; color:#808080; padding:20px 0 0 0;">
+                            <span color="#333333">Recibiste este mail porque est&aacute;s suscripto a las actualizaciones de tu Cr&eacute;dito en Tienda. Si quer&eacute;s cambiar tu suscripci&oacute;n hac&eacute; click <a href="{{var link_to_customer_storecredit_tab}}">ac&aacute;</a>.</span>
+                        </td>
+                    </tr>
+                    <tr class="footer-bottom">
+                        <td bgcolor="#EAEAEA" align="center"  style="color:#D32128 !important; text-align:center; padding:20px 0px;"><center><p style="font-size:12px; margin:0;">Gracias nuevamente! <strong style="font-weight:bold;">{{var store.getFrontendName()}}</strong></p></center></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<style type="text/css">
+
+.im {
+  color: #696969!important;
+}
+
+</style>

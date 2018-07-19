@@ -1,0 +1,48 @@
+<!--@subject {{var store.getFrontendName()}}: Actualizacion de pedido # {{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var order.increment_id":"Order Id",
+"var order.getStatusLabel()":"Order Status",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var comment":"Order Comment",
+"var store.getFrontendName()":"Store Name"}
+@-->
+<!--@styles
+    @-->
+
+    {{template config_path="design/email/header"}}
+    {{inlinecss file="email-inline.css"}}
+
+    <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="action-content">
+                            <h1>{{htmlescape var=$order.getCustomerName()}},</h1>
+                            <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+                                El estado de tu pedido número {{var order.increment_id}} es: <br/>
+                                <strong>{{var order.getStatusLabel()}}</strong>.
+                                {{if comment}}
+                                <table cellspacing="0" cellpadding="0" class="message-container">
+                                    <tr>
+                                        <td>{{var comment}}</td>
+                                    </tr>
+                                </table>
+                                {{/if}}
+                                <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">Pod&eacute;s consultar el estado de tu pedido <a href="{{store url="customer/account/"}}" style="color:#1E7EC8;">accediendo a tu cuenta</a>.</p>
+
+                                <p style="font-size:12px; line-height:16px; margin:0;">
+                                    Si ten&eacute;s alguna pregunta o duda sobre tu pedido, por favor mandanos un mail a
+                                    <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            {{template config_path="design/email/footer"}}

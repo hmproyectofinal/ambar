@@ -1,0 +1,31 @@
+<!--@subject Formulario de contacto @-->
+<!--@vars
+{"var nombre":"Sender Name",
+"var email":"Sender Email",
+"var telefono":"Sender Telephone",
+"var mensaje":"Comment"}
+@-->
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:none; padding: 45px 60px 63px 60px;">
+<!-- [ middle starts here] -->
+    <tr>
+	    <td>
+	        <tr valign="top">
+				Nombre: {{var nombre}}</br>
+			</tr>	
+			<tr valign="top">	
+				E-mail: {{var email}}</br>	
+			</tr>
+			<tr valign="top">
+				Tel&eacute;fono: {{var telefono}}</br>	
+			</tr>
+			<tr valign="top">
+				Comentario: {{var mensaje}}</br>	
+			</tr>
+		</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}

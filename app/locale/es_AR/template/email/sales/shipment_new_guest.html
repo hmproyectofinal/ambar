@@ -1,0 +1,90 @@
+<!--@subject {{var store.getFrontendName()}}: Shipment # {{var shipment.increment_id}} for Order # {{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$billing.getName()":"Guest Customer Name",
+"var store.getFrontendName()":"Store Name",
+"var shipment.increment_id":"Shipment Id",
+"var order.increment_id":"Order Id",
+"var order.getStatusLabel()":"Order Status",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var comment":"Shipment Comment"}
+@-->
+<!--@styles
+    @-->
+
+    {{template config_path="design/email/header"}}
+    {{inlinecss file="email-inline.css"}}
+
+    <table cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="email-heading">
+                            <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Hola, {{htmlescape var=$billing.getName()}}</h1>
+                            El estado de tu orden es: <br/>
+                            <strong>{{var order.getStatusLabel()}}</strong>.
+                            <p style="font-size:12px; line-height:16px; margin:0;">
+                                Gracias por realizar tu pedido en {{var store.getFrontendName()}}.
+                                Pod&eacute;s consultar el estado de tu pedido <a href="{{store url="sales/guest/form/"}}" style="color:#1E7EC8;">aqu&iacute;</a>.
+                                Si ten&eacute;s alguna pregunta sobre tu pedido por favor mandanos un mail a <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="order-details">
+                <p>Orden <span class="no-link">#{{var order.increment_id}}</span></p>
+            </td>
+        </tr>
+        <tr class="order-information">
+            <td>
+                {{if comment}}
+                <table cellspacing="0" cellpadding="0" class="message-container">
+                    <tr>
+                        <td>{{var comment}}</td>
+                    </tr>
+                </table>
+                {{/if}}
+                {{layout handle="sales_email_order_shipment_items" shipment=$shipment order=$order}}
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="address-details">
+                            <h6>Informaci&oacute;n de Facturaci&oacute;n:</h6>
+                            <p><span class="no-link">{{var order.billing_address.format('html')}}</span></p>
+                        </td>
+                        {{depend order.getIsNotVirtual()}}
+                        <td class="address-details">
+                            <h6>Informaci&oacute;n de Env&iacute;o:</h6>
+                            <p><span class="no-link">{{var order.shipping_address.format('html')}}</span></p>
+                        </td>
+                        {{/depend}}
+                    </tr>
+                    <tr>
+                        {{depend order.getIsNotVirtual()}}
+                        <td class="method-info">
+                            <h6>M&eacute;todo de Env&iacute;o:</h6>
+                            <p>{{var order.shipping_description}}</p>
+                        </td>
+                        {{/depend}}
+                        <td class="method-info">
+                            <h6>M&eacute;todo de Pago:</h6>
+                            {{var payment_html}}
+                        </td>
+                    </tr>
+                </table>
+                {{block type='core/template' area='frontend' template='email/order/shipment/track.phtml' shipment=$shipment order=$order}}
+            </td>
+        </tr>
+    </table>
+
+    {{template config_path="design/email/footer"}}

@@ -1,0 +1,95 @@
+<!--@subject {{var store.getFrontendName()}}: Nueva orden # {{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+@-->
+<!--@styles
+@-->
+
+{{template config_path="design/email/header"}}
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="email-heading">
+                        <p>
+                            Hola {{htmlescape var=$order.getCustomerName()}},
+                        </p>
+                        <p style="font-size:12px; line-height:1.3; margin:0;">
+                            <p>¡Felicitaciones por tu compra! Gracias por elegir {{var store.getFrontendName()}}.</p>
+                            <p>El tiempo para que preparemos tu pedido es de hasta 3 d&iacute;as h&aacute;biles.</p>
+                            <p>Te enviaremos un mail de confirmaci&oacute;n cuando el paquete ya est&eacute; en camino, incluyendo un link para hacer seguimiento del env&iacute;o.</p>
+                            <p>Una vez despachado desde nuestro dep&oacute;sito, el tiempo de entrega para Capital y GBA es de hasta 2 d&iacute;as h&aacute;biles.</p>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="order-information">
+        <td>
+            {{if order.getEmailCustomerNote()}}
+            <table cellspacing="0" cellpadding="0" class="message-container">
+                <tr>
+                    <td>{{var order.getEmailCustomerNote()}}</td>
+                </tr>
+            </table>
+            {{/if}}
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="address-details">
+                        <h6>Informaci&oacute;n de Facturaci&oacute;n:</h6>
+                        <p><span class="no-link">{{var order.getBillingAddress().format('html')}}</span></p>
+                    </td>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="address-details">
+                        <h6>Informaci&oacute;n de Env&iacute;o:</h6>
+                        <p><span class="no-link">{{var order.getShippingAddress().format('html')}}</span></p>
+                    </td>
+                    {{/depend}}
+                </tr>
+                <tr>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="method-info">
+                        <h6>M&eacute;todo de Env&iacute;o:</h6>
+                        <p>{{var order.shipping_description}}</p>
+                    </td>
+                    {{/depend}}
+                    <td class="method-info">
+                        <h6>M&eacute;todo de Pago:</h6>
+                        {{var payment_html}}
+                    </td>
+                </tr>
+            </table>
+            {{layout handle="sales_email_order_items" order=$order}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Consult&aacute; cuando quieras el estado de tus compras ingresando a <a href="{{store url="customer/account/"}}">Mi Cuenta</a>.</p>
+            <p>Si ten&eacute;s una consulta, no dudes en contactarte con nuestro Centro de Atenci&oacute;n al Cliente</p>
+            <p>
+                -Por email a <a href="mailto:{{config path='trans_email/ident_support/email'}}">{{config path='trans_email/ident_support/email'}}</a>.
+            </p>
+            <p>-Por tel&eacute;fono al {{var store_phone}}. Horario de atenci&oacute;n: 8hs a 20hs, de Lunes a Viernes. S&aacute;bados y Domingos de 10hs a 16hs.
+            </p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer"}}
