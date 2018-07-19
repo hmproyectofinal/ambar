@@ -184,6 +184,9 @@ body .promos > li {
   display: none;
 }
 
+body.cms-index-index.cms-home .main-container {
+  background-color: #fff;
+}
 body.cms-index-index.cms-home .global-site-notice.demo-notice {
   display: none;
 }
@@ -229,9 +232,28 @@ body.cms-index-index.cms-home .promos li a img {
 body.cms-index-index.cms-home .promos li a img:hover {
   transform: scale(1.02);
 }
+body.cms-index-index.cms-home .parallax {
+  background-image: url(../images/img_parallax.jpg);
+  height: 300px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.99;
+}
+body.cms-index-index.cms-home .googlemap {
+  margin-top: -50px;
+}
+body.cms-index-index.cms-home .googlemap iframe {
+  border: none;
+}
 
 @media only screen and (max-width: 991px) {
   .slideshow-container .slideshow-pager, .slideshow-container .slideshow-prev, .slideshow-container .slideshow-next {
     display: none;
+  }
+
+  .parallax {
+    height: 150px;
   }
 }
