@@ -696,7 +696,7 @@ p.sku {
 }
 
 .price-box .price {
-  color: #3399CC;
+  color: #000000;
   font-size: 16px;
 }
 
@@ -713,7 +713,7 @@ p.sku {
 
 .price-box .minimal-price-link {
   padding-left: 1em;
-  color: #3399CC;
+  color: #000000;
   display: block;
   /* We want this to show on its own line, otherwise the layout looks funky */
 }
@@ -743,7 +743,7 @@ p.sku {
 }
 
 .price-box .special-price {
-  color: #3399CC;
+  color: #000000;
   padding-left: 1em;
 }
 .price-box .special-price .price-label {

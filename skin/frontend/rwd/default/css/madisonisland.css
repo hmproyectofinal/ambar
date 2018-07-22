@@ -198,7 +198,7 @@ body .promos > li {
 .cms-index-index h2.subtitle {
   padding: 6px 0;
   text-align: center;
-  color: #3399CC;
+  color: #000000;
   font-weight: 600;
   border-bottom: 1px solid #CCCCCC;
   border-top: 1px solid #CCCCCC;
@@ -251,7 +251,6 @@ body.cms-index-index.cms-home .promos li {
 }
 body.cms-index-index.cms-home .promos li a img {
   border-radius: 5px;
-  transition: 0.3s;
 }
 body.cms-index-index.cms-home .promos li a img:hover {
   transform: scale(1.02);
@@ -310,7 +309,7 @@ body.cms-index-index.cms-home .googlemap iframe {
 }
 
 .catblocks li:hover {
-  border-color: #3399CC;
+  border-color: #000000;
 }
 
 @media only screen and (max-width: 770px) {
