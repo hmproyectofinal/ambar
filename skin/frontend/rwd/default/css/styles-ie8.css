@@ -2874,10 +2874,51 @@ a.skip-link {
   display: none !important;
 }
 
+.store-language-container {
+  display: none !important;
+}
+
 .pre-header {
   height: 30px;
   background: black;
   color: white;
+}
+.pre-header a {
+  text-decoration: none;
+}
+.pre-header .section {
+  width: 33.3%;
+}
+.pre-header .section li {
+  float: left;
+  list-style: none;
+  height: 30px;
+  line-height: 30px;
+  margin: 0 5px;
+  font-weight: lighter;
+  font-size: 13px;
+}
+.pre-header .section li a.facebook, .pre-header .section li a.instagram {
+  color: #FFFFFF;
+  float: left;
+}
+.pre-header .section li a.facebook i, .pre-header .section li a.instagram i {
+  cursor: pointer;
+}
+.pre-header .section.last {
+  float: right;
+}
+.pre-header .section.last li {
+  float: right;
+}
+.pre-header .section.last li a {
+  color: #FFFFFF;
+  float: right;
+}
+.pre-header .section.last li span {
+  color: #FFFFFF;
+  font-family: "Roboto", sans-serif;
+  padding-left: 8px;
 }
 
 #header .skip-nav .icon {
@@ -3041,6 +3082,26 @@ a.skip-link {
 }
 
 @media only screen and (max-width: 991px) {
+  .pre-header {
+    float: left;
+    width: 100%;
+    padding: 0 15px;
+  }
+  .pre-header .section {
+    float: left;
+    width: 50%;
+  }
+  .pre-header .section .label {
+    display: none;
+  }
+  .pre-header .section.middle {
+    display: none;
+  }
+  .pre-header .section .pre-header i {
+    font-size: 20px;
+    margin: 5px;
+  }
+
   #header .logo {
     width: 100%;
     padding: 4px 0;
