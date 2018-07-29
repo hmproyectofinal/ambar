@@ -231,6 +231,16 @@ body.cms-index-index.cms-home .promos li a img {
 body.cms-index-index.cms-home .promos li a img:hover {
   transform: scale(1.02);
 }
+body.cms-index-index.cms-home .widget-new-products .widget-products li.item .product-info .product-name {
+  min-height: 40px;
+}
+body.cms-index-index.cms-home .widget-new-products .widget-products li.item .product-info .price-box p {
+  margin-bottom: 0 !important;
+}
+body.cms-index-index.cms-home .widget-new-products .widget-products li.item .product-info .actions {
+  display: block;
+  position: relative;
+}
 body.cms-index-index.cms-home .facilidades {
   float: left;
   width: 100%;
@@ -285,6 +295,13 @@ body.cms-index-index.cms-home .googlemap {
 }
 body.cms-index-index.cms-home .googlemap iframe {
   border: none;
+}
+body.cms-index-index.cms-home .footer-container {
+  padding-top: 0px;
+  float: left;
+  width: 100%;
+  max-width: none;
+  padding: 0 8%;
 }
 
 @media only screen and (max-width: 991px) {

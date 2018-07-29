@@ -42,7 +42,7 @@
 <div class="pre-header">
     <div class="page-header">
         <div class="section first">
-            <li class="label">Seguinos en nuestras redes! </li>
+            <li class="label">Seguinos en nuestras redes </li>
             <li><a target="_blank" href="https://www.facebook.com/ambarsn/" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
             <li><a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
         </div>
@@ -50,12 +50,17 @@
 
         </div>
         <div class="section last">
-            <li>
-                <a target="_blank" href="https://api.whatsapp.com/send?phone=5493416607311&text=Hola,%20me%20gustaría%20saber%20el%20precio%20de%20un%20reloj" class="whatsapp">
-                    <i class="fa fa-whatsapp" aria-hidden="true"><span class="label">+54-341-1234567</span></i>
+            <li> 
+                <a target="_blank" href="https://m.me/ambarsn/">
+                    <img src="<?php echo $this->getSkinUrl('images/icon-fbmessenger.png') ?>">
                 </a>
             </li>
-            <li>Contactanos </li>
+            <li>
+                <a target="_blank" href="https://api.whatsapp.com/send?phone=5493416607311&text=Hola,%20me%20gustaría%20hacerles%20una%20consulta" class="whatsapp">
+                    <i class="fa fa-whatsapp" aria-hidden="true"><span class="label"></span></i>
+                </a>
+            </li>
+            <li class="message-header-label">Envianos un mensaje </li>
         </div>
     </div>
 </div>
@@ -134,6 +139,13 @@
                 jQuery("#header").addClass('sticky');
             } else {
                 jQuery("#header").removeClass('sticky');
+            }
+        });
+        jQuery(window).scroll(function () {
+            if (jQuery(this).scrollTop() > 55) {
+                jQuery(".page").addClass('msticky');
+            } else {
+                jQuery(".page").removeClass('msticky');
             }
         });
     });
