@@ -3546,6 +3546,30 @@ a.skip-link {
   overflow-y: scroll;
 }
 @media only screen and (min-width: 992px) {
+  #header .account-cart-wrapper .skip-link .label {
+    color: #000000;
+  }
+  #header .header-minicart .block-subtitle {
+    color: transparent;
+  }
+  #header div#header-account li {
+    transition: 0.4s;
+  }
+  #header div#header-account li a {
+    text-decoration: none;
+    text-align: left;
+    color: #000000;
+  }
+  #header div#header-account li a:before {
+    content: "\f105";
+    font-family: FontAwesome;
+    font-size: 14px;
+    margin-right: 8px;
+    color: #000000;
+  }
+  #header div#header-account li:hover {
+    margin-left: 5px;
+  }
   #header #header-nav {
     text-align: center;
   }
@@ -3563,7 +3587,7 @@ a.skip-link {
     font-size: 15px;
   }
   #header #header-nav .nav-primary li ul.level0 {
-    background: #fff;
+    background: #FFFFFF;
     position: absolute;
     left: 0;
     top: 50px;
@@ -3662,15 +3686,71 @@ a.skip-link {
     background: white;
   }
   .skip-links a.skip-link.skip-active {
-    background: #000 !important;
-    color: #fff !important;
+    background: #000000 !important;
+    color: #FFFFFF !important;
   }
   .skip-links a.skip-link.skip-active .icon:before {
-    color: #fff !important;
+    color: #FFFFFF !important;
   }
 
   div#header-nav, div#header-search, div#header-account, .minicart-wrapper {
-    background: #fff !important;
+    background: #FFFFFF !important;
+  }
+
+  div#header-nav ol.nav-primary {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+  div#header-nav ol.nav-primary li a {
+    color: #000000;
+    border: none;
+    padding: 0 15px;
+  }
+  div#header-nav ol.nav-primary li a.has-children:after {
+    border: none;
+  }
+  div#header-nav ol.nav-primary li.level0 li {
+    padding: 0 10px;
+    margin-top: -2px;
+  }
+  div#header-nav ol.nav-primary li.parent:after {
+    content: "\f107";
+    font-family: FontAwesome;
+    font-size: 14px;
+    margin-left: 5px;
+    color: #000000;
+    display: inline-block;
+    border: none;
+    position: absolute;
+    right: 14px;
+    top: 8px;
+    transition: 0.5s;
+  }
+  div#header-nav ol.nav-primary li.parent.menu-active:after {
+    transform: rotate(180deg);
+  }
+
+  div#header-search input#search {
+    border: 1px solid;
+    font-size: 14px;
+    color: #000;
+  }
+
+  div#header-account li a {
+    color: #000000;
+    border: none;
+    padding: 0 15px;
+  }
+
+  div#header-cart {
+    margin: 0;
+  }
+  div#header-cart .minicart-wrapper {
+    padding: 10px 0;
+    border: 1px solid #ededed;
+  }
+  div#header-cart .minicart-wrapper .block-subtitle {
+    display: none;
   }
 
   .page.msticky {
@@ -3697,7 +3777,9 @@ a.skip-link {
     width: 100%;
     top: 76px;
     border-top: none;
-    background: #fff;
+    background: #FFFFFF;
+    border: 1px solid #ededed;
+    border-top: none;
   }
   .page.msticky div#header-search {
     position: fixed !important;
