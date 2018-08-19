@@ -249,6 +249,10 @@ body.cms-index-index.cms-home .facilidades {
   margin: 10px 0 0 0;
   text-align: center;
 }
+body.cms-index-index.cms-home .facilidades .container {
+  max-width: 1260px;
+  margin: 0 auto;
+}
 body.cms-index-index.cms-home .facilidades .facilidad {
   border-right: 1px solid #bfbfbf;
   display: inline-block;

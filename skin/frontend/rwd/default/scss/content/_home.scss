@@ -306,6 +306,10 @@ body.cms-index-index.cms-home{
         padding: 25px 0px;
         margin: 10px 0 0 0;
         text-align: center;
+        .container{
+            max-width: 1260px;
+            margin: 0 auto;
+        }
         .facilidad {
             border-right: 1px solid #bfbfbf;
             display: inline-block;
