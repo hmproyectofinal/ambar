@@ -109,7 +109,7 @@ class CredisException extends Exception
  * @method bool|int      hLen(string $key)
  * @method bool          hDel(string $key, string $field)
  * @method array         hKeys(string $key, string $field)
- * @method array         hVals(string $key, string $field)
+ * @method array         hVals(string $key)
  * @method array         hGetAll(string $key)
  * @method bool          hExists(string $key, string $field)
  * @method int           hIncrBy(string $key, string $field, int $value)
@@ -136,6 +136,12 @@ class CredisException extends Exception
  * @method int           rPushX(string $key, mixed $value)
  *
  * Sorted Sets:
+ * @method int           zCard(string $key)
+ * @method array         zRangeByScore(string $key, mixed $start, mixed $stop, array $args = null)
+ * @method array         zRevRangeByScore(string $key, mixed $start, mixed $stop, array $args = null)
+ * @method int           zRemRangeByScore(string $key, mixed $start, mixed $stop)
+ * @method array         zRange(string $key, mixed $start, mixed $stop, array $args = null)
+ * @method array         zRevRange(string $key, mixed $start, mixed $stop, array $args = null)
  * TODO
  *
  * Pub/Sub
@@ -352,6 +358,9 @@ class Credis_Client {
      */
     public function forceStandalone()
     {
+        if ($this->standalone) {
+            return $this;
+        }
         if($this->connected) {
             throw new CredisException('Cannot force Credis_Client to use standalone PHP driver after a connection has already been established.');
         }
@@ -451,7 +460,7 @@ class Credis_Client {
             $this->setReadTimeout($this->readTimeout);
         }
 
-        if($this->authPassword !== null) {
+        if($this->authPassword) {
             $this->auth($this->authPassword);
         }
         if($this->selectedDb !== 0) {
@@ -613,6 +622,50 @@ class Credis_Client {
     }
 
     /**
+     * @param int $Iterator
+     * @param string $pattern
+     * @param int $Iterator
+     * @return bool | Array
+     */    
+    public function scan(&$Iterator, $pattern = null, $count = null)
+    {
+        return $this->__call('scan', array(&$Iterator, $pattern, $count));
+    }
+
+    /**
+     * @param int $Iterator
+     * @param string $pattern
+     * @param int $Iterator
+     * @return bool | Array
+     */    
+    public function hscan(&$Iterator, $pattern = null, $count = null)
+    {
+        return $this->__call('hscan', array(&$Iterator, $pattern, $count));
+    }
+    
+    /**
+     * @param int $Iterator
+     * @param string $pattern
+     * @param int $Iterator
+     * @return bool | Array
+     */    
+    public function sscan(&$Iterator, $pattern = null, $count = null)
+    {
+        return $this->__call('sscan', array(&$Iterator, $pattern, $count));
+    }
+    
+    /**
+     * @param int $Iterator
+     * @param string $pattern
+     * @param int $Iterator
+     * @return bool | Array
+     */    
+    public function zscan(&$Iterator, $pattern = null, $count = null)
+    {
+        return $this->__call('zscan', array(&$Iterator, $pattern, $count));
+    }
+
+    /**
      * @param string|array $patterns
      * @param $callback
      * @return $this|array|bool|Credis_Client|mixed|null|string
@@ -737,30 +790,65 @@ class Credis_Client {
                     $eArgs = (array) array_shift($args);
                     $args = array($script, count($keys), $keys, $eArgs);
                     break;
+                case 'set':
+                    // The php redis module has different behaviour with ttl
+                    // https://github.com/phpredis/phpredis#set
+                    if (count($args) === 3 && is_int($args[2])) { 
+                        $args = array($args[0], $args[1], array('EX', $args[2]));
+                    } elseif (count($args) === 3 && is_array($args[2])) {
+                        $tmp_args = $args;
+                        $args = array($tmp_args[0], $tmp_args[1]);
+                        foreach ($tmp_args[2] as $k=>$v) {
+                            if (is_string($k)) {
+                                $args[] = array($k,$v);
+                            } elseif (is_int($k)) {
+                                $args[] = $v;
+                            }
+                        }
+                        unset($tmp_args);
+                    }
+                    break;
+                case 'scan':
+                case 'sscan':
+                case 'hscan':
+                case 'zscan':
+                    $ref =& $args[0];
+                    if (empty($ref))
+                    {
+                        $ref = 0;
+                    }
+                    $eArgs = array($ref);
+                    if (!empty($args[1]))
+                    {
+                        $eArgs[] = 'MATCH';
+                        $eArgs[] = $args[1];
+                    }
+                    if (!empty($args[2]))
+                    {
+                        $eArgs[] = 'COUNT';
+                        $eArgs[] = $args[2];
+                    }
+                    $args = $eArgs;
+                    break;
+                case 'zrangebyscore':
+                case 'zrevrangebyscore':
+                case 'zrange':
+                case 'zrevrange':
+                    if (isset($args[3]) && is_array($args[3])) {
+                        // map options
+                        $cArgs = array();
+                        if (!empty($args[3]['withscores'])) {
+                            $cArgs[] = 'withscores';
+                        }
+                        if (($name == 'zrangebyscore' || $name == 'zrevrangebyscore') && array_key_exists('limit', $args[3])) {
+                            $cArgs[] = array('limit' => $args[3]['limit']);
+                        }
+                        $args[3] = $cArgs;
+                    }
+                    break;
             }
             // Flatten arguments
-            $argsFlat = NULL;
-            foreach($args as $index => $arg) {
-                if(is_array($arg)) {
-                    if($argsFlat === NULL) {
-                        $argsFlat = array_slice($args, 0, $index);
-                    }
-                    if($name == 'mset' || $name == 'msetnx' || $name == 'hmset') {
-                      foreach($arg as $key => $value) {
-                        $argsFlat[] = $key;
-                        $argsFlat[] = $value;
-                      }
-                    } else {
-                      $argsFlat = array_merge($argsFlat, $arg);
-                    }
-                } else if($argsFlat !== NULL) {
-                    $argsFlat[] = $arg;
-                }
-            }
-            if($argsFlat !== NULL) {
-                $args = $argsFlat;
-                $argsFlat = NULL;
-            }
+            $args = self::_flattenArguments($args);
 
             // In pipeline mode
             if($this->usePipeline)
@@ -824,6 +912,38 @@ class Credis_Client {
             $this->write_command($command);
             $response = $this->read_reply($name);
 
+            switch($name)
+            {
+                case 'scan':
+                case 'sscan':
+                case 'hscan':
+                case 'zscan':
+                    $ref = array_shift($response);
+                    if (empty($ref))
+                    {
+                        $response = false;
+                    }
+                    break;
+                case 'zrangebyscore':
+                case 'zrevrangebyscore':
+                    if (in_array('withscores', $args, true)) {
+                        // Map array of values into key=>score list like phpRedis does
+                        $item = null;
+                        $out = array();
+                        foreach ($response as $value) {
+                            if ($item == null) {
+                                $item = $value;
+                            } else {
+                                // 2nd value is the score
+                                $out[$item] = (float) $value;
+                                $item = null;
+                            }
+                        }
+                        $response = $out;
+                    }
+                    break;
+            }
+
             // Watch mode disables reconnect so error is thrown
             if($name == 'watch') {
                 $this->isWatching = TRUE;
@@ -854,6 +974,10 @@ class Credis_Client {
                 case 'hmset':
                 case 'hmget':
                 case 'del':
+                case 'zrangebyscore':
+                case 'zrevrangebyscore':
+                case 'zrange':
+                case 'zrevrange':
                     break;
                 case 'mget':
                     if(isset($args[0]) && ! is_array($args[0])) {
@@ -884,23 +1008,16 @@ class Credis_Client {
                 case 'subscribe':
                 case 'psubscribe':
                     break;
+                case 'scan':
+                case 'sscan':
+                case 'hscan':
+                case 'zscan':
+                    // allow phpredis to see the caller's reference
+                    //$param_ref =& $args[0];
+                    break;
                 default:
                     // Flatten arguments
-                    $argsFlat = NULL;
-                    foreach($args as $index => $arg) {
-                        if(is_array($arg)) {
-                            if($argsFlat === NULL) {
-                                $argsFlat = array_slice($args, 0, $index);
-                            }
-                            $argsFlat = array_merge($argsFlat, $arg);
-                        } else if($argsFlat !== NULL) {
-                            $argsFlat[] = $arg;
-                        }
-                    }
-                    if($argsFlat !== NULL) {
-                        $args = $argsFlat;
-                        $argsFlat = NULL;
-                    }
+                    $args = self::_flattenArguments($args);
             }
 
             try {
@@ -911,6 +1028,7 @@ class Credis_Client {
                     } else {
                         $this->isMulti = TRUE;
                         $this->redisMulti = call_user_func_array(array($this->redis, $name), $args);
+                        return $this;
                     }
                 }
                 else if($name == 'exec' || $name == 'discard') {
@@ -1024,12 +1142,14 @@ class Credis_Client {
         }
 
         $commandLen = strlen($command);
+        $lastFailed = FALSE;
         for ($written = 0; $written < $commandLen; $written += $fwrite) {
             $fwrite = fwrite($this->redis, substr($command, $written));
-            if ($fwrite === FALSE || $fwrite == 0 ) {
+            if ($fwrite === FALSE || ($fwrite == 0 && $lastFailed)) {
                 $this->connected = FALSE;
                 throw new CredisException('Failed to write entire command to stream');
             }
+            $lastFailed = $fwrite == 0;
         }
     }
 
@@ -1147,4 +1267,31 @@ class Credis_Client {
         return sprintf('$%d%s%s', strlen($arg), CRLF, $arg);
     }
 
+    /**
+     * Flatten arguments
+     *
+     * If an argument is an array, the key is inserted as argument followed by the array values
+     *  array('zrangebyscore', '-inf', 123, array('limit' => array('0', '1')))
+     * becomes
+     *  array('zrangebyscore', '-inf', 123, 'limit', '0', '1')
+     *
+     * @param array $in
+     * @return array
+     */
+    private static function _flattenArguments(array $arguments, &$out = array())
+    {
+        foreach ($arguments as $key => $arg) {
+            if (!is_int($key)) {
+                $out[] = $key;
+            }
+            
+            if (is_array($arg)) {
+                self::_flattenArguments($arg, $out);
+            } else {
+                $out[] = $arg;
+            }
+        }
+
+        return $out;
+    }
 }

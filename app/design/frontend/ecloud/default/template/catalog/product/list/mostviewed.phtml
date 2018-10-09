@@ -1,0 +1,87 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     ecloud_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+        $storeId  = Mage::app()->getStore()->getId();
+        $products = Mage::getResourceModel('reports/product_collection')
+                    ->addOrderedQty()
+                    ->addAttributeToSelect('*')
+                    ->addAttributeToSelect(array('name', 'price', 'small_image'))
+                    ->setStoreId($storeId)
+                    ->addStoreFilter($storeId)
+                    ->addViewsCount();
+        Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($products);
+        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($products);
+
+        $products->setPageSize(4)->setCurPage(1);
+        $this->setProductCollection($products);
+?>
+<?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+<div class=" most_viewed">
+    <h1 class="mv_title"><?php echo $this->__('Más buscados') ?></h1>
+    <?php $_columnCount = 4;//count($_products->getItems()); echo $_collectionSize; ?>
+    <ul class="products-grid">
+    <?php $i=1; foreach ($_products->getItems() as $_product): ?>
+        <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                <?php $_imgSize = 300; ?>
+                <img id="product-collection-image-<?php echo $_product->getId(); ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize);?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">
+                <!-- <span id='ajax_loading<?php //echo $_product->getId()?>' class="ajax_load"><i class="fa fa-spinner fa-spin"></i></span> -->
+                <?php // Cucardas (Databunch) on product listing page ?>
+                <?php $labelsBlock = $this->getChild('product_labels'); ?>
+                <?php if ($labelsBlock): ?>
+                    <?php echo $labelsBlock->setProduct($_product)->toHtml(); ?>
+                <?php endif; ?>
+            </a>
+            <div class="product-info col-xs-12">
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h2>
+                <?php echo $this->getPriceHtml($_product, true) ?>
+                <!--Ratings Disabled-->
+                <?php //if($_product->getRatingSummary()): ?>
+                <?php //echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                <?php //endif; ?>
+                <!--Ratings Disabled-->
+                <?php /*
+                <div class="actions">
+                    <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                        <button type="button" title="<?php echo $this->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                        <a title="<?php echo $this->quoteEscape($this->__('View Details')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('View Details') ?></a>
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                    <ul class="add-to-links">
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                            <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div> */ ?>
+            </div>
+        </li>
+    <?php $i++; endforeach; //$kol = $_collectionSize; ?>
+    </ul>
+</div>
+<?php endif; ?>

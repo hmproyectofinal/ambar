@@ -1,0 +1,5 @@
+2016-03-30 rbm
+* Changed logic of NewVsReturning report (User status is determined by e-mail)
+* Changed files
+/app/code/local/Mirasvit/Advr/Model/Report/Sales.php
+/app/code/local/Mirasvit/Advr/Block/Adminhtml/Order/NewVsReturning.php

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <sections>
+    <carriers>
+      <groups>
+        <treggo_customshippingmethod translate="label">
+          <label>Treggo Shipping Method</label>
+          <sort_order>1</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>0</show_in_website>
+          <show_in_store>0</show_in_store>
+          <fields>
+            <apikey translate="label">
+              <label>API KEY</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </apikey>
+            <active translate="label">
+              <label>Enabled</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </active>
+            <title translate="label">
+              <label>Shipping Method Name</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </title>
+            <sallowspecific translate="label">
+              <label>For selected countries only</label>
+              <frontend_type>select</frontend_type>
+              <frontend_class>shipping-applicable-country</frontend_class>
+              <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+              <sort_order>30</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </sallowspecific>
+            <specificcountry translate="label">
+              <label>Ship to Specific Countries</label>
+              <frontend_type>multiselect</frontend_type>
+              <sort_order>31</sort_order>
+              <source_model>adminhtml/system_config_source_country</source_model>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+              <can_be_empty>1</can_be_empty>
+            </specificcountry>
+            <shippingtext translate="label comment">
+              <label>Descripción</label>
+              <frontend_type>text</frontend_type>
+              <comment>Texto a mostrar como opción de envio</comment>
+              <sort_order>32</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </shippingtext>
+            <orderprefix translate="label comment">
+              <label>Texto de orden</label>
+              <frontend_type>text</frontend_type>
+              <comment>Prefijo que tendra la descripcion de la orden ej "Compra numero "</comment>
+              <sort_order>33</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </orderprefix>
+            <warehouse translate="label">
+              <label>Direccion de donde salen los paquetes que se compren</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>34</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </warehouse>
+          </fields>
+        </treggo_customshippingmethod>
+      </groups>
+    </carriers>
+  </sections>
+</config>

@@ -1,0 +1,19 @@
+<?php /* @var $this Hd_Bccp_Block_Info_Bcc */ ?>
+<p><strong><?php echo $this->htmlEscape($this->getMethod()->getTitle()) ?></strong></p>
+<?php if ($_specificInfo = $this->getSpecificInformation()):?>
+<table>
+    <tbody>
+        <tr>
+            <td colspan="2"><strong><?php echo $this->__('Detailed Information')?>: </strong></td>
+        </tr>
+        <?php foreach ($_specificInfo as $_label => $_value):?>
+        <tr>
+            <td><strong> - <?php echo $this->escapeHtml($_label)?>: </strong></td>
+            <td> <?php echo nl2br(implode($this->getValueAsArray($_value, true), "\n"))?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<br>
+<?php endif;?>
+<?php echo $this->getChildHtml()?>

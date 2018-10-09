@@ -1,0 +1,108 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     ecloud_default
+ * @copyright Copyright (c) 2006-2017 EcloudSolutions (http://www.brandlive.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ *
+ * Block : Ecloud_theme_Block_Homeproducts
+ */
+?>
+<?php $_entity = 'catalog_product'; ?>
+<?php $_products = $this->getProducts();?>
+<?php if ($_products['productCollection'] && $_products['productCollection']->getSize()): ?>
+<div class="wrapper container">
+    <div class="widget widget-new-products">
+        <div class="widget-title">
+            <h4><?php echo $_products['title'] ?></h4>
+        </div>
+        <div class="widget-products">
+            <?php //echo $this->getPagerHtml() ?>
+            <?php $_columnCount = 5; ?>
+            <?php $i=0; ?>
+            <ul id="homeprods" class="products-grid products-grid--max-<?php echo $_columnCount; ?>-col-widget">
+                <?php foreach ($_products['productCollection']->getItems() as $_product): ?>
+                    <?php $i++; ?>
+                    <?php if($i < 11) : ?>
+                        <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                            <?php $_imgSize = 235; ?>
+                            <?php // The image size is locked at 210 for this for display purposes. CSS has it at 75% which should equate to 278px?>
+                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" class="product-image">
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235) ?>" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" />
+                                <?php // Cucardas (Databunch) on product listing page ?>
+                                <?php echo $this->getLayout()->createBlock('labels/catalog_product')->setProduct($_product)->toHtml(); ?>
+                                <?php /*$labelsBlock = $this->getChild('product_labels'); ?>
+                                <?php if ($labelsBlock): ?>
+                                    <?php echo $labelsBlock->setProduct($_product)->toHtml(); ?>
+                                <?php endif; */?>
+                            </a>
+                            <div class="product-info">
+                                <a href="<?php echo $_product->getProductUrl();?>">
+                                    <span class="product-name col-xs-12" title="<?php echo $_product->getName();?>"><?php $prodName = /*(strlen($_product->getName()) > 45) ? substr($_product->getName(),0,45).'...' :*/ $_product->getName();?><?php echo $prodName; ?>
+                                    </span>
+                                </a>
+                                <div class="review">
+                                    <?php echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
+                                </div>
+                                <div class="stock">
+                                    <?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                                        <p class="availability in-stock">
+                                            <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
+                                            <span class="value"><?php echo $this->helper('catalog')->__('In stock') ?></span>
+                                        </p> 
+                                    <?php else: ?>
+                                        <p class="availability out-of-stock">
+                                            <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
+                                            <span class="value"><?php echo $this->helper('catalog')->__('Out of stock') ?></span>
+                                        </p>
+                                    <?php endif; ?>
+                                </div>
+
+                                <?php 
+                                    $_attr_edad_fabrica = Mage::getResourceModel('catalog/eav_attribute')->loadByCode($_entity,'edad_fabrica'); 
+                                    if($_attr_edad_fabrica->getId()): 
+                                ?>
+                                    <?php if($_product->getAttributeText('edad_fabrica') != ''): ?>
+                                        <span class="etiqueta edad">
+                                            <?php echo $this->__(' ').$_product->getAttributeText('edad_fabrica') ?>
+                                        </span>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                <span class="prodprice col-xs-12"><?php echo $this->getPriceHtml($_product,true); ?></span>
+                                <?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+                                    <button type="button" title="<?php echo $this->quoteEscape($this->__('Add to cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to cart') ?></span></span></button>
+                                <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+                                    <div class="buy-button"><a title="<?php echo $this->quoteEscape($this->__('Add to cart')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Add to cart') ?></a></div>
+                                <?php else: ?>
+                                    <div class="buy-button"><a title="<?php echo $this->quoteEscape($this->__('Ver más')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Ver más') ?></a></div>
+                                <?php endif; ?>
+                            </div>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+<!--             <div class="img-container">
+                <?php// echo Mage::app()->getLayout()->createBlock('cms/block')->setBlockId('home-products-banner')->toHtml();?>
+            </div> -->
+        </div>
+    </div>
+</div>
+<?php endif; ?>

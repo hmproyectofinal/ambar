@@ -1,0 +1,72 @@
+<?php
+/**
+ * Magento Enterprise Edition
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magento Enterprise Edition End User License Agreement
+ * that is bundled with this package in the file LICENSE_EE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magento.com/license/enterprise-edition
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     ecloud_default
+ * @copyright Copyright (c) 2006-2017 EcloudSolutions (http://www.brandlive.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ *
+ * Block : Ecloud_theme_Block_Homeproducts
+ */
+?>
+<?php var_dump(''); ?>
+<?php $_products = $this->getProducts();?>
+<?php if ($_products && $_products->getSize()): ?>
+<div class="widget widget-new-products">
+    <div class="widget-title">
+        <h2><?php echo $this->__('Recomendados') ?></h2>
+    </div>
+    <div class="widget-products">
+        <?php echo $this->getPagerHtml() ?>
+        <?php $_columnCount = 4; ?>
+        <?php $i=0; ?>
+        <ul class="products-grid products-grid--max-<?php echo $_columnCount; ?>-col-widget">
+            <?php foreach ($_products->getItems() as $_product): ?>
+                <?php $i++; ?>
+                <?php if($i < 5) : ?>
+                    <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                        <?php $_imgSize = 210; ?>
+                        <?php // The image size is locked at 210 for this for display purposes. CSS has it at 75% which should equate to 278px?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>" class="product-image">
+                            <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(210) ?>" alt="<?php echo $this->stripTags($_product->getName(), null, true) ?>" />
+                            <?php // Cucardas (Databunch) on product listing page ?>
+                            <?php $labelsBlock = $this->getChild('product_labels'); ?>
+                            <?php if ($labelsBlock): ?>
+                                <?php echo $labelsBlock->setProduct($_product)->toHtml(); ?>
+                            <?php endif; ?>
+                        </a>
+                        <div class="product-info">
+                            <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></h3>
+                            <?php echo $this->getPriceHtml($_product, true, '-widget-new-grid') ?>
+                            <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                            <div class="actions">
+                                <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span class="icon-carrito"><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                <ul class="information">
+                                    <li><a href="<?php echo $_product->getProductUrl() ?>" class="more-information"><?php echo $this->__('More information') ?></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>

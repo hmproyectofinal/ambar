@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ecloud_FechaBloques>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.1</version>
+    </Ecloud_FechaBloques>
+  </modules>
+</config>

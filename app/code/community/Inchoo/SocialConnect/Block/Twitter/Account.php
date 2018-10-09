@@ -33,22 +33,13 @@
 
 class Inchoo_SocialConnect_Block_Twitter_Account extends Mage_Core_Block_Template
 {
-    /**
-     *
-     * @var Inchoo_SocialConnect_Model_Twitter_Oauth_Client
-     */
     protected $client = null;
-
-    /**
-     *
-     * @var Inchoo_SocialConnect_Model_Twitter_Info_User
-     */
     protected $userInfo = null;
 
     protected function _construct() {
         parent::_construct();
 
-        $this->client = Mage::getSingleton('inchoo_socialconnect/twitter_oauth_client');
+        $this->client = Mage::getSingleton('inchoo_socialconnect/twitter_client');
         if(!($this->client->isEnabled())) {
             return;
         }
@@ -59,29 +50,28 @@ class Inchoo_SocialConnect_Block_Twitter_Account extends Mage_Core_Block_Templat
 
     }
 
-    protected function _hasData()
+    protected function _hasUserInfo()
     {
-        return $this->userInfo->hasData();
+        return (bool) $this->userInfo;
     }
-
 
     protected function _getTwitterId()
     {
-        return $this->userInfo->getId();
+        return $this->userInfo->id;
     }
 
     protected function _getStatus()
     {
-        return '<a href="'.sprintf('https://twitter.com/%s', $this->userInfo->getScreenName()).'" target="_blank">'.
-                    $this->escapeHtml($this->userInfo->getScreenName()).'</a>';
+        return '<a href="'.sprintf('https://twitter.com/%s', $this->userInfo->screen_name).'" target="_blank">'.
+                    $this->htmlEscape($this->userInfo->screen_name).'</a>';
     }
 
     protected function _getPicture()
     {
-        if($this->userInfo->getProfileImageUrl()) {
+        if(!empty($this->userInfo->profile_image_url)) {
             return Mage::helper('inchoo_socialconnect/twitter')
-                    ->getProperDimensionsPictureUrl($this->userInfo->getId(),
-                            $this->userInfo->getProfileImageUrl());
+                    ->getProperDimensionsPictureUrl($this->userInfo->id,
+                            $this->userInfo->profile_image_url);
         }
 
         return null;
@@ -89,7 +79,7 @@ class Inchoo_SocialConnect_Block_Twitter_Account extends Mage_Core_Block_Templat
 
     protected function _getName()
     {
-        return $this->userInfo->getName();
+        return $this->userInfo->name;
     }
 
 }

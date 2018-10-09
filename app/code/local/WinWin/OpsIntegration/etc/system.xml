@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <tabs>
+        <winwin_ecommerce translate="label" module="winwin_opsintegration">
+            <label>WinWin ECOMMERCE</label>
+            <sort_order>110</sort_order>
+        </winwin_ecommerce>
+    </tabs>
+
+    <sections>
+        <winwin_ecommerce_opsintegration translate="label" module="winwin_opsintegration">
+            <class>separator-top</class>
+            <label>Integrations</label>
+            <tab>winwin_ecommerce</tab>
+            <sort_order>10</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+        	<groups>
+
+                <winwin_opsintegration_ftp_settings translate="label" module="winwin_opsintegration">
+                    <label>OPS Integration - FTP Settings</label>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <check_ftp translate="label comment">
+                            <label>Check files in FTP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If yes, the files will be downloaded from the FTP if not located locally.</comment>
+                        </check_ftp>
+                        
+                        <ftp_delete_file translate="label comment">
+                            <label>Delete file from FTP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If yes, files from FTP will be deleted after integration</comment>
+                        </ftp_delete_file>
+
+                        <ftp_inbound_directory translate="label comment">
+                            <label>Inbound directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Where module should look for the files for import (stock and price). If field is set to blank, files will be searched in the root directory.</comment>
+                        </ftp_inbound_directory>
+
+                        <ftp_outgoing_directory translate="label comment">
+                            <label>Outgoing directory</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Where module should export orders files. If field is set to blank, files will be exported in the root directory.</comment>
+                        </ftp_outgoing_directory>
+
+                        <ftp_host translate="label comment">
+                            <label>FTP Host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </ftp_host>
+                        
+                        <ftp_user translate="label comment">
+                            <label>FTP User</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </ftp_user>
+                        
+                        <ftp_password translate="label comment">
+                            <label>FTP Password</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </ftp_password> 
+                    </fields>                                          
+                </winwin_opsintegration_ftp_settings>
+
+        		<winwin_opsintegration_general_settings translate="label" module="winwin_opsintegration">
+                    <label>OPS Integration - General Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <!--<file_stock_price translate="label comment">
+                            <label>Stock and Price in the same file</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If yes, stock and price information is in the same file (stock_price.csv)</comment>
+                        </file_stock_price>-->                        
+                        <email_notifications translate="label comment">
+                            <label>Email notifications</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>email addresses where notifications will be sent. More than one record can be entered, separate them with ",".</comment>
+                        </email_notifications>
+                        
+                        <project_name translate="label comment">
+                            <label>Project name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Project name which will be used for the notification email subject.</comment>
+                        </project_name>
+                        
+                        <field_delimiter translate="label comment">
+                            <label>Field delimiter</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Field delimiter that will be use in all integration files.</comment>
+                        </field_delimiter>
+                        
+                        <field_enclosure translate="label comment">
+                            <label>Field enclosure</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Field encloser that will be use in all integration files.</comment>
+                        </field_enclosure>
+                        
+                        <directory_location translate="label comment">
+                            <label>Directory location</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Where module should look for the files. Folder separator in configuration is slash (/). Module will automatically recognize which folder separator it should use.</comment>
+                        </directory_location>                        
+                        <flush_cache translate="label comment">
+                            <label>Flush Cache</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Flush all cache after integration</comment>
+                        </flush_cache>                        
+                        <debug_mode translate="label comment">
+                            <label>Debug mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </debug_mode>
+                    </fields>
+	            </winwin_opsintegration_general_settings>
+
+        		<winwin_opsintegration_stock_integration_configuration translate="label" module="winwin_opsintegration">
+                    <label>OPS Integration - Stock Integration Configuration</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <stock_files translate="label comment">
+                            <label>Stock files to process</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Stock filenames separate with ',' without .csv Ex: stock_w1,stock_w2</comment>
+                        </stock_files>
+                        <update_stock_availability translate="label comment">
+                            <label>Update Stock Availability</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </update_stock_availability>
+                        <update_stock_availability_backorders translate="label comment">
+                            <label>Update Stock Availability in Backorders</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                            <depends><update_stock_availability>1</update_stock_availability></depends>
+                        </update_stock_availability_backorders>
+                        <status_reserved translate="label">
+                            <label>Statuses to reserve stock</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>winwin_opsintegration/system_config_source_order_statuses</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Statuses to reserve stock</comment>
+                        </status_reserved>
+                        <stock_stop_automatic_integration translate="label comment">
+                            <label>Disable automatic integration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If Yes, croned integration will not be executed</comment>
+                        </stock_stop_automatic_integration>
+                    </fields>                    
+	            </winwin_opsintegration_stock_integration_configuration>
+
+        		<winwin_opsintegration_prices_integration_configuration translate="label" module="winwin_opsintegration">
+                    <label>OPS Integration - Prices Integration Configuration</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <price_files translate="label comment">
+                            <label>Price files to process</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Price filenames separate with ',' without .csv Ex: price_w1,price_w2</comment>
+                        </price_files>
+                        <ignore_special_price translate="label comment">
+                            <label>Ignore Special Price</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If Yes, Special Price will be ignored</comment>
+                        </ignore_special_price>   
+                        <update_config_price>
+                            <label>Update Configurables Price</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If Yes, The price of configurable products are updated with lowest price of simple products</comment>
+                        </update_config_price>
+                        <price_stop_automatic_integration translate="label comment">
+                            <label>Disable automatic integration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If Yes, croned integration will not be executed</comment>
+                        </price_stop_automatic_integration>
+                    </fields>                                            
+	            </winwin_opsintegration_prices_integration_configuration>
+                
+                <winwin_opsintegration_shipments_integration_configuration translate="label" module="winwin_opsintegration">
+                    <label>OPS Integration - Shipments Integration Configuration</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>                       
+                        <send_notification translate="label comment">
+                            <label>Send Email Notification to Customer</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </send_notification>   
+                        <generate_invoice translate="label comment">
+                            <label>Generate invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Set to Yes to generate orders invoices</comment>
+                        </generate_invoice>   
+                        <status_allowed translate="label">
+                            <label>Status allowed to generate shipment</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>winwin_opsintegration/system_config_source_order_statuses</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Orders with statuses not selected will not be shipped</comment>
+                        </status_allowed>
+                        <message_template translate="label">
+                            <label>Message to add to the notification</label>
+                            <frontend_type>text</frontend_type>                        
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Message to add to the notification. Use the {tracking_number} tag to replace with tracking number</comment>
+                        </message_template>
+
+                    </fields>                                            
+                </winwin_opsintegration_shipments_integration_configuration>
+
+
+                
+        		<winwin_opsintegration_orders_integration_settings translate="label" module="winwin_opsintegration">
+                    <label>OPS Integration - Orders integration settings</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <status_order2erp translate="label">
+                            <label>Orders statuses that will be transmitted to the ERP</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>winwin_opsintegration/system_config_source_order_statuses</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Statuses are selected in order to integrate the order with those statuses.</comment>
+                        </status_order2erp>
+                        <status_change_after_integration translate="label">
+                            <label>Change order status</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Set to Yes to change order status after integration</comment>
+                        </status_change_after_integration>
+                        <status_order_after_integration translate="label">
+                            <label>Order status after the integration was done</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>winwin_opsintegration/system_config_source_order_processingstatuses</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Status of the order once it was exported.</comment>
+                        </status_order_after_integration>                        
+                        <collection_limit translate="label comment">
+                            <label>Collection limit</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>How many records should system export.</comment>
+                        </collection_limit>
+                        
+                        <per_collection translate="label comment">
+                            <label>Records per iteration</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>How many records should system export per iteration (e.g. if Collection limit is set to 10000 and Records per iteration is set to 1000 this mean that system will export 1000 per 1000 records untill it reach 10000 records total - 10 times).</comment>
+                        </per_collection>                      
+
+                        <export_to_ftp translate="label">
+                            <label>Export files to FTP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>41</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If set to Yes, exported files will be upload to FTP (see FTP Setting)</comment>
+                        </export_to_ftp>
+
+                       
+                        <dni_field translate="label">
+                            <label>DNI field in Shipping address</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>If set to yes, DNI field will be searched in shipping address table. CAUTION: changing this may cause integration stop working</comment>
+                        </dni_field>
+                        <file_name_code translate="label">
+                            <label>Add code to file name</label>
+                            <frontend_type>text</frontend_type> 
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Code to add in order file name. orders-{code}-{timestamp}.csv</comment>
+                        </file_name_code>
+                         <extra_data translate="label">
+                            <label>Extra data to export</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>Extra data to export at the end of the first line. {value|value...} </comment>
+                        </extra_data>
+                    </fields>
+	            </winwin_opsintegration_orders_integration_settings>			
+            </groups>
+		</winwin_ecommerce_opsintegration>
+	</sections>
+</config>

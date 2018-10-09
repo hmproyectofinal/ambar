@@ -1,0 +1,98 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+    $_item = $this->getItem();
+    $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
+    $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
+?>
+<li class="item col-xs-12" xmlns="http://www.w3.org/1999/html">
+    <div class="prodimage col-xs-8">
+        <?php if ($this->hasProductUrl()): ?>
+            <a href="<?php echo $this->getProductUrl()?>" title="<?php echo $this->escapeHtml($this->getProductName()) ?>" class="product-image col-xs-2"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></a>
+        <?php else: ?>
+            <span class="product-image col-xs-2"><img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" /></span>
+        <?php endif; ?>
+        <div class="prodname_details col-xs-8">
+            <span class="product-name col-xs-12"><?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->escapeHtml($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?>
+            </span>
+            <div class="prod-details col-xs-12">
+                <?php if ($_options = $this->getOptionList()):?>
+                <div class="truncated">
+                  <div class="truncated_full_value">
+                    <dl class="item-options">
+                        <?php foreach ($_options as $_option) : ?>
+                        <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+                        <dd>
+                            <?php if (is_array($_option['value'])): ?>
+                            <?php echo nl2br(implode("\n", $_option['value'])) ?>
+                            <?php else: ?>
+                            <?php echo $_option['value'] ?>
+                            <?php endif; ?>
+                        </dd>
+                        <?php endforeach; ?>
+                    </dl>
+                  </div>
+                <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <div class="qty-wrapper col-xs-1">
+        <span class="qty"><?php echo $this->getQty()?></span>
+         <?php /*<input
+            id="qinput-<?php echo $_item->getId(); ?>"
+            data-link="<?php echo $this->getAjaxUpdateUrl() ?>"
+            data-item-id="<?php echo $_item->getId(); ?>"
+            data-cart-item-id="<?php echo $_item->getSku(); ?>"
+            class="qty cart-item-quantity input-text" name=""
+            value="<?php echo $this->getQty()?>"
+            <?php if ($this->isOnCheckoutPage()) echo 'disabled'; ?>
+            />
+       <button id="qbutton-<?php echo $_item->getId(); ?>"
+                data-item-id="<?php echo $_item->getId(); ?>"
+                disabled="disabled"
+                data-update
+                data-cart-item-update
+                class="button quantity-button">
+            <?php echo $this->__('ok'); ?>
+        </button>*/?>
+    </div>
+    <div class='remove-wrapper col-xs-2'>
+        <?php if ($isVisibleProduct): ?>
+            <?php if (!$this->isOnCheckoutPage()): ?>
+                <a href="<?php echo $this->getAjaxDeleteUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove This Item')) ?>"
+                   data-confirm="<?php echo $this->__('Are you sure you would like to remove this item from the shopping cart?') ?>"
+                   class="remove col-xs-12">
+                    <?php echo $this->__('x') ?>
+                </a>
+            <?php else: ?>
+                <span><?php echo $this->__('x') ?></span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</li>

@@ -1,0 +1,190 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Category Landing Pages
+ * ============================================ */
+ .catalogsearch-result-index{
+        .col-main {
+        // padding-top: 60px;
+    }
+ }
+.catalogsearch-advanced-result{
+    padding-top:200px;
+}
+.catalog-category-view, .catalogsearch-result-index, .catalogsearch-advanced-result{
+    float: left;
+    width: 100%;
+    .main-container{
+        // padding: 0;
+    }
+    .breadcrumbs{
+        padding: 0;
+        margin-left: 5.5%;
+        @media #{$tablet}{
+           // padding: 0 22px;
+            margin-left: 3%;
+        }
+        @media #{$mobile}{
+             margin-left: 5%;
+        }
+    }
+    .sidebar{
+        display: none !important;
+    }
+    .col-main{
+        display: inline-block;
+        width: 100%;
+        background: #fff;
+       
+    }
+    .category-title{
+        text-align: center;
+         @media #{$tablet}{
+            padding: 0;
+        }
+        h1{
+            font-size: 31px;
+            color: $c-blue;
+            font-family: $font-GothamR;
+            margin: 10px 0;
+            padding: 0;
+            font-weight: 500;
+        }
+    }
+    .category-view{
+        .note-msg{
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    }
+    .cat-title{
+        text-align: center;
+        margin-top: 50px;
+        @media #{$tablet}{
+            font-size: 23px;
+            letter-spacing: 2px;
+            margin-top: 20px;
+        }
+    }
+    .category-products {
+        // display: inline-block;
+        // border: 1px solid #eeeae7;
+        // width: 100%;
+        @media #{$tablet}{
+            padding: 0;
+            border: none;
+        }
+        @media #{$phone}{
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .item{
+            width: 23%;
+            margin: 0px 1% 30px 1%;
+            padding: 10px;
+            min-height: 425px;
+            .configurable-swatch-list{
+                display: none;
+            }
+            @media #{$tablet}{
+                width: 48%;
+            }
+            @media #{$mobile}{
+                width: 100%;
+                margin: 0 0 50px 0;
+            }
+        }
+        .products-grid {
+            li {
+                .product-info {
+                    .product-name {
+                        text-align: left;
+                        color: $c-blue;
+                        font-family: $font-GothamR;
+                        font-size: 16px;
+                        min-height: 40px;
+                        max-height: 40px;
+                        overflow: hidden;
+                        margin-bottom: 15px;
+                        line-height: 20px;
+                        margin-top: 7px;
+                    }
+                    .price-box {
+                        float: left;
+                        width: 100%;
+                        margin: 0 0 5px;
+                        .price {
+                            // font-size: 14px;
+                            // font-weight: 800;
+                            // line-height: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .toolbar-bottom {
+        display: none;
+    }
+    .related-category{
+        display: inline-block;
+        width: 100%;
+        margin-top: 40px;
+        @media #{$tablet}{
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        .widget-title{
+            margin-bottom: 30px;
+            text-align: center;
+            @media #{$tablet}{
+                max-width: 70%;
+                text-align: center;
+                float: none;
+                margin: 0 auto;
+            }
+            h3{
+                letter-spacing: 2px;
+            }
+        }
+        .widget-products{
+            .actions{
+                .btn-cart{
+                    margin: 0 auto;
+                    text-align: center;
+                    float: none;
+                    position: relative;
+
+
+                }
+                .information{
+                    display: inline-block;
+                    width: 50%;
+                }
+            }
+        }
+    }
+}

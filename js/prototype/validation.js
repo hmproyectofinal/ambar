@@ -415,13 +415,13 @@ Validation.addAllThese([
     ['validate-no-html-tags', 'HTML tags are not allowed', function(v) {
 				return !/<(\/)?\w+/.test(v);
 			}],
-	['validate-select', 'Please select an option.', function(v) {
+	['validate-select', 'Por favor elija una opción.', function(v) {
                 return ((v != "none") && (v != null) && (v.length != 0));
             }],
-    ['required-entry', 'This is a required field.', function(v) {
+    ['required-entry', 'Campo requerido.', function(v) {
                 return !Validation.get('IsEmpty').test(v);
             }],
-    ['validate-number', 'Please enter a valid number in this field.', function(v) {
+    ['validate-number', 'Por favor ingrese un número correcto.', function(v) {
                 return Validation.get('IsEmpty').test(v)
                     || (!isNaN(parseNumber(v)) && /^\s*-?\d*(\.\d*)?\s*$/.test(v));
             }],
@@ -491,7 +491,7 @@ Validation.addAllThese([
     ['validate-street', 'Please use only letters (a-z or A-Z) or numbers (0-9) or spaces and # only in this field.', function(v) {
                 return Validation.get('IsEmpty').test(v) ||  /^[ \w]{3,}([A-Za-z]\.)?([ \w]*\#\d+)?(\r\n| )[ \w]{3,}/.test(v)
             }],
-    ['validate-phoneStrict', 'Please enter a valid phone number. For example (123) 456-7890 or 123-456-7890.', function(v) {
+    ['validate-phoneStrict', 'Por favor ingrese un teléfono válido. Por ejemplo (011) 4567890 o 114567890.', function(v) {
                 return Validation.get('IsEmpty').test(v) || /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/.test(v);
             }],
     ['validate-phoneLax', 'Please enter a valid phone number. For example (123) 456-7890 or 123-456-7890.', function(v) {
@@ -531,7 +531,7 @@ Validation.addAllThese([
     ['validate-emailSender', 'Please use only visible characters and spaces.', function (v) {
                 return Validation.get('IsEmpty').test(v) ||  /^[\S ]+$/.test(v)
                     }],
-    ['validate-password', 'Please enter 6 or more characters without leading or trailing spaces.', function(v) {
+    ['validate-password', 'Por favor ingrese una contraseña de 6 o más caracteres.', function(v) {
                 var pass=v.strip(); /*strip leading and trailing spaces*/
                 return (!(v.length>0 && v.length < 6) && v.length == pass.length);
             }],
@@ -545,7 +545,7 @@ Validation.addAllThese([
                 }
                 return !(pass.length < 7);
             }],
-    ['validate-cpassword', 'Please make sure your passwords match.', function(v) {
+    ['validate-cpassword', 'Las contraseñas deben coincidir.', function(v) {
                 var conf = $('confirmation') ? $('confirmation') : $$('.validate-cpassword')[0];
                 var pass = false;
                 if ($('password')) {

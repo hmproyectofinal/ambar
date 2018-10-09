@@ -25,7 +25,7 @@
                         <td class="action-content">
                             <h1>{{htmlescape var=$order.getCustomerName()}},</h1>
                             <p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
-                                Tu pedido # {{var order.increment_id}} ha sido actualizado a <br/>
+                                Tu pedido # {{var order.increment_id}} ha sido <br/>
                                 <strong>{{var order.getStatusLabel()}}</strong>.
                             </p>
                             {{if comment}}
@@ -39,7 +39,7 @@
                             <p style="font-size:12px; line-height:16px; margin:0;">
                                 Si tenes alguna pregunta sobre tu pedido por favor mandanos un mail a
                                 <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>.
-
+                                
                             </p>
                         </td>
                     </tr>

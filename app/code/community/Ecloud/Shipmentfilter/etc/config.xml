@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ecloud_Shipmentfilter>
+      <version>0.1.1</version>
+    </Ecloud_Shipmentfilter>
+  </modules>
+  <global>
+    <helpers>
+      <shipmentfilter>
+        <class>Ecloud_Shipmentfilter_Helper</class>
+      </shipmentfilter>
+    </helpers>
+    <models>
+      <shipmentfilter>
+        <class>Ecloud_Shipmentfilter_Model</class>
+        <resourceModel>shipmentfilter_mysql4</resourceModel>
+      </shipmentfilter>
+      <shipping>
+        <rewrite>
+         <shipping>Ecloud_Shipmentfilter_Model_Shipping</shipping>
+       </rewrite>
+     </shipping>
+   </models>
+ </global>
+</config> 

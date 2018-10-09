@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hd_Nps>
+            <version>1.0.0.0</version>
+        </Hd_Nps>
+    </modules>
+    <global>
+        <helpers>
+            <hd_nps>
+                <class>Hd_Nps_Helper</class>
+            </hd_nps>
+        </helpers>
+        <blocks>
+            <hd_nps>
+                <class>Hd_Nps_Block</class>
+            </hd_nps>
+        </blocks>
+        <models>
+            <hd_nps>
+                <class>Hd_Nps_Model</class>
+                <resourceModel>hd_nps_resource</resourceModel>
+            </hd_nps>
+        </models>
+        <resources>
+            <hd_nps_setup>
+                <setup>
+                    <module>Hd_Nps</module>
+                    <class>Hd_Nps_Model_Resource_Setup</class>
+                </setup>
+            </hd_nps_setup>
+        </resources>
+        <fieldsets>
+            <sales_convert_quote_payment>
+                <nps_payonline_form_data><to_order_payment>*</to_order_payment></nps_payonline_form_data>
+                <nps_payonline_transaction_data><to_order_payment>*</to_order_payment></nps_payonline_transaction_data>
+            </sales_convert_quote_payment>
+        </fieldsets>
+    </global>
+    
+    <frontend>
+        <routers>
+            <hd_nps>
+                <use>standard</use>
+                <args>
+                    <module>Hd_Nps</module>
+                    <frontName>nps</frontName>
+                </args>
+            </hd_nps>
+        </routers>
+        <translate>
+            <modules>
+                <Hd_Nps>
+                    <files>
+                        <core>Mage_Core.csv</core>
+                        <payment>Mage_Payment.csv</payment>
+                        <hd_bccp>Hd_Bccp.csv</hd_bccp>
+                        <default>Hd_Nps.csv</default>
+                    </files>
+                </Hd_Nps>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <hd_nps>
+                    <file>hd_nps.xml</file>
+                </hd_nps>
+            </updates>
+        </layout>
+    </frontend>
+    
+    <adminhtml>
+        <translate>
+            <modules>
+                <Hd_Nps>
+                    <files>
+                        <core>Mage_Core.csv</core>
+                        <admin>Mage_Adminhtml.csv</admin>
+                        <payment>Mage_Payment.csv</payment>
+                        <hd_bccp>Hd_Bccp.csv</hd_bccp>
+                        <default>Hd_Nps.csv</default>
+                    </files>
+                </Hd_Nps>
+            </modules>
+        </translate>
+    </adminhtml>
+    
+       
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <hd_nps before="Mage_Adminhtml">Hd_Nps_Adminhtml</hd_nps>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>        
+    </admin>
+    
+    <crontab>
+        <jobs>
+            <hd_nps_order_status_update_cron>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>hd_nps/cron::checkStatusOrdersUpdatePayment</model>
+                </run>
+            </hd_nps_order_status_update_cron>
+        </jobs>
+    </crontab>
+    
+    <default>
+        <hd_bccp>
+            <!-- BCCP METHODS -->
+            <methods>
+                <nps_cc>
+                    <code>nps_cc</code>
+                    <model>hd_nps/psp_cc</model>                    
+                </nps_cc>
+                <nps_bcc>
+                    <code>nps_bcc</code>
+                    <model>hd_nps/psp_bcc</model>                    
+                </nps_bcc>
+            </methods>
+            <!-- BCCP CONFIGURATION -->
+            <country_support>
+                <enable>1</enable>
+                <allowspecific>1</allowspecific>
+                <specificcountry>AR,PE,BR,CO,PY,VE,MX,UY,US</specificcountry>
+            </country_support>
+        </hd_bccp>
+        <payment>
+            <nps_bcc>
+                <!-- Basic -->
+                <active>0</active>
+                <title>NPS - Bank Creditcards</title>
+                <model>hd_nps/psp_bcc</model>
+                <sort_order>1</sort_order>
+                <send_mail_on_process>1</send_mail_on_process>
+                <!-- Supported Countries -->
+                <allowspecific>1</allowspecific>
+                <specificcountry>AR,PE,BR,CO,PY,VE,MX,UY,US</specificcountry>
+                <!-- Payments Preview -->                
+                <payment_preview_enable>1</payment_preview_enable>
+                <!-- Iframe Support -->                
+                <iframe_active>0</iframe_active>
+                <!-- Invoice -->
+                <invoice_active>0</invoice_active>
+                <invoice_status></invoice_status>
+                <invoice_message></invoice_message>
+                <!-- AVS Visa -->
+                <avs_visa_active>0</avs_visa_active>
+                <avs_visa_use_nps_form>1</avs_visa_use_nps_form>
+                <avs_visa_n_0>1</avs_visa_n_0>
+                <avs_visa_n_1>1</avs_visa_n_1>
+                <avs_visa_n_2>1</avs_visa_n_2>
+                <avs_visa_n_3>1</avs_visa_n_3>
+                <avs_visa_n_4>1</avs_visa_n_4>
+                <!-- AVS Amex -->
+                <avs_amex_active>0</avs_amex_active>
+                <!-- AVS Master -->
+                <avs_master_active>0</avs_master_active>
+                <!-- Fraud -->
+                <fraud_active>0</fraud_active>
+                <!-- Mails -->                
+                <send_mail_on_cancel>0</send_mail_on_cancel>
+                <send_mail_on_hold_avs>0</send_mail_on_hold_avs>
+                <send_mail_on_hold_fraud>0</send_mail_on_hold_fraud>
+                <!-- SOAP WSDL -->
+                <ws_wsdl_url>https://implementacion.nps.com.ar/ws.php?wsdl</ws_wsdl_url>
+                <ws_merchant_id></ws_merchant_id>
+                <ws_merchant_secret_key></ws_merchant_secret_key>
+                <merchcant_email></merchcant_email>
+                <!-- DEV -->
+                <debug_mode>0</debug_mode>
+                <debug_avs_visa_mock>00012</debug_avs_visa_mock>
+                <debug_fraud_fail>0</debug_fraud_fail>
+                <show_bccp_buttons>0</show_bccp_buttons>
+                <!-- FIXED -->
+                <!--<payment_action>order</payment_action>-->
+                <payment_action>authorize</payment_action>
+                <order_status>pending_nps</order_status>
+                <transaction_type>pay_online</transaction_type>
+                <!-- Options: bcc / ccb -->
+                <bcc_order>bcc</bcc_order>
+                <!--<bcc_order>ccb</bcc_order>-->
+            </nps_bcc>
+            <nps_cc>
+                <!-- Basic -->
+                <active>0</active>
+                <title>NPS - Creditcards</title>
+                <model>hd_nps/psp_cc</model>
+                <sort_order>1</sort_order>
+                <send_mail_on_process>1</send_mail_on_process>
+                <!-- Supported Countries -->
+                <allowspecific>1</allowspecific>
+                <specificcountry>AR,PE,BR,CO,PY,VE,MX,UY,US</specificcountry>
+                <!-- Payments Preview -->                
+                <payment_preview_enable>1</payment_preview_enable>
+                <!-- Iframe Support -->                
+                <iframe_active>0</iframe_active>
+                <!-- Invoice -->
+                <invoice_active>0</invoice_active>
+                <invoice_status></invoice_status>
+                <invoice_message></invoice_message>
+                <!-- AVS Visa -->
+                <avs_visa_active>0</avs_visa_active>
+                <avs_visa_use_nps_form>1</avs_visa_use_nps_form>
+                <avs_visa_n_0>1</avs_visa_n_0>
+                <avs_visa_n_1>1</avs_visa_n_1>
+                <avs_visa_n_2>1</avs_visa_n_2>
+                <avs_visa_n_3>1</avs_visa_n_3>
+                <avs_visa_n_4>1</avs_visa_n_4>
+                <!-- AVS Amex -->
+                <avs_amex_active>0</avs_amex_active>
+                <!-- AVS Master -->
+                <avs_master_active>0</avs_master_active>
+                <!-- Fraud -->
+                <fraud_active>0</fraud_active>
+                <!-- Mails -->                
+                <send_mail_on_cancel>0</send_mail_on_cancel>
+                <send_mail_on_hold_avs>0</send_mail_on_hold_avs>
+                <send_mail_on_hold_fraud>0</send_mail_on_hold_fraud>
+                <!-- SOAP WSDL -->
+                <ws_wsdl_url>https://implementacion.nps.com.ar/ws.php?wsdl</ws_wsdl_url>
+                <ws_merchant_id></ws_merchant_id>
+                <ws_merchant_secret_key></ws_merchant_secret_key>
+                <merchcant_email></merchcant_email>
+                <!-- DEV -->
+                <debug_mode>0</debug_mode>
+                <debug_avs_visa_mock>00012</debug_avs_visa_mock>
+                <debug_fraud_fail>0</debug_fraud_fail>
+                <!-- FIXED -->
+                <!--<payment_action>order</payment_action>-->
+                <payment_action>authorize</payment_action>
+                <order_status>pending_nps</order_status>
+                <transaction_type>pay_online</transaction_type>
+            </nps_cc>
+        </payment>
+        
+        <hd_nps>
+            <web_service>
+                <urls>
+                    <sandbox>https://sandbox.nps.com.ar/ws.php?wsdl</sandbox>
+                    <staging>https://implementacion.nps.com.ar/ws.php?wsdl</staging>
+                    <production>https://services2.nps.com.ar/ws.php?wsdl</production>
+                </urls>
+            </web_service>
+            <status_update_cron>
+                <time>7</time>
+            </status_update_cron>
+        </hd_nps>
+        
+        <!-- Fraud Fields Include / Map-->
+        <hd_nps_fraud>
+            <customer>
+                <EmailAddress>A</EmailAddress>
+                <AlternativeEmailAdress></AlternativeEmailAdress>
+                <IPAddress>A</IPAddress>
+                <AccountID>A</AccountID>
+                <AccountCreatedAt>A</AccountCreatedAt>
+                <AccountPreviousActivity>A</AccountPreviousActivity>
+                <AccountHasCredentials>A</AccountHasCredentials>
+                <DeviceType>A</DeviceType>
+                <DeviceFingerPrint></DeviceFingerPrint>
+                <BrowserLanguage></BrowserLanguage>
+                <HttpUserAgent>A</HttpUserAgent>
+            </customer>
+            
+            <address_person>
+                <FirstName>A</FirstName>
+                <LastName>A</LastName>
+                <MiddleName>A</MiddleName>
+                <PhoneNumber1>A</PhoneNumber1>
+                <PhoneNumber2>A</PhoneNumber2>
+                <Gender>A</Gender>
+                <DateOfBirth>A</DateOfBirth>
+                <Nationality>A</Nationality>
+                <IDNumber>A</IDNumber>
+                <IDType>A</IDType>
+            </address_person>
+            
+            <address>
+                <Street>A</Street>
+                <HouseNumber>A</HouseNumber>
+                <AdditionalInfo>A</AdditionalInfo>
+                <City>A</City>
+                <StateProvince>A</StateProvince>
+                <Country>A</Country>
+                <ZipCode>A</ZipCode>
+            </address>
+                
+            <shipping>
+                <TrackingNumber></TrackingNumber>
+                <Method>A</Method>
+                <Carrier>A</Carrier>
+                <DeliveryDate>A</DeliveryDate>
+                <FreightAmount>A</FreightAmount>
+                <GiftMessage>A</GiftMessage>
+                <GiftWrapping></GiftWrapping>
+                <PrimaryRecipient>A</PrimaryRecipient>
+                <SecondaryRecipient></SecondaryRecipient>
+                <Address>A</Address>
+            </shipping>
+            
+            <order_item>
+                <Quantity>A</Quantity>
+                <UnitPrice>A</UnitPrice>
+                <Description>A</Description>
+                <Type>A</Type>
+                <SkuCode>A</SkuCode>
+                <ManufacturerPartNumber></ManufacturerPartNumber>
+                <Risk></Risk>
+            </order_item>
+            
+        </hd_nps_fraud>
+            
+        
+    </default>
+
+</config> 

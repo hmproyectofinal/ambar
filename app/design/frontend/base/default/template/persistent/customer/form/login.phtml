@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -46,7 +46,7 @@
                     <p><?php echo $this->__('By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.') ?></p>
                 </div>
             </div>
-            <div class="col-2 registered-users">
+            <div class="col-2 registered-users bloque-usuarios-registrados">
                 <div class="content">
                     <h2><?php echo $this->__('Registered Customers') ?></h2>
                     <p><?php echo $this->__('If you have an account with us, please log in.') ?></p>
@@ -74,13 +74,13 @@
         <div class="col2-set">
             <div class="col-1 new-users">
                 <div class="buttons-set">
-                    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Create an Account')) ?>" class="button" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
+                    <button type="button" id="crear-cuenta" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Create an Account')) ?>" class="button" onclick="window.location='<?php echo Mage::helper('persistent')->getCreateAccountUrl($this->getCreateAccountUrl()) ?>';"><span><span><?php echo $this->__('Create an Account') ?></span></span></button>
                 </div>
             </div>
             <div class="col-2 registered-users">
                 <div class="buttons-set">
-                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left"><?php echo $this->__('Forgot Your Password?') ?></a>
-                    <button type="submit" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
+                    <a href="<?php echo $this->getForgotPasswordUrl() ?>" class="f-left olvidaste-contrasenia"><?php echo $this->__('Forgot Your Password?') ?></a>
+                    <button type="submit" class="button ingresar" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo $this->__('Login') ?></span></span></button>
                 </div>
             </div>
         </div>

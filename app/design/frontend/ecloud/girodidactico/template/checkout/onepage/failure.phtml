@@ -1,0 +1,48 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+
+<!-- <div class="page-title"> -->
+	<!-- imagen en cms/block failure_img -->
+	<!-- <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('failure_img')->toHtml(); ?> -->
+	<!-- imagen en cms/block failure_img -->
+<!-- </div> -->
+
+
+    <h2 class="sub-title"><?php echo $this->__('An error occurred in the process of payment') ?></h2>
+
+
+<div class="failure_wrapper">
+	<?php  /*if ($this->getRealOrderId()) : ?><p class="strong"><?php echo $this->__('Order #') . $this->getRealOrderId() ?></p><?php //endif */?>
+	<?php if ($error = $this->getErrorMessage()) : ?><p><?php echo $error ?></p><?php endif ?>
+	<!-- <p><?php //echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())) ?></p> -->
+	<p><?php echo $this->__('Por favor, intentá nuevamente más tarde.</br> Si el problema persiste, contactate con nosotros <a href="%s">haciendo click aquí</a>.', Mage::getBaseUrl().'contacto') ?></p>
+
+	<div class="buttons-set">
+	    <button type="button" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Continue Shopping')) ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
+	</div>
+</div>

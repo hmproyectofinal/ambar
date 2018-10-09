@@ -47,7 +47,8 @@ class Inchoo_SocialConnect_Model_Facebook_Oauth2_Client
     protected $clientSecret = null;
     protected $redirectUri = null;
     protected $state = '';
-    protected $scope = array('public_profile', 'email', 'user_birthday');
+    //protected $scope = array('public_profile', 'email', 'user_birthday');
+    protected $scope = array('public_profile', 'email');
 
     protected $token = null;
 

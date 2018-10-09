@@ -1,0 +1,25 @@
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4><?php echo $this->__('&Uacute;ltimo Status'); ?></h4>
+	</div>
+	<div class="fieldset fieldset-wide">
+		<h5>Estado de la operaci&oacute;n</h5>
+		<h4>Actualizado al: <?php echo date("Y-m-d", Mage::getModel('core/date')->timestamp(time()));?></h4>
+		<table>
+		<?php 
+			if(Mage::getStoreConfig('payment/modulodepago2/modo_test_prod') == "test"){
+				echo "<p>Status en ambiente de test</p>";
+			}
+			$status = $this->getLastStatus();
+
+			if(isset($status['Operations']) && is_array($status['Operations'])) {
+				echo "<table>".$this->printGetStatus($status['Operations'], 0)."</table>";
+			} else {
+				echo "<tr><td>Sin datos</td><td></td></tr>";
+			}
+
+		?>
+		</table>
+	</div>
+	
+</div>

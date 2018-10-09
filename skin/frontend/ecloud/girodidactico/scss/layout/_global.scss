@@ -1,0 +1,173 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     ecloud_default
+// @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Global
+ * ============================================ */
+
+html,
+body {
+    height: 100%;
+    font-family:$font-GothamR !important;
+}
+
+.col1-layout {
+  @media #{$xxl-desktop}{    
+    max-width: 1500px;
+    float: none;
+    margin: 0 auto;
+  }
+}
+
+.skip-link {
+    width: auto !important;
+    border: none;
+    padding: 0 10px;
+}
+.absolute{ position: absolute !important; }
+
+#disclaimer-global {
+  .disclaimer-popup {
+    min-width: 50%;
+    // background: #fff url(../images/disclaimer-bg.jpg) no-repeat right bottom;
+    background-size: contain;
+    padding: 30px;
+    border-radius: 5px;
+    position: relative;
+    transition: all 5s ease-in-out;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: right;
+    @media #{$tablet}{
+      width: 100%;
+      padding: 10px;
+    }
+
+    h2 {
+      margin: 0;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      color: $danone-blue;
+      font-family: $font-GothamR, Verdana, Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      line-height: 1.4;
+      text-rendering: optimizeLegibility;
+    }
+    a.cross-btn {
+      cursor: pointer;
+      position: absolute;
+      top: 0px;
+      right: 18px;
+      font-size: 32px;
+      font-weight: 500;
+    }
+    .content {
+      width: 60%;
+      margin-bottom: 15px;
+      @media #{$tablet}{
+        width: 100%;
+      }
+    }
+    .dis-close-btn {
+      color: $danone-blue;
+      cursor: pointer;
+      margin-left: 15px;
+      font-size: 12px;
+      margin-left: 0px;
+      @media #{$tablet}{
+        width: 100%;
+        text-align: left;
+        margin: 0 auto;
+        display: inline-block;
+        margin-top: 10px;
+      }
+    }
+    .dis-acc-btn {
+      color: #fff;
+      cursor: pointer;
+      background-color: #071689;
+      font-size: 13px;
+      font-family: $font-GothamR, Verdana, Arial, sans-serif;
+      transition: opacity 300ms;
+      border: none;
+      border-radius: 2px;
+      font-weight: 600;
+      float: left;
+      display: block;
+      border-radius: 2px;
+      padding: 0px 15px;
+      line-height: 45px;
+      margin-left: 0;
+      margin-right: 15px;
+      @media #{$tablet}{
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.wrapper:after {
+    @include clearfix;
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+a:focus {
+    outline: none;
+}
+@media #{$tablet}{
+  .container{
+    width: 100%;
+  }
+  .catalog-category-view .main{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
+.container {
+  width:100%;
+  float: left;  
+  // padding: 0 20px;  
+
+  @media #{$big-desktop}{
+      width: 1170px;
+      float:none;
+      margin: 0 auto;
+  }
+}
+
+

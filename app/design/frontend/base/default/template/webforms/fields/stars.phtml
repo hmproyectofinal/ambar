@@ -1,0 +1,19 @@
+<?php
+
+$startAt = $this->getField()->getStarsInit();
+
+if($this->getCustomerValue()){
+	$val = explode('/',$this->getCustomerValue());
+	$startAt = (int)$val[0];
+}
+
+?>
+
+<script>
+new Starry('<?php echo $this->getFieldId()?>',{
+		name:'<?php echo $this->getFieldName()?>',
+		showNull:false,
+		startAt:<?php echo $startAt?>,
+		maxLength:<?php echo $this->getField()->getStarsCount()?>
+});
+</script>

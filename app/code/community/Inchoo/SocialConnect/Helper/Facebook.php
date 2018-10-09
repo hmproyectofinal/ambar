@@ -35,81 +35,71 @@ class Inchoo_SocialConnect_Helper_Facebook extends Mage_Core_Helper_Abstract
 {
 
     public function disconnect(Mage_Customer_Model_Customer $customer) {
-        $client = Mage::getSingleton('inchoo_socialconnect/facebook_oauth2_client');
-
-        // TODO: Move into Inchoo_SocialConnect_Model_Facebook_Info_User
+        $client = Mage::getSingleton('inchoo_socialconnect/facebook_client');
+        
         try {
-            $client->setAccessToken(unserialize($customer->getInchooSocialconnectFtoken()));
-            $client->api('/me/permissions', 'DELETE');
+            $client->setAccessToken($customer->getInchooSocialconnectFtoken());
+            $client->api('/me/permissions', 'DELETE');            
         } catch (Exception $e) { }
-
+        
         $pictureFilename = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA)
-            .DS
-            .'inchoo'
-            .DS
-            .'socialconnect'
-            .DS
-            .'facebook'
-            .DS
-            .$customer->getInchooSocialconnectFid();
-
+                .DS
+                .'inchoo'
+                .DS
+                .'socialconnect'
+                .DS
+                .'facebook'
+                .DS                
+                .$customer->getInchooSocialconnectFid();
+        
         if(file_exists($pictureFilename)) {
             @unlink($pictureFilename);
-        }
-
+        }        
+        
         $customer->setInchooSocialconnectFid(null)
-            ->setInchooSocialconnectFtoken(null)
-            ->save();
+        ->setInchooSocialconnectFtoken(null)
+        ->save();   
     }
-
+    
     public function connectByFacebookId(
-        Mage_Customer_Model_Customer $customer,
-        $facebookId,
-        $token)
+            Mage_Customer_Model_Customer $customer,
+            $facebookId,
+            $token)
     {
         $customer->setInchooSocialconnectFid($facebookId)
-            ->setInchooSocialconnectFtoken(serialize($token))
-            ->save();
-
+                ->setInchooSocialconnectFtoken($token)
+                ->save();
+        
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
     }
-
+    
     public function connectByCreatingAccount(
-        $email,
-        $firstName,
-        $lastName,
-        $facebookId,
-        $birthday = null,
-        $gender = null,
-        $token)
+            $email,
+            $firstName,
+            $lastName,
+            $facebookId,
+            $token)
     {
         $customer = Mage::getModel('customer/customer');
 
         $customer->setWebsiteId(Mage::app()->getWebsite()->getId())
-            ->setEmail($email)
-            ->setFirstname($firstName)
-            ->setLastname($lastName)
-            ->setInchooSocialconnectFid($facebookId)
-            ->setInchooSocialconnectFtoken(serialize($token))
-            ->setPassword($customer->generatePassword(10));
-
-        if(!empty($birthday)) {
-            $customer->setDob($birthday);
-        }
-
-        if(!empty($gender)) {
-            $customer->setGender($gender);
-        }
+                ->setEmail($email)
+                ->setFirstname($firstName)
+                ->setLastname($lastName)
+                ->setInchooSocialconnectFid($facebookId)
+                ->setInchooSocialconnectFtoken($token)
+                ->setPassword($customer->generatePassword(10))
+                ->save();
 
         $customer->setConfirmation(null);
         $customer->save();
 
         $customer->sendNewAccountEmail('confirmed', '', Mage::app()->getStore()->getId());
 
-        Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+        Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);            
 
     }
-
+    
     public function loginByCustomer(Mage_Customer_Model_Customer $customer)
     {
         if($customer->getConfirmation()) {
@@ -117,33 +107,15 @@ class Inchoo_SocialConnect_Helper_Facebook extends Mage_Core_Helper_Abstract
             $customer->save();
         }
 
-        Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
+        Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);        
     }
-
+    
     public function getCustomersByFacebookId($facebookId)
     {
         $customer = Mage::getModel('customer/customer');
 
         $collection = $customer->getCollection()
             ->addAttributeToFilter('inchoo_socialconnect_fid', $facebookId)
-            ->setPageSize(1);
-
-        if($customer->getSharingConfig()->isWebsiteScope()) {
-            $collection->addAttributeToFilter(
-                'website_id',
-                Mage::app()->getWebsite()->getId()
-            );
-        }
-
-        return $collection;
-    }
-
-    public function getCustomersByEmail($email)
-    {
-        $customer = Mage::getModel('customer/customer');
-
-        $collection = $customer->getCollection()
-            ->addFieldToFilter('email', $email)
             ->setPageSize(1);
 
         if($customer->getSharingConfig()->isWebsiteScope()) {
@@ -162,27 +134,52 @@ class Inchoo_SocialConnect_Helper_Facebook extends Mage_Core_Helper_Abstract
 
         return $collection;
     }
+    
+    public function getCustomersByEmail($email)
+    {
+        $customer = Mage::getModel('customer/customer');
+
+        $collection = $customer->getCollection()
+                ->addFieldToFilter('email', $email)
+                ->setPageSize(1);
+
+        if($customer->getSharingConfig()->isWebsiteScope()) {
+            $collection->addAttributeToFilter(
+                'website_id',
+                Mage::app()->getWebsite()->getId()
+            );
+        }  
+        
+        if(Mage::getSingleton('customer/session')->isLoggedIn()) {
+            $collection->addFieldToFilter(
+                'entity_id',
+                array('neq' => Mage::getSingleton('customer/session')->getCustomerId())
+            );
+        }        
+        
+        return $collection;
+    }
 
     public function getProperDimensionsPictureUrl($facebookId, $pictureUrl)
     {
         $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)
-            .'inchoo'
-            .'/'
-            .'socialconnect'
-            .'/'
-            .'facebook'
-            .'/'
-            .$facebookId;
+                .'inchoo'
+                .'/'
+                .'socialconnect'
+                .'/'
+                .'facebook'
+                .'/'                
+                .$facebookId;
 
         $filename = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA)
-            .DS
-            .'inchoo'
-            .DS
-            .'socialconnect'
-            .DS
-            .'facebook'
-            .DS
-            .$facebookId;
+                .DS
+                .'inchoo'
+                .DS
+                .'socialconnect'
+                .DS
+                .'facebook'
+                .DS                
+                .$facebookId;
 
         $directory = dirname($filename);
 
@@ -191,8 +188,8 @@ class Inchoo_SocialConnect_Helper_Facebook extends Mage_Core_Helper_Abstract
                 return null;
         }
 
-        if(!file_exists($filename) ||
-            (file_exists($filename) && (time() - filemtime($filename) >= 3600))){
+        if(!file_exists($filename) || 
+                (file_exists($filename) && (time() - filemtime($filename) >= 3600))){
             $client = new Zend_Http_Client($pictureUrl);
             $client->setStream();
             $response = $client->request('GET');
@@ -205,8 +202,8 @@ class Inchoo_SocialConnect_Helper_Facebook extends Mage_Core_Helper_Abstract
             $imageObj->resize(150, 150);
             $imageObj->save($filename);
         }
-
+        
         return $url;
-    }
-
+    }    
+    
 }

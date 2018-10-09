@@ -100,7 +100,9 @@ abstract class Inchoo_SocialConnect_Controller_Abstract extends Mage_Core_Contro
                 $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
             }
         }
-        $this->_redirectUrl($session->getBeforeAuthUrl(true));
+        //$this->_redirectUrl($session->getBeforeAuthUrl(true)); Fix Ecloud.
+        $redirect_url = Mage::getBaseUrl().'customer/account';
+        $this->_redirectUrl($redirect_url);
     }
 
     /**

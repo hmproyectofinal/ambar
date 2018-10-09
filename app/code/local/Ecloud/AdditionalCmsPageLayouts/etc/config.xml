@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Ecloud_AdditionalCmsPageLayouts>
+      <version>0.1.0</version>
+    </Ecloud_AdditionalCmsPageLayouts>
+  </modules>
+  <global>
+    <page>
+     <layouts>
+      <custom_static_page_one>
+       <label>One Column Full Width</label>
+       <template>page/1columnfullwidth.phtml</template>
+      </custom_static_page_one>
+     </layouts>
+    </page>
+
+    <helpers>
+      <additionalcmspagelayouts>
+        <class>Ecloud_AdditionalCmsPageLayouts_Helper</class>
+      </additionalcmspagelayouts>
+    </helpers>
+  </global>
+</config> 

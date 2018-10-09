@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hd_Base>
+            <version>1.0.0.0</version>
+        </Hd_Base>
+    </modules>
+    <global>
+        <helpers>
+            <hd_base>
+                <class>Hd_Base_Helper</class>
+            </hd_base>
+        </helpers>
+        <models>
+            <hd_base>
+                <class>Hd_Base_Model</class>
+            </hd_base>
+            <core>
+                <rewrite>
+                    <translate>Hd_Base_Model_Rewrite_Core_Translate</translate>
+                </rewrite>
+            </core>
+        </models>
+    </global>
+    <default>
+        <hd_base>
+            <json>
+                <allowed_agents>hd_warmup</allowed_agents>
+            </json>
+            <rewrite>
+                <translate>1</translate>
+            </rewrite>
+        </hd_base>
+    </default>
+</config>

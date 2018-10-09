@@ -21,7 +21,7 @@
  *
  * @category    Mage
  * @package     Mage_Core
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -91,34 +91,13 @@ class Mage_Core_Model_File_Validator_Image
         list($imageWidth, $imageHeight, $fileType) = getimagesize($filePath);
         if ($fileType) {
             if ($this->isImageType($fileType)) {
-                /** if 'general/reprocess_images/active' false then skip image reprocessing. */
-                if (!Mage::getStoreConfigFlag('general/reprocess_images/active')) {
-                    return null;
-                }
                 //replace tmp image with re-sampled copy to exclude images with malicious data
                 $image = imagecreatefromstring(file_get_contents($filePath));
                 if ($image !== false) {
                     $img = imagecreatetruecolor($imageWidth, $imageHeight);
-                    imagealphablending($img, false);
                     imagecopyresampled($img, $image, 0, 0, 0, 0, $imageWidth, $imageHeight, $imageWidth, $imageHeight);
-                    imagesavealpha($img, true);
-
                     switch ($fileType) {
                         case IMAGETYPE_GIF:
-                            $transparencyIndex = imagecolortransparent($image);
-                            if ($transparencyIndex >= 0) {
-                                imagecolortransparent($img, $transparencyIndex);
-                                for ($y = 0; $y < $imageHeight; ++$y) {
-                                    for ($x = 0; $x < $imageWidth; ++$x) {
-                                        if (((imagecolorat($img, $x, $y) >> 24) & 0x7F)) {
-                                            imagesetpixel($img, $x, $y, $transparencyIndex);
-                                        }
-                                    }
-                                }
-                            }
-                            if (!imageistruecolor($image)) {
-                                imagetruecolortopalette($img, false, imagecolorstotal($image));
-                            }
                             imagegif($img, $filePath);
                             break;
                         case IMAGETYPE_JPEG:
@@ -128,9 +107,8 @@ class Mage_Core_Model_File_Validator_Image
                             imagepng($img, $filePath);
                             break;
                         default:
-                            break;
+                            return;
                     }
-
                     imagedestroy($img);
                     imagedestroy($image);
                     return null;

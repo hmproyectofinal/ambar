@@ -1,0 +1,49 @@
+<div id="storelocator">
+    <div class="listado">
+        <h2 id="storeselector-title"  style="min-width:350px;">Locales <a class="minimize" href="#_">-</a></h2>
+            
+        <div class="store-results">
+
+        </div>        
+    </div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(window).load(function(){
+    jQuery('#storeselector-title a.minimize').click(function(){     
+        jQuery('.store-results').animate({
+            height: 'toggle'
+        });
+        jQuery(this).toggleClass('max');
+    });
+    if(jQuery(window).width() >= 768){
+        jQuery('#storelocator').appendTo('#store-pickup-map-box');
+    }
+});
+
+function moveStoresList(){
+    if(jQuery(window).width() < 768){
+        if(!jQuery('#storelocator').hasClass('moved')){
+            jQuery('#store-pickup-map-box').prepend(jQuery('#storelocator'));
+            jQuery('#storelocator').addClass('moved');
+            jQuery('.store-results').hide();
+        }
+    }else{
+        if(jQuery('#storelocator').hasClass('moved')){
+            jQuery('#storelocator').appendTo('#store-pickup-map-box');
+            jQuery('#storelocator').removeClass('moved');
+            jQuery('.store-results').show();
+        }
+    }
+}
+
+jQuery(window).resize(function() {
+  moveStoresList();
+});
+
+jQuery(document).ready(function() {
+    moveStoresList();
+})
+
+</script>

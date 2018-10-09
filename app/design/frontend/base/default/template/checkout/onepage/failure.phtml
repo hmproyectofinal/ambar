@@ -20,13 +20,13 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('An error occurred in the process of payment') ?></h1>
 </div>
-<?php if ($this->getRealOrderId()) : ?><p><?php echo $this->__('Order #') . $this->getRealOrderId() ?></p><?php endif ?>
+<?php if ($this->getRealOrderId()) : ?><p class="pedido-failure"><?php echo $this->__('Order #') . $this->getRealOrderId() ?></p><?php endif ?>
 <?php if ($error = $this->getErrorMessage()) : ?><p><?php echo $error ?></p><?php endif ?>
-<p><?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())) ?></p>
+<p><?php echo $this->__('Click <a href="%s" class="link-failure">aquí</a> para seguir comprando.', Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl())) ?></p>

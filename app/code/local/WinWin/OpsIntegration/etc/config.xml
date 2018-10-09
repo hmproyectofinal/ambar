@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+
+<config>
+    
+    <modules>
+        <WinWin_OpsIntegration>
+            <version>1.0.0.0</version>
+        </WinWin_OpsIntegration>
+    </modules>
+    
+    <global>
+        <medios_pago>
+            <mpexpress>
+                <name>Mercado Pago</name>
+                <code>mpexpress</code>
+                <interes>
+                    <model>winwin_opsintegration/Mpexpress</model>
+                    <method>getInteres</method>
+                </interes>
+                <cuota>
+                    <model>winwin_opsintegration/Mpexpress</model>
+                    <method>getCuotas</method>
+                </cuota>
+                <tarjeta>
+                    <model>winwin_opsintegration/Mpexpress</model>
+                    <method>getTarjeta</method>
+                </tarjeta>
+                <banco>
+                    <model>winwin_opsintegration/Mpexpress</model>
+                    <method>getBanco</method>
+                </banco>
+                <auth>
+                    <model>winwin_opsintegration/Mpexpress</model>
+                    <method>getAuth</method>
+                </auth>
+                <bin>
+                    <model>winwin_opsintegration/Mpexpress</model>
+                    <method>getBin</method>
+                </bin>
+            </mpexpress>
+            <decidir>
+                <name>Hd Decidir</name>
+                <code>decidir_bcc</code>
+                <interes>
+                    <model>winwin_opsintegration/Decidir</model>
+                    <method>getInteres</method>
+                </interes>
+                <cuota>
+                    <model>winwin_opsintegration/Decidir</model>
+                    <method>getCuotas</method>
+                </cuota>
+                <tarjeta>
+                    <model>winwin_opsintegration/Decidir</model>
+                    <method>getTarjeta</method>
+                </tarjeta>
+                <banco>
+                    <model>winwin_opsintegration/Decidir</model>
+                    <method>getBanco</method>
+                </banco>
+                <auth>
+                    <model>winwin_opsintegration/Decidir</model>
+                    <method>getAuth</method>
+                </auth>
+                <bin>
+                    <model>winwin_opsintegration/Decidir</model>
+                    <method>getBin</method>
+                </bin>
+            </decidir>
+        </medios_pago>
+    
+		
+        <models>
+            <winwin_opsintegration>
+                <class>WinWin_OpsIntegration_Model</class>
+                <resourceModel>winwin_opsintegration_mysql4</resourceModel>
+            </winwin_opsintegration>
+            <winwin_opsintegration_mysql4>
+                <class>WinWin_OpsIntegration_Model_Mysql4</class>
+                <entities>
+                    <execution_history_info>
+                        <table>winwin_opsintegration_execution_history_info</table>
+                    </execution_history_info>
+                </entities>
+            </winwin_opsintegration_mysql4>
+        </models>
+        <resources>
+            <winwin_opsintegration_setup>
+                <setup>
+                    <module>WinWin_OpsIntegration</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </winwin_opsintegration_setup>
+        </resources>
+        <helpers>
+            <winwin_opsintegration>
+                <class>WinWin_OpsIntegration_Helper</class>
+            </winwin_opsintegration>
+        </helpers>
+        <resources>
+            <winwin_opsintegration_setup>
+                <setup>
+                    <module>WinWin_OpsIntegration</module>
+                </setup>
+            </winwin_opsintegration_setup>
+        </resources>
+        <blocks>
+            <winwin_opsintegration><class>WinWin_OpsIntegration_Block</class></winwin_opsintegration>
+        </blocks>
+
+        <events>
+            <winwin_opsintegration_integration_execution>
+				<observers>
+					<winwin_opsintegration_integration_execution_observer>
+						<type>singleton</type>
+						<class>winwin_opsintegration/observer</class>
+						<method>executionHistoryLogger</method>
+					</winwin_opsintegration_integration_execution_observer>
+                </observers>
+            </winwin_opsintegration_integration_execution>
+        </events>
+		<template>
+			<email>
+				<winwin_opsintegration_execution_notification>
+					<label>WinWin integration</label>
+					<file>winwin/opsintegration/integration_execution_notification.html</file>
+					<type>html</type>
+				</winwin_opsintegration_execution_notification>
+			</email>
+		</template>
+    </global>
+    
+    <admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <winwin_opsintegration before="Mage_Adminhtml">WinWin_OpsIntegration</winwin_opsintegration>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <winwin_opsintegration>
+                    <file>winwin_opsintegration.xml</file>
+                </winwin_opsintegration>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <default>
+    	<winwin_ecommerce_opsintegration>
+
+            <winwin_opsintegration_ftp_settings>
+                <check_ftp>1</check_ftp>
+                <ftp_host></ftp_host>
+                <ftp_user></ftp_user>
+                <ftp_password></ftp_password>
+                <ftp_delete_file>1</ftp_delete_file>
+            </winwin_opsintegration_ftp_settings>
+
+    		<winwin_opsintegration_general_settings>
+                <file_stock_price>0</file_stock_price>                
+    			<email_notifications>plataforma@winwin.net</email_notifications>
+    			<project_name>WinWin</project_name>
+    			<field_delimiter>;</field_delimiter>
+    			<field_enclosure>"</field_enclosure>
+    			<collection_limit>10000</collection_limit>
+    			<per_collection>1000</per_collection>
+    			<directory_location>var/int/</directory_location>
+                <flush_cache>0</flush_cache>
+                <debug_mode>0</debug_mode>                
+    		</winwin_opsintegration_general_settings>
+    		
+    		<winwin_opsintegration_stock_integration_configuration>                
+    			<update_stock_availability>1</update_stock_availability>
+                <update_stock_availability_backorders>0</update_stock_availability_backorders>
+                <status_reserved>pending</status_reserved>
+                <stock_files>stock</stock_files>
+                <stock_stop_automatic_integration>0</stock_stop_automatic_integration>
+    		</winwin_opsintegration_stock_integration_configuration>
+    		
+    		<winwin_opsintegration_prices_integration_configuration>                
+    			<status_update>1</status_update>
+                <ignore_special_price>0</ignore_special_price>
+                <price_files>price</price_files>
+                <price_stop_automatic_integration>0</price_stop_automatic_integration>
+    		</winwin_opsintegration_prices_integration_configuration>
+
+            <winwin_opsintegration_shipments_integration_configuration>
+                <send_notification>1</send_notification>
+                <status_allowed>exportado,facturado_mage</status_allowed>
+                <!--<status_after_import>complete</status_after_import>-->
+                <generate_invoice>1</generate_invoice>                     
+                <message_template><![CDATA[<a href="http://web.ocasa.com/Trace/NewPrintAirbillPageSAP.aspx?airbillnumber={tracking_number}&i=18">Rastrear mi pedido</a>]]></message_template>                
+            </winwin_opsintegration_shipments_integration_configuration>
+
+    		
+    		<winwin_opsintegration_orders_integration_settings>
+    			<status_order2erp>facturado</status_order2erp>
+                <status_change_after_integration>1</status_change_after_integration>
+    			<status_order_after_integration>exportado</status_order_after_integration>
+                <export_to_ftp>1</export_to_ftp>
+                <per_collection>100</per_collection>
+                <collection_limit>1000</collection_limit>
+                <dni_field>0</dni_field>
+    		</winwin_opsintegration_orders_integration_settings>			            
+    	</winwin_ecommerce_opsintegration>
+    </default>
+</config>

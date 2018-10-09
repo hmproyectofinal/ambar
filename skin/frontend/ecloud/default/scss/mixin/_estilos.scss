@@ -1,0 +1,186 @@
+@mixin mytransition($propiedad, $duracion, $tipo:ease-out, $delay: null){
+    -webkit-transition	: $propiedad $duracion $tipo $delay;
+    -moz-transition		: $propiedad $duracion $tipo $delay;
+    -o-transition		: $propiedad $duracion $tipo $delay;
+    transition 			: $propiedad $duracion $tipo $delay;
+}
+
+%icon-add{
+    content: '';
+    background-color: #004395;
+    height: 20px;
+    width: 20px;
+    float: left;
+    -webkit-mask-size: 18px;
+    -webkit-mask-image: url(../images/iconos/add.svg);
+    mask-image: url(../images/iconos/add.svg);
+    background-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+}
+
+%icon-calendar{
+    content: '';
+    background-color: #004395;
+    height: 20px;
+    width: 20px;
+    float: right;
+    -webkit-mask-size: 18px;
+    -webkit-mask-image: url(../images/iconos/calendar.svg);
+    mask-image: url(../images/iconos/calendar.svg);
+    background-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+}
+
+%icon-pencil{
+    content: '';
+    background-color: $c-text-blue;
+    height: 20px;
+    width: 20px;
+    margin: 10px 0px;
+    -webkit-mask-size: 18px;
+    float: left;
+    -webkit-mask-image: url(../images/iconos/pencil.png);
+    mask-image: url(../images/iconos/pencil.png);
+    background-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+}
+%icon-check{
+    content: '';
+    background-color: $color;
+    height: 18px;
+    width: 19px;
+    margin: 13px 13px;
+    float: right;
+    -webkit-mask-image: url(../images/iconos/check.svg);
+    mask-image: url(../images/iconos/check.svg);
+    background-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+}
+%icon-ccard{
+    content: '';
+    background-color: #fff;
+    height: 17px;
+    width: 26px;
+    left: -5px;
+    bottom: -1px;
+    float: left;
+    position: absolute;
+    -webkit-mask-image: url(../images/iconos/creditcard.svg);
+    mask-image: url(../images/iconos/creditcard.svg);
+    background-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+}
+
+%icon-pagos{
+    height: 34px;
+    width: 34px;
+    line-height: 30px;
+    float: left;
+    position: relative;
+    background:url(../images/iconos/icon-pagos.png);
+    background-repeat: no-repeat;
+    background-size: 34px;
+    display: inline-block;
+}
+
+%icon-envios{
+    height: 34px;
+    width: 34px;
+    line-height: 30px;
+    float: left;
+    position: relative;
+    background:url(../images/iconos/icon-envios.png);
+    background-repeat: no-repeat;
+    background-size: 34px;
+    display: inline-block;
+}
+
+%icon-cambios{
+    height: 34px;
+    width: 34px;
+    line-height: 30px;
+    float: left;
+    position: relative;
+    background: url(../images/iconos/icon-cambios.png);
+    background-repeat: no-repeat;
+    background-size: 34px;
+    display: inline-block;
+}
+
+%botonPrim {
+	color: $c-text-white;
+    cursor: pointer;
+    // background: $color;
+    background-color: #071689;
+    float: left;
+    font-size: 14px;
+    padding: 0 20px;
+    line-height: 40px;
+    font-family: $f-stack-default;
+    transition: opacity 300ms;
+    border: none;
+    border-radius: 2px;
+    font-weight: 600;
+
+    &:hover{
+        text-decoration: none;
+        opacity: 0.8;
+    }
+    @media #{$tablet}{
+        font-size: 12px;
+    }
+}
+
+%btn-cart{
+    line-height: 45px;
+}
+
+.more-information{
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 20px;
+    background-repeat: no-repeat;
+    line-height: 20px;
+    font-size: 14px;
+    color: #004395;
+    &:before{
+        content: '';
+        background-color: #004395;
+        height: 20px;
+        width: 22px;
+        display: inline-block;
+        float: left;
+        line-height: 35px;
+        -webkit-mask-image: url(../images/iconos/plus.svg);
+        mask-image: url(../images/iconos/plus.svg);
+        background-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+    }
+    &:hover{
+        color: $c-celeste;
+        &:before{
+            background-color: $c-celeste;
+        }
+    }
+    @media #{$tablet}{
+        margin-top: 10px;
+        width: auto;
+    }
+}
+
+.loading{
+    background: rgba(7, 22, 137, 0.49);
+    &:after{
+        top: 0px;
+        content: '\f110';
+        font-family: FontAwesome;
+        background: none;
+        color: #000;
+        position: absolute;
+        left: 37%;
+        font-size: 24px;
+        width: 40px;
+        -webkit-animation: fa-spin 2s infinite linear;
+        animation: fa-spin 2s infinite linear;
+    }
+}

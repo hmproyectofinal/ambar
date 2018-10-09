@@ -1,0 +1,214 @@
+        <?php
+/**
+* Magento
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE_AFL.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magentocommerce.com for more information.
+*
+* @category    design
+* @package     rwd_default
+* @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+* @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+?>
+<?php
+/**
+* Shopping cart template
+*
+* @var $this Mage_Checkout_Block_Cart
+*/
+?>
+<?php $_priceDisplay = ($this->helper('tax')->displayCartBothPrices()) ? 'display-both-prices' : 'display-single-price'; ?>
+<div class="espacio_comunicacion_cart_1">
+    <!-- espacio_comunicacion_cart_1 -->                                                    
+    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('espacio_comunicacion_cart_1')->toHtml(); ?>
+    <!-- espacio_comunicacion_cart_1 -->                                                    
+</div>
+<div class="cart <?php echo $_priceDisplay; ?>">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <div class="title">
+        <h2><?php echo $this->__('Mi compra'); ?></h2>
+    </div>
+    <div class="main-warpper col-xs-12">
+        <div class="col-xs-12 products-table-list" style= "padding-right: 20px;">
+            <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+                <?php echo $this->getBlockHtml('formkey'); ?>
+                <table id="shopping-cart-table" class="cart-table data-table">
+                    <col width="1" />
+                    <col width="1" />
+                    <col width="1" />
+                    <col width="1" />
+                    <col width="1" />
+                    <col width="1" />
+                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                        <col width="1" />
+                        <col width="1" />
+                    <?php endif; ?>
+
+                    <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                    <thead>
+                        <tr>
+                            <th rowspan="<?php echo $mergedCells; ?>" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('Product') ?></span></th>
+
+                            <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
+
+                            <th class="a-center cart-price-head" colspan="<?php echo $mergedCells; ?>">
+                                <span class="nobr"><?php echo $this->__('Price') ?></span>
+                            </th>
+
+                            <th rowspan="<?php echo $mergedCells; ?>" class="a-center">
+                                <?php echo $this->__('Qty') ?>
+                            </th>
+
+                            <th class="a-center cart-total-head" colspan="<?php echo $mergedCells; ?>">
+                                <?php echo $this->__('Subtotal') ?>
+                            </th>
+
+                            <th class="a-center" rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
+
+                        </tr>
+                        <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                            <tr>
+                                <th class="a-center cart-price-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                                <th class="a-center cart-price-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                                <th class="a-center cart-total-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                                <th class="a-center cart-total-head"><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                            </tr>
+                        <?php endif; ?>
+                    </thead>
+                    <tfoot id="cart-footer-links">
+                        <tr>
+                            <td colspan="50" class="a-right cart-footer-actions">
+                                <button type="submit" name="update_cart_action" value="empty_cart" title="<?php echo $this->__('Empty Cart'); ?>" class="button btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Empty Cart'); ?></span></span></button>
+
+                                <button type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update Shopping Cart'); ?>" class="button btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+
+                                <div class="informaciones-wrapper">
+                                    <a class="link envios fancybox" href="#envios"><i></i>Envíos a todo el país</a>
+                                    <a class="link cambios fancybox" href="#cambios"><i></i>Cambios y devoluciones</a>
+                                    <a class="link medios_pago fancybox" href='#pagos'><i></i>Medios de pago</a>
+                                </div>
+                                <div class="fancycontent hidden">
+                                    <div class="pdp_info_fancy" id="envios">
+                                        <!-- pdp-infoenvios-->                                                    
+                                        <?php $cms_infoenvios = $this->getLayout()->createBlock('cms/block')->setBlockId('pdp-infoenvios')->toHtml();?>
+                                        <!-- pdp-infoenvios-->          
+                                        <?php if ($cms_infoenvios != '') :?>
+                                            <?php echo $cms_infoenvios ; ?>
+                                        <?php else: ?>
+                                            <div>
+                                                <h2>Envíos a todo el pais</h2>
+                                                <p>Si tu compra supera los $1299 el envío es gratis a cualquier parte del país (excepto tierra del fuego). 
+                                                    En el caso de que el monto de la compra sea menor, podés elegir cualquier producto de nuestro sitio web para complementarla y acceder a este beneficio. El tiempo de entrega depende de la disponibilidad del producto, del tiempo de envío y de la aprobación del medio de pago. Los días que se indiquen son estimativos, y siempre a partir del momento en que el pago haya sido autorizado por la entidad que los procesa.</p>
+                                                    <ul>
+                                                        <li><strong>Ciudad Autónoma de Buenos Aires:</strong> hasta 4 días hábiles</li>
+                                                        <li><strong>Gran Buenos Aires:</strong> hasta 5 días hábiles</li>
+                                                        <li><strong>Resto del país:</strong> hasta 10 días hábiles</li>
+                                                        <li><strong>Envío prioritario (sólo CABA):</strong> hasta 2 días hábiles</li>
+                                                    </ul>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="pdp_info_fancy" id="cambios">
+                                            <!-- pdp-infocambios-->                                                    
+                                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pdp-infocambios')->toHtml(); ?>
+                                            <!-- pdp-infocambios-->                                                    
+                                        </div>
+                                        <div class="pdp_info_fancy" id="pagos">
+                                            <!-- pdp-infopagos-->                                                    
+                                            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pdp-infopagos')->toHtml(); ?>
+                                            <!-- pdp-infopagos-->                                                    
+                                        </div>
+
+                                        <!-- cart-help-->                                                    
+                                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cart-help')->toHtml(); ?>
+                                        <!-- cart-help-->
+                                        <!-- cart-shippingcost-->
+                                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('cart-shippingcost')->toHtml(); ?>
+                                        <!-- cart-shippingcost-->
+                                    </td>
+                                    <td colspan="100" id="shopping-btn">                                                                      
+                                        <div class="btn-continue-shopping">
+                                            <?php if($this->getContinueShoppingUrl()): ?>
+                                                <a class="btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')">
+                                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                                    <?php echo $this->__('Agregar más productos al carrito') ?>
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <tbody id="cart-products-listing">
+                                <?php foreach($this->getItems() as $_item): ?>
+                                    <?php echo $this->getItemHtml($_item) ?>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                        <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+                    </form>
+                    <div class="espacio_comunicacion_cart_2">
+                        <!-- espacio_comunicacion_cart_2 -->                                                    
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('espacio_comunicacion_cart_2')->toHtml(); ?>
+                        <!-- espacio_comunicacion_cart_2 -->                                                    
+                    </div>
+                </div>
+                <div class="col-xs-12 cart-review">
+                    <div class="cart-totals-wrapper col-xs-12">
+                        <h2><?php echo $this->__('Order Review') ?></h2>
+                        <div class="cupons">
+                            <span class="text-descuento"><?php echo $this->__('Si tenés un código de descuento, hacé') ?>
+                                <a class="cupon-link" data-href="#cupon-input"> <?php echo $this->__('click acá') ?></a> para ingresarlo</span>
+                                <div style="display:none" id="cupon-input"><?php echo $this->getChildHtml('coupon') ?></div>
+                            </div>
+                            <div class="cart-totals">
+                                <?php echo $this->getChildHtml('totals'); ?>
+                                <?php if(!$this->hasError()): ?>
+                                    <ul class="checkout-types bottom">
+                                        <?php foreach ($this->getMethods('methods') as $method): ?>
+                                            <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                                                <li class="method-<?php echo preg_replace("/[^_a-zA-Z0-9-]/", '-', $method); ?>">
+                                                    <?php echo $methodHtml; ?></li>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="crossell-cart">
+                        <div class="col-xs-12">
+                            <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
+                            <div class="cart-forms">
+                                <?php /* Extensions placeholder */ ?>
+                                <?php echo $this->getChildHtml('checkout_cart_widget') ?>
+                                <?php echo $this->getChildHtml('checkout.cart.extra') ?>
+                                <?php echo $this->getChildHtml('crosssell') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    function toggleElement(){
+                        jQuery('.cupon-link').click(function(){
+                            var target = jQuery(this).attr('data-href');
+                            jQuery(target).toggle();
+                        })
+                    }
+                    toggleElement();
+                </script>

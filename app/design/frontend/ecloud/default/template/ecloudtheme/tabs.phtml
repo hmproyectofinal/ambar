@@ -1,0 +1,166 @@
+<?php
+/**
+* Magento
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE_AFL.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magento.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade Magento to newer
+* versions in the future. If you wish to customize Magento for your
+* needs please refer to http://www.magento.com for more information.
+*
+* @category    design
+* @package     ecloud_girodidactico
+* @copyright   Ecloud ®.
+* @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*/
+?>
+<?php
+$_helper        = $this->helper('catalog/output');
+$tabCategories  = explode(",", $this->getData('categories')); //categories
+?>
+
+<div class="hometabs container">
+	<div id="target" class="banner-content">
+		<ul id="tabs" class="col-xs-12"></ul>
+		<div id="content" class="tabs-content col-xs-12"></div>
+	</div>
+</div>
+
+<div class="tabs_source" style="display:none;">
+	<?php $i = 0; ?>
+	<?php foreach($tabCategories as $categoryId) : ?>
+		<?php
+			$i++;
+			$categoryId 		= (int) $categoryId;
+			$category  			= Mage::getModel('catalog/category')->load($categoryId);//category_id
+			$categoryName  		= $category->getName();
+			$subcatUrl  		= $category->getUrl();
+			$catImg  	    	= $category->getImageUrl();
+			$catDescription  	= $category->getDescription();
+			$href  		        = strtolower($categoryName);
+			$href  		        = preg_replace('/\s+/', '', $href);
+			$prodCollection 	= $category->getProductCollection()
+									->addAttributeToSelect(array('name','special_price', 'price','image'))
+									->addAttributeToSort('position', 'ASC')
+									->setPageSize(8);
+		?>
+		<li class="category_tab <?php echo $href; ?>" target="#tab<?php echo $i; ?>"> <span><?php echo $categoryName; ?> </span> </li>
+		<ul id="tab<?php echo $i; ?>" class="category_content <?php echo $href; ?>">
+			<?php foreach($prodCollection as $_product) : ?>
+				<li class="item-product">
+					<a class="productImage" href="<?php echo $_product->getProductUrl();?>">
+						<img src='<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(300, 300) ?>'/>
+					 	<?php // Cucardas (Databunch) on product listing page ?>
+	                    <?php $labelsBlock = $this->getChild('product_labels'); ?>
+	                    <?php if ($labelsBlock): ?>
+	                        <?php echo $labelsBlock->setProduct($_product)->toHtml(); ?>
+	                    <?php endif; ?>
+					</a>
+					<div class="prodInfo col-xs-12">
+						<a href="<?php echo $_product->getProductUrl();?>"><span class="prod-name col-xs-12" title="<?php echo $_product->getName();?>"><?php $prodName = (strlen($_product->getName()) > 25) ? substr($_product->getName(),0,15).'...' : $_product->getName();?><?php echo $prodName; ?>
+						</span></a>
+						<div class="review">
+							<?php echo $this->getReviewsSummaryHtml($_product, 'default', false)?>
+						</div>
+						<div class="stock">
+							<?php if($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+								<p class="availability in-stock">
+						            <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
+						            <span class="value"><?php echo $this->helper('catalog')->__('In stock') ?></span>
+						        </p> 
+							<?php else: ?>
+							    <p class="availability out-of-stock">
+						            <span class="label"><?php echo $this->helper('catalog')->__('Availability:') ?></span>
+						            <span class="value"><?php echo $this->helper('catalog')->__('Out of stock') ?></span>
+						        </p>
+							<?php endif; ?>
+						</div>
+						<?php if($_product->getAttributeText('edad') != ''): ?>
+							<span class="etiqueta edad">
+	                       		<?php echo $this->__('Edad: ').$_product->getAttributeText('edad') ?>
+	                    	</span>
+                    	<?php endif; ?>
+						<span class="prodprice col-xs-12"><?php echo $this->getPriceHtml($_product,true); ?></span>
+						<?php if(!$_product->canConfigure() && $_product->isSaleable()): ?>
+	                        <button type="button" title="<?php echo $this->quoteEscape($this->__('Me lo llevo !')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Comprar') ?></span></span></button>
+	                    <?php elseif($_product->getStockItem() && $_product->getStockItem()->getIsInStock()): ?>
+	                        <div class="buy-button"><a title="<?php echo $this->quoteEscape($this->__('Me lo llevo !')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Comprar') ?></a></div>
+	                    <?php else: ?>
+	                        <div class="buy-button"><a title="<?php echo $this->quoteEscape($this->__('Ver más')) ?>" class="button" href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Ver más') ?></a></div>
+	                    <?php endif; ?>
+					</div>
+				</li>
+			<?php endforeach;?>
+		</ul>
+	<?php endforeach; ?>
+</div>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	TABS.init();
+});
+var TABS = {
+	init: function(){
+		this.makeCategoryTab();
+		this.tabsFunctionality();
+		this.tabsCarousel();
+	},
+	makeCategoryTab: function(){
+		var tabs_category_target = jQuery('.hometabs #target #tabs');
+		var tabs_content_target  = jQuery('.hometabs #target #content');
+
+		jQuery(".tabs_source li.category_tab").appendTo(tabs_category_target);
+		jQuery(".tabs_source .category_content").appendTo(tabs_content_target);
+
+	},
+	tabsFunctionality: function(){
+		//console.log('Funcionalidad tabs');
+		//Funcionalidad de las tabs.
+		jQuery('#tabs .category_tab').first().addClass('active');
+		jQuery('.tabs-content .category_content').first().addClass('active');
+		// Al hacer click en un tab cambian los productos del autor
+		jQuery('#tabs li.category_tab').bind('click', function(el) {
+			jQuery('#tabs .category_tab').removeClass('active');
+			jQuery('.tabs-content .category_content').removeClass('active');
+
+		    var activar  = jQuery(this).attr('target');
+		    jQuery(activar).addClass('active');
+		    jQuery(this).addClass('active');
+		});
+	},
+	tabsCarousel: function(){
+		jQuery('#content ul.category_content').owlCarousel({
+			items: 4,
+			dots: false,
+			nav:true,
+			loop:true,
+			autoWidth:false,
+			responsiveClass:true,
+		    responsive:{
+		        0:{
+		            items:1,
+		            slideBy:2
+		        },
+		        600:{
+		            items:2,
+		           	slideBy:2
+		        },
+		        1000:{
+		            items:4
+		        }
+		    }
+		});
+	}
+}
+</script>

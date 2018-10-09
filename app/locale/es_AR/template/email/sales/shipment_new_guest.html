@@ -7,7 +7,6 @@
 "var store.getFrontendName()":"Store Name",
 "var shipment.increment_id":"Shipment Id",
 "var order.increment_id":"Order Id",
-"var order.getStatusLabel()":"Order Status",
 "var order.billing_address.format('html')":"Billing Address",
 "var payment_html":"Payment Details",
 "var order.shipping_address.format('html')":"Shipping Address",
@@ -29,8 +28,6 @@
                     <tr>
                         <td class="email-heading">
                             <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Hola, {{htmlescape var=$billing.getName()}}</h1>
-                            El estado de tu orden es: <br/>
-                            <strong>{{var order.getStatusLabel()}}</strong>.
                             <p style="font-size:12px; line-height:16px; margin:0;">
                                 Gracias por realizar tu pedido en {{var store.getFrontendName()}}.
                                 Pod&eacute;s consultar el estado de tu pedido <a href="{{store url="sales/guest/form/"}}" style="color:#1E7EC8;">aqu&iacute;</a>.

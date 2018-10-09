@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Ecloud_TransactionalEmail>
+			<version>0.1.2</version>
+		</Ecloud_TransactionalEmail>
+	</modules>
+	<global>
+		<helpers>
+			<transactionalemail>
+				<class>Ecloud_TransactionalEmail_Helper</class>
+			</transactionalemail>
+		</helpers>
+		<blocks>
+			<transactionalemail>
+				<class>Ecloud_TransactionalEmail_Block</class>
+			</transactionalemail>
+		</blocks>
+		<models>
+			<transactionalemail>
+				<class>Ecloud_TransactionalEmail_Model</class>
+				<resourceModel>transactionalemail_resource</resourceModel>
+			</transactionalemail>
+			<transactionalemail_resource>
+				<class>Ecloud_TransactionalEmail_Model_Resource</class>
+				<entities>		  
+					<carriertemplate>
+						<table>ecloud_carrier_template</table>
+					</carriertemplate>
+					<estadotemplate>
+						<table>ecloud_estado_template</table>
+					</estadotemplate>
+				</entities>
+			</transactionalemail_resource>
+			<sales>
+				<rewrite>
+					<order_shipment>Ecloud_TransactionalEmail_Model_Sales_Order_Shipment</order_shipment>
+				</rewrite>
+			</sales>
+		</models>
+		<resources>
+			<transactionalemail_setup>
+				<setup>
+					<module>Ecloud_TransactionalEmail</module>
+					<class>Mage_Eav_Model_Entity_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</transactionalemail_setup>
+			<transactionalemail_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</transactionalemail_write>
+			<transactionalemail_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</transactionalemail_read>
+		</resources>
+	</global>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<transactionalemail before="Mage_Adminhtml">Ecloud_TransactionalEmail_Adminhtml</transactionalemail>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<adminhtml>
+		<layout>
+			<updates>
+				<Ecloud_TransactionalEmail>
+					<file>transactionalemail.xml</file>
+				</Ecloud_TransactionalEmail>
+			</updates>
+		</layout>
+		<menu>
+			<transactionalemail translate="title">
+				<title>Templates para Carriers y Estados</title>
+				<sort_order>100</sort_order>
+				<children>
+					<carriertemplate translate="title">
+						<title>Administrar Carriers</title>
+						<sort_order>0</sort_order>
+						<action>adminhtml/transactionalemail_carriertemplate</action>
+					</carriertemplate>
+					<estadotemplate translate="title">
+						<title>Administrar Estados</title>
+						<sort_order>1</sort_order>
+						<action>adminhtml/transactionalemail_estadotemplate</action>
+					</estadotemplate>
+				</children>
+			</transactionalemail>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<transactionalemail translate="title" module="transactionalemail">
+							<title>TransactionalEmail</title>
+							<sort_order>1000</sort_order>
+							<children>
+								<carriertemplate translate="title" module="transactionalemail">
+									<title>Manage Carrier Template</title>
+								</carriertemplate>
+								<estadotemplate translate="title" module="transactionalemail">
+									<title>Manage Estado Template</title>
+								</estadotemplate>
+							</children>
+						</transactionalemail>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<events>
+			<sales_order_save_after>
+				<observers>
+					<sales_order_save_after_handler>
+						<class>transactionalemail/observer</class>
+						<method>enviarEmailTemplate</method>
+					</sales_order_save_after_handler>
+				</observers>
+			</sales_order_save_after>
+		</events>
+	</adminhtml>
+</config> 

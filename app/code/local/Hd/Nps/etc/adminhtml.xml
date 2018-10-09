@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <hd_nps_fraud translate="title" module="hd_bccp">
+                                        <title>NPS . Fraud Evaluation</title>
+                                        <sort_order>1100</sort_order>
+                                    </hd_nps_fraud>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>                   
+            </admin>
+        </resources>
+    </acl>
+</config> 

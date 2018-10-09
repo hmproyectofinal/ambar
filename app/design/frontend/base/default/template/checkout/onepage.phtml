@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -36,7 +36,7 @@
         <div class="step-title">
             <span class="number"><?php echo $i ?></span>
             <h2><?php echo $_stepInfo['label'] ?></h2>
-            <a href="#"><?php echo $this->__('Edit') ?></a>
+            <a class="editar-paso" href="#"><span class="icono-editar"><img src="<?php echo $this->getSkinUrl('images/icono-editar-paso.png'); ?>" alt=""></span><?php echo $this->__('Edit') ?></a>
         </div>
         <div id="checkout-step-<?php echo $_stepId ?>" class="step a-item" style="display:none;">
             <?php echo $this->getChildHtml($_stepId) ?>

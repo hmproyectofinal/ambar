@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+	  <tabs>
+		<transactionalemail translate="label" module="transactionalemail">
+            <label>Templates para Carriers y Envios</label>
+            <sort_order>0</sort_order>
+        </transactionalemail>
+	  </tabs>
+	  <sections>
+		<transactionalemail translate="label" module="transactionalemail">
+			<label>Configuracion</label>
+			<tab>transactionalemail</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>0</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+		      <global translate="label">
+				  <label>Global</label>
+				  <frontend_type>text</frontend_type>
+				  <sort_order>0</sort_order>
+				  <show_in_default>1</show_in_default>
+				  <show_in_website>1</show_in_website>
+				  <show_in_store>1</show_in_store>
+			       <fields>
+	                  <activado translate="label">
+	                    <label>Activado</label>
+	                    <frontend_type>select</frontend_type>
+	                    <source_model>adminhtml/system_config_source_yesno</source_model>
+	                    <sort_order>0</sort_order>
+	                    <show_in_default>1</show_in_default>
+	                    <show_in_website>1</show_in_website>
+	                    <show_in_store>1</show_in_store>
+	                  </activado>
+				   </fields>
+			   </global>
+			</groups>
+		</transactionalemail>
+	  </sections>
+</config>

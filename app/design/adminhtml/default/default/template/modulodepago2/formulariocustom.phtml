@@ -1,0 +1,27 @@
+<div class="codigo_cssformulariocustom">
+	
+	<form action="<?php echo $this->getActionForm();?>" method="post"  enctype="multipart/form-data" name="formulariocustom">
+	
+		<input type="hidden" name="form_key"
+		value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+		<table>
+			<tr>
+				<td>
+					<h2>Código CSS</h2>
+					<textarea id="css_formulariocustom" name="css_formulariocustom"><?php echo $this->getCodigoFormulariocustomCss(); ?></textarea>
+				</td>
+				<td>
+					<h2>Código Formulario</h2>
+					<textarea  id="html_formulariocustom" name="html_formulariocustom"><?php echo $this->getCodigoFormulariocustom() ?></textarea>
+				</td>
+			</tr>
+		</table>
+	
+	</form>
+	<button type="button" onclick="preguntaSeguridad()">Grabar</button>
+<a href="<?php echo Mage::getBaseUrl().'/modulodepago2/formulariocustom/insite' ?>" target="_blank">Ver aspecto actual</a>.
+</div>
+
+
+
+

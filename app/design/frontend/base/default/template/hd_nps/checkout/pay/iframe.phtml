@@ -1,0 +1,60 @@
+<?php /* @var $this Hd_Nps_Block_Checkout_Template */ ?>
+<h3>Nps Pago</h3>
+<iframe 
+    style="width: 100%; height: 500px; border: none; background-color: #EEE; overflow: no-content" 
+    src="<?php echo $this->_getActionUrl('form'); ?>">
+</iframe>
+
+<script type="text/javascript">
+//<![CDATA[
+
+// Bind On Document Ready
+document.addEventListener("DOMContentLoaded", function(e) { 
+    _bindPostMessages();
+});
+
+function _redirect(url)
+{
+    window.location.replace(url);
+    return false;
+}
+
+function _bindPostMessages()
+{
+    // PostMessage Implementation - PARENT
+    var eventMethod = (window.addEventListener) ? "addEventListener" : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = (eventMethod == "attachEvent") ? "onmessage" : "message";
+    
+    eventer(messageEvent,function(e) {
+        
+        if(e.origin !== '<?php echo $this->_getIframeAllowedOrigin(); ?>') {
+            return false;
+        }
+        
+        switch (e.data) {
+            case 'error':
+                _redirect('<?php echo $this->_getActionUrl('failure'); ?>');
+                break;
+            case 'decline':
+                _redirect('<?php echo $this->_getActionUrl('cancel'); ?>');
+                break;
+            case 'return':
+                _redirect('<?php echo $this->_getActionUrl('evaluate'); ?>');
+                break;
+            default:
+                break;
+        }
+        
+    },false)
+}
+
+//]]>
+</script>
+
+
+
+
+
+
+

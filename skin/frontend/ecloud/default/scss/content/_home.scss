@@ -1,0 +1,248 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     ecloud_default
+// @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Homepage
+ * ============================================ */
+ 
+//HOME
+.banner-single-image{
+    width: 100%;
+    background-image: linear-gradient(114deg, #7d7e82 0%, #c3c3c5 49%, #7d7e82 100%);
+    margin-top: 4%;
+    img{
+        width: auto;
+        margin: 0 auto;
+        padding: 2%;
+    } 
+}
+.cms-home .main.container {
+    width: 100% !important;
+    padding: 0;
+}
+.recomendados{
+    margin-top: 80px;
+    @media #{$tablet} {
+        margin-top: 30px;
+    }
+    .item{
+        margin-bottom: 2%;
+    }
+    .information{
+        margin-top: 4%;
+        @media #{$small-phone}{
+            margin-top: 18px;
+        }
+    }
+}
+.main-container{
+    .col-main{
+         @media #{$tablet} {
+            float: left;
+            width: 100%;
+        }
+    }
+}
+.home-wrapper h2{
+    color: #174f87;
+    text-align: center;
+    text-transform: capitalize;
+    @media #{$tablet}{
+        font-size: 23px;
+        line-height: 55px;
+        margin: 0;
+    }
+}
+.banner-categories{
+    margin-top: 50px;
+    padding: 0;
+    .bannercategory{
+        @media #{$tablet}{
+            margin-top: 5px;
+        }
+        img{
+            width: 100%;
+            height: auto;
+            padding: 10px;
+            margin: 0 auto;
+            @media #{$tablet}{
+                padding: 0 10px;
+            }
+        }
+        .category-name{
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            @media #{$tablet}{
+                margin-top: 10px;
+                margin-bottom: 20px;
+            }
+            a{
+                color: #174f87;
+                width: 100%;
+                display: inline-block;
+                text-align: center;
+                margin-top: 10px;
+                font-size: 20px;
+                @media #{$tablet}{
+                    margin-top: 0px;
+                    font-size: 18px;
+                }
+
+            } 
+            a.view_more{
+                margin: 0 auto;
+                float: none;
+                margin-top: 10px;
+                width: auto;
+                color: #fff;
+                font-size: 12px;
+                padding: 4px 26px;
+                @media #{$tablet}{
+                    padding: 1px 26px;
+                }
+            }
+        }
+        &.left{
+            @media #{$desktop}{
+                padding-right: 10px;
+            }
+        }
+        &.right{
+            @media #{$desktop}{
+                padding-left: 10px;    
+            }            
+        }
+    }
+}
+.homepopup_suscribe{
+    .fancybox-skin{
+        background: #f4f3ee;
+    }
+}
+.popup-newsletter {
+    background: #f4f3ee;
+    @media #{$desktop}{
+        padding: 40px;
+        .mainwrapper{
+            max-width: 650px;
+        }
+        h2{
+            font-size: 32px;
+            max-width: 70%;
+            line-height: 40px;
+        }
+    }
+    @media #{$tablet}{
+        padding: 10px;
+        h2{
+            font-size: 22px;
+            line-height: 26px;
+        }
+    }
+    .newsletter-description{
+        font-size: 14px;
+        margin-bottom: 20px;
+        color: #606060;
+    }
+    .form-subscribe-header{
+        display: none;
+    }
+    .inputs-wrapper{
+        .input-box{
+            padding: 0;
+            width: 48%;
+            float: left;
+            @media #{$tablet}{
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            label{
+                width: 100%;
+                font-size: 12px;
+                color: $c-blue;
+                font-weight: 500;
+                letter-spacing: 1px;
+                margin-bottom: 5px;
+            }
+            input{
+                width: 270px;
+                padding: 10px 5px;
+                border: 1px solid #ececec;
+                height: 40px;
+                text-transform: uppercase;
+                color: #a5a5a5;
+                @media #{$tablet}{
+                    width: 98%;
+                }
+                &.input-text{
+                    &::placeholder{text-indent: 999px;}
+                }
+                &::placeholder{
+                    text-transform: uppercase;
+                    color: #dedede;
+                }
+            }
+            &.other_child_birth{
+                margin-top: 30px;
+                width: 100%;
+                float: left;
+            }
+        }
+        .actions{
+            @media #{$tablet}{
+                text-align: center;
+            }
+            button{
+                background: #2dc0e8;
+                float: left;
+                margin-top: 30px;
+                padding: 4px 50px;
+                @media #{$tablet}{
+                    float: none;
+                }
+            }
+        }
+    }
+    .more-information{
+        float: left;
+        width: 100%;
+        display: inline-block !important;
+        @media #{$tablet}{
+            text-align: center;
+        }
+    }
+}
+
+.cms-home{
+    .button.btn-cart{
+        // padding: 0px 30px;
+        position: relative;
+        float: none;
+        margin-top: 2%;
+    }
+}
+
+

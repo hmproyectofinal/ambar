@@ -1,0 +1,23 @@
+.webforms-autocomplete{
+    background-color: white;
+    border: 1px solid #888;
+    -webkit-border-horizontal-spacing: 0;
+}
+.webforms-autocomplete ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 !important;
+}
+.webforms-autocomplete ul li.selected {
+    background-color: #eee;
+}
+.webforms-autocomplete ul li {
+    list-style-type: none;
+    display: block;
+    margin: 0 !important;
+    padding: 2px;
+    height: 16px;
+    cursor: pointer;
+    line-height: 14px;
+    font-size: 12px;
+}

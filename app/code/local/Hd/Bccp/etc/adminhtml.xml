@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <hd_bccp translate="title" module="hd_bccp">
+                    <title>Payments Management</title>
+                    <sort_order>1</sort_order>
+                    <children>
+                        <creditcard translate="title" module="hd_bccp">
+                            <title>Credit Cards</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/bccp_creditcard/grid</action>
+                        </creditcard>                        
+                        <bank translate="title" module="hd_bccp">
+                            <title>Banks</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/bccp_bank/grid</action>
+                        </bank>
+                        <promo translate="title" module="hd_bccp">
+                            <title>Promotions</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/bccp_promo/grid</action>
+                        </promo>
+                    </children>
+                </hd_bccp>
+            </children>
+        </system>
+    </menu>    
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <hd_bccp translate="title" module="hd_bccp">
+                                <title>Payments Management</title>
+                                <sort_order>10000</sort_order>
+                                <children>
+                                    <creditcard translate="title" module="hd_bccp">
+                                        <title>Credit Cards</title>
+                                        <sort_order>10</sort_order>
+                                    </creditcard>
+                                    <bank translate="title" module="hd_bccp">
+                                        <title>Banks</title>
+                                        <sort_order>20</sort_order>
+                                    </bank>
+                                    <promo translate="title" module="hd_bccp">
+                                        <title>Promotions</title>
+                                        <sort_order>30</sort_order>
+                                    </promo>
+                                </children>
+                            </hd_bccp>
+                            <config>
+                                <children>
+                                    <hd_bccp translate="title" module="hd_bccp">
+                                        <title>Payments Management</title>
+                                        <sort_order>1000</sort_order>
+                                    </hd_bccp>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>                   
+            </admin>
+        </resources>
+    </acl>
+</config> 

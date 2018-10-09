@@ -1,0 +1,912 @@
+<?xml version="1.0"?>
+<config>
+	  <sections>
+		<carriers  translate="label" module="andreani">
+            <label>Shipping Methods</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>330</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>          
+            <groups>
+                <andreaniconfig translate="label"> 
+                    <label>Configuración Andreani</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <model>andreani/carrier_andreani</model>
+                    <comment><![CDATA[Contactate con un representante <strong>Andreani</strong> para obtener tus datos de cliente y empezar a utilizar nuestros servicios!<br /><a href="http://www.andreani.com/Contacts" target="_blank">www.andreani.com</a>]]></comment>
+                    <fields>
+                        <testmode translate="label">
+                           <label>Modo Testeo:</label>
+                           <comment>
+                            <![CDATA[Habilitar o deshabilitar el modo testeo para probarlo en distintos entornos.]]>
+                           </comment>
+                           <frontend_type>select</frontend_type>
+                           <source_model>andreani/config_TestMode</source_model>
+                           <sort_order>10</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                        </testmode>
+                        <wstesting translate="label">
+                            <label><![CDATA[<strong>Url Web Service (Testing) </strong>]]></label>
+                            <comment>
+                                <![CDATA[Url para hacer consultas al WS en ambiente de <i>testing</i>]]>
+                            </comment>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>11</sort_order>
+                        </wstesting>
+                        <wsprod translate="label">
+                            <label><![CDATA[<strong>Url Web Service (Producción) </strong>]]></label>
+                            <comment>
+                                <![CDATA[Url para hacer consultas al WS en ambiente de producción]]>
+                            </comment>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>12</sort_order>
+                        </wsprod>
+                        <cache translate="label">
+                           <label>Cache:</label>
+                           <comment>
+                            <![CDATA[Optimiza las llamadas a las Sucursales y la distancia entre la sucursal y el cliente con Google Maps.]]>
+                           </comment>
+                           <frontend_type>select</frontend_type>
+                           <source_model>adminhtml/system_config_source_yesno</source_model>
+                           <sort_order>20</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                        </cache>
+                        <usuario translate="label">
+                            <label>Nombre de Usuario: </label>
+                            <default></default>
+                            <sort_order>30</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </usuario>           
+                        <password translate="label">
+                            <label>Contraseña:</label>
+                            <default></default>
+                            <frontend_type>password</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>40</sort_order>
+                        </password> 
+                        <nrocliente translate="label">
+                            <label>Numero de Cliente:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>50</sort_order>
+                        </nrocliente>
+                        <medida translate="label">
+                            <label>Unidad de medida:</label>
+                            <default></default>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>andreani/adminhtml_config_form_field_medida</frontend_model>
+                            <source_model>andreani/config_medida</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>60</sort_order>
+                        </medida>
+                        <pesomax translate="label">
+                           <label>Peso máximo habilitado:</label>
+                           <comment>
+                            <![CDATA[Consulta con Andreani para ampliar el peso máximo habilitado para tu usuario.]]>
+                           </comment>
+                           <frontend_type>select</frontend_type>
+                           <source_model>andreani/config_Pesomax</source_model>
+                           <sort_order>70</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                        </pesomax>
+                        <metodo translate="label">
+                           <label>Metodo consulta sucursales:</label>
+                           <comment>
+                            <![CDATA[Básico consulta solo por CP. Medio consulta por CP e informa al cliente a cuanto esta de la sucursal. Completo consulta por CP, provincia/localidad, calcula la mas cercana en caso de encontrar varias y la selecciona.]]>
+                           </comment>
+                           <frontend_type>select</frontend_type>
+                           <source_model>andreani/config_Metodo</source_model>
+                           <sort_order>80</sort_order>
+                           <show_in_default>1</show_in_default>
+                           <show_in_website>1</show_in_website>
+                           <show_in_store>1</show_in_store>
+                        </metodo>
+                        <logoempresa translate='label'>
+                            <label>Logo empresa</label>
+                            <comment><![CDATA[Click para subir el logo de la empresa. La imagen debe tener un tamaño de 90x30px]]></comment>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>andreani/custom</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">uploads</upload_dir>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </logoempresa>
+                        <cron_sucursales>
+                            <label>Cron Json Sucursales</label>
+                            <comment><![CDATA[Click para regenerar el Json con las sucursales.]]></comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>andreani/adminhtml_form_element_button_cron</frontend_model>
+                            <sort_order>91</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron_sucursales>
+                        <cron_schedule>
+                            <label>Cronograma del cron</label>
+                            <frontend_type>time</frontend_type>
+                            <backend_model>
+                                Ids_Andreani_Model_Adminhtml_System_Config_Backend_Cronjson_Cron
+                            </backend_model>
+                            <sort_order>92</sort_order>
+                            <comment>
+                                Ingrese hora, minuto y segundo en que se ejecutará el cron del Json Sucursales.
+                            </comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cron_schedule>
+                        <frequency translate="label">
+                            <label>Frecuencia de ejecución del cron</label>
+                            <comment>
+                                Ingrese la frecuencia con que se ejecutará el cron del Json Sucursales.
+                                Por ejemplo: '12 : 00: 01 / Frecuencia semanal', se ejecutará todos los lunes a las 12 hs. Por defecto está deshabilitado.
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_cron_frequency</source_model>
+                            <backend_model>Ids_Andreani_Model_Adminhtml_System_Config_Backend_Cronjson_Cron</backend_model>
+                            <sort_order>93</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </frequency>
+                        <ws_cache translate="label">
+                            <label>Activar selectores de sucursal</label>
+                            <comment>Habilita o deshabilita la operación con el WS. Por defecto opera con la caché. Requiere generar Json de sucursales</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>94</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </ws_cache>
+                    </fields>
+                </andreaniconfig>
+                <andreaniconfigwstest>
+                    <label>Configuración Andreani Web Services (Testing)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>6</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <model>andreani/carrier_andreani</model>
+                    <fields>
+                        <cotizacion translate="label">
+                            <label>Cotización</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "CotizarEnvio"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                        </cotizacion>
+                        <cotizacion_soap_version translate="label">
+                            <label>Versión SOAP Cotización:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cotizacion_soap_version>
+                        <trazabilidad translate="label">
+                            <label>Trazabilidad</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ObtenerTrazabilidad"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trazabilidad>
+                        <trazabilidad_soap_version translate="label">
+                            <label>Versión SOAP Trazabilidad:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trazabilidad_soap_version>
+                        <impresionconstancia translate="label">
+                            <label>Impresión Constancia</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ImprimirConstancia"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>4</sort_order>
+                        </impresionconstancia>
+                        <impresionconstancia_soap_version translate="label">
+                            <label>Versión SOAP Impresión constancia:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </impresionconstancia_soap_version>
+                        <obtenerestadodistribucion translate="label">
+                            <label>Estado Distribución</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ObtenerEstadoDistribucion"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>6</sort_order>
+                        </obtenerestadodistribucion>
+                        <obtenerestadodistribucion_soap_version translate="label">
+                            <label>Versión SOAP Estado Distribución:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </obtenerestadodistribucion_soap_version>
+                        <sucursales translate="label">
+                            <label>Sucursales</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ConsultarSucursales"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>8</sort_order>
+                        </sucursales>
+                        <sucursales_soap_version translate="label">
+                            <label>Versión SOAP Sucursales:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sucursales_soap_version>
+                        <confirmacioncompra translate="label">
+                            <label>Confirmación Compra</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ConfirmarCompra"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </confirmacioncompra>
+                        <confirmacioncompra_soap_version translate="label">
+                            <label>Versión SOAP Confirmación Compra:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </confirmacioncompra_soap_version>
+                        <generarenviosdeentregayretirocondatosdeimpresion translate="label">
+                            <label>Generar envíos de entrega y retiro con datos de impresión</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "GenerarEnviosDeEntregaYRetiroConDatosDeImpresion"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>12</sort_order>
+                        </generarenviosdeentregayretirocondatosdeimpresion>
+                        <generarenviosdeentregayretirocondatosdeimpresion_soap_version translate="label">
+                            <label>Versión SOAP Generar envíos de entrega y retiro con datos de impresión:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </generarenviosdeentregayretirocondatosdeimpresion_soap_version>
+                        <anularenvio translate="label">
+                            <label>Anular Envíos</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "AnularEnvios"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>14</sort_order>
+                        </anularenvio>
+                        <anularenvio_soap_version translate="label">
+                            <label>Versión SOAP Anular envío:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </anularenvio_soap_version>
+                    </fields>
+                </andreaniconfigwstest>
+                <andreaniconfigwsprod>
+                    <label>Configuración Andreani Web Services (Producción)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>7</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <model>andreani/carrier_andreani</model>
+                    <fields>
+                        <cotizacion translate="label">
+                            <label>Cotización</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "CotizarEnvio"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                        </cotizacion>
+                        <cotizacion_soap_version translate="label">
+                            <label>Versión SOAP Cotización:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cotizacion_soap_version>
+                        <trazabilidad translate="label">
+                            <label>Trazabilidad</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ObtenerTrazabilidad"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                        </trazabilidad>
+                        <trazabilidad_soap_version translate="label">
+                            <label>Versión SOAP Trazabilidad:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </trazabilidad_soap_version>
+                        <impresionconstancia translate="label">
+                            <label>Impresión Constancia</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ImprimirConstancia"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>4</sort_order>
+                        </impresionconstancia>
+                        <impresionconstancia_soap_version translate="label">
+                            <label>Versión SOAP Impresión constancia:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </impresionconstancia_soap_version>
+                        <obtenerestadodistribucion translate="label">
+                            <label>Estado Distribución</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ObtenerEstadoDistribucion"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>6</sort_order>
+                        </obtenerestadodistribucion>
+                        <obtenerestadodistribucion_soap_version translate="label">
+                            <label>Versión SOAP Estado Distribución:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </obtenerestadodistribucion_soap_version>
+                        <sucursales translate="label">
+                            <label>Sucursales</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ConsultarSucursales"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>8</sort_order>
+                        </sucursales>
+                        <sucursales_soap_version translate="label">
+                            <label>Versión SOAP Sucursales:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sucursales_soap_version>
+                        <confirmacioncompra translate="label">
+                            <label>Confirmación Compra</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "ConfirmarCompra"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </confirmacioncompra>
+                        <confirmacioncompra_soap_version translate="label">
+                            <label>Versión SOAP Confirmación Compra:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </confirmacioncompra_soap_version>
+                        <generarenviosdeentregayretirocondatosdeimpresion translate="label">
+                            <label>Generar envíos de entrega y retiro con datos de impresión</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "GenerarEnviosDeEntregaYRetiroConDatosDeImpresion"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>12</sort_order>
+                        </generarenviosdeentregayretirocondatosdeimpresion>
+                        <generarenviosdeentregayretirocondatosdeimpresion_soap_version translate="label">
+                            <label>Versión SOAP Generar envíos de entrega y retiro con datos de impresión:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </generarenviosdeentregayretirocondatosdeimpresion_soap_version>
+                        <anularenvio translate="label">
+                            <label>Anular Envíos</label>
+                            <default></default>
+                            <comment>
+                                <![CDATA[<span class="notice">Url método "AnularEnvios"</span>]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>14</sort_order>
+                        </anularenvio>
+                        <anularenvio_soap_version translate="label">
+                            <label>Versión SOAP Anular envío:</label>
+                            <comment>
+                                <![CDATA[Seleccione la versión SOAP con la que desea que opere la consulta al WS.]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>andreani/config_Soapversion</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </anularenvio_soap_version>
+                    </fields>
+                </andreaniconfigwsprod>
+                <andreanisucursal translate="label"> 
+                    <label>Andreani Sucursal</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <model>andreani/carrier_andreani</model>
+                    <fields>                        
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </active>
+                        <title translate="label">
+                            <label>Titulo</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </title>
+                        <description translate="label">
+                            <label>Descripción</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>25</sort_order>
+                        </description>
+                        <sallowspecific translate="label">
+                            <label><![CDATA[Env&iacute;o a pa&iacute;ses]]></label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_class>shipping-applicable-country</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>30</sort_order>
+                        </sallowspecific>
+                        <specificcountry translate="label">
+                            <label><![CDATA[Pa&iacute;ses de env&iacute;o]]></label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <sort_order>35</sort_order>
+                        </specificcountry>
+                        <contrato translate="label">
+                            <label>Contrato:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>55</sort_order>
+                        </contrato>
+                        <gestioncobranza translate="label">
+                            <label>Contrareembolso Andreani:</label>
+                            <comment>
+                            <![CDATA[Habilitar o deshabilitar el servicio. <br> <span class="notice">Tu cliente podra pagar todo en su destino!</span>]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>85</sort_order>
+                        </gestioncobranza>
+                        <gccontrato translate="label">
+                            <label>Contrato Contrareembolso:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </gccontrato>
+                        <regla translate="label">
+                            <label>Regla de precio (%):</label>
+                            <comment>
+                            <![CDATA[Usar . en valores con decimales<br> <span class="notice">Ejemplo: 0.49 </span>]]>
+                            </comment>
+                            <default>0</default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </regla>
+                    </fields>
+                </andreanisucursal>
+                <andreaniurgente translate="label"> 
+                    <label>Andreani Urgente</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <model>andreani/carrier_andreani</model>
+                    <fields>                        
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>11</sort_order>
+                        </active>
+                        <title translate="label">
+                            <label>Titulo</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </title>
+                        <description translate="label">
+                            <label>Descripción</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>25</sort_order>
+                        </description>
+                        <sallowspecific translate="label">
+                            <label><![CDATA[Env&iacute;o a pa&iacute;ses]]></label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_class>shipping-applicable-country</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>30</sort_order>
+                        </sallowspecific>
+                        <specificcountry translate="label">
+                            <label><![CDATA[Pa&iacute;ses de env&iacute;o]]></label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <sort_order>35</sort_order>
+                        </specificcountry>
+                        <contrato translate="label">
+                            <label>Contrato:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>55</sort_order>
+                        </contrato>
+                        <gestioncobranza translate="label">
+                            <label>Contrareembolso Andreani:</label>
+                            <comment>
+                            <![CDATA[Habilitar o deshabilitar el servicio. <br> <span class="notice">Tu cliente podra pagar todo en su destino!</span>]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>85</sort_order>
+                        </gestioncobranza>
+                        <gccontrato translate="label">
+                            <label>Contrato Contrareembolso:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </gccontrato>
+                        <regla translate="label">
+                            <label>Regla de precio (%):</label>
+                            <comment>
+                            <![CDATA[Usar . en valores con decimales<br> <span class="notice">Ejemplo: 0.49 </span>]]>
+                            </comment>
+                            <default>0</default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </regla>         
+                    </fields>
+                </andreaniurgente>
+                <andreaniestandar translate="label"> 
+                    <label>Andreani Estandar</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <model>andreani/carrier_andreani</model>
+                    <fields>                        
+                        <active translate="label">
+                            <label>Habilitado</label>
+                            <comment>
+                            <![CDATA[Habilitar o deshabilitar el servicio. <br> <span class="notice">Ojo! tu cliente no va a poder recibir el pedido en su casa si no lo tenes habilitado.</span>]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                        </active>
+                        <title translate="label">
+                            <label>Titulo</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>20</sort_order>
+                        </title>
+                        <description translate="label">
+                            <label>Descripción</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>25</sort_order>
+                        </description>
+                        <sallowspecific translate="label">
+                            <label><![CDATA[Env&iacute;o a pa&iacute;ses]]></label>
+                            <frontend_type>select</frontend_type>
+                            <frontend_class>shipping-applicable-country</frontend_class>
+                            <source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>30</sort_order>
+                        </sallowspecific>
+                        <specificcountry translate="label">
+                            <label><![CDATA[Pa&iacute;ses de env&iacute;o]]></label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                            <sort_order>35</sort_order>
+                        </specificcountry>
+                        <contrato translate="label">
+                            <label>Contrato:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>55</sort_order>
+                        </contrato>
+                        <gestioncobranza translate="label">
+                            <label>Contrareembolso Andreani:</label>
+                            <comment>
+                            <![CDATA[Habilitar o deshabilitar el servicio. <br> <span class="notice">Tu cliente podra pagar todo en su destino!</span>]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>85</sort_order>
+                        </gestioncobranza>
+                        <gccontrato translate="label">
+                            <label>Contrato Contrareembolso:</label>
+                            <default></default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </gccontrato>
+                        <regla translate="label">
+                            <label>Regla de precio (%):</label>
+                            <comment>
+                            <![CDATA[Usar . en valores con decimales<br> <span class="notice">Ejemplo: 0.49 </span>]]>
+                            </comment>
+                            <default>0</default>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>90</sort_order>
+                        </regla>
+                    </fields>
+                </andreaniestandar>
+            </groups>
+		</carriers>
+	  </sections>
+</config>

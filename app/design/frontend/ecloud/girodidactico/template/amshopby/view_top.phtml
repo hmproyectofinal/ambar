@@ -1,0 +1,40 @@
+<?php if($this->canShowBlock()): ?>
+<div class="block block-layered-nav">
+    <div class="block-content">
+        <?php echo $this->getStateHtml() ?>
+        <?php if($this->canShowOptions()): ?>
+            <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
+            <div class="filters container">
+                <div class="filter-buttons categories">
+                    <dl id="narrow-by-list">
+                        <span class="filtermobile"><?php echo $this->__('Filtrar')?></span>
+                        <table width="100%" ><tr>
+                        <div class="cerrar">
+                            <span class="close-button">
+                                <i class="fa fa-times-circle"></i>
+                            </span>
+                        </div>
+                        <?php foreach ($this->getFilters() as $_filter): ?>
+                            <?php if($_filter->getItemsCount()): ?>
+                                <?php $cssClass = strtolower(str_replace(' ', '', $_filter->getName())); ?>
+                                <?php if ($_filter instanceof Mage_Catalog_Block_Layer_Filter_Category):?>
+                                    <td class="filter-title <?php echo $cssClass; ?>" width="100%">
+                                <?php else:?>
+                                    <td class="filter-title <?php echo $cssClass; ?>" width="165px">
+                                <?php endif;?>
+                                <dt><?php echo $this->__($_filter->getName()) ?></dt>
+                                <dd style="background:none"><?php echo $_filter->getHtml() ?></dd>
+                            </td>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        </tr></table>
+                    </dl>
+                </div>
+            </div>
+            <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+        <?php endif; ?>
+    </div>
+</div>
+<?php else: ?>
+<div style="display:none" class="<?php echo $this->getBlockId()?>"></div>
+<?php endif; ?>

@@ -1,0 +1,23 @@
+<div class="entry-edit">
+    <?php echo $this->getFormHtml() ?>
+</div>
+
+<script type="text/javascript">
+    var updater = new RegionUpdater('country_id', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, 'hide');
+    Event.observe($('country_id'), 'change', function(){
+        $('region').value = '';
+    });
+    Event.observe($('region_id'), 'change', function(){
+        $('region').value = $('region_id').options[$('region_id').selectedIndex].text;
+    });
+
+    jQuery(document).ready(function() {
+        if (jQuery("#country_id").val() == '') {
+            jQuery("#country_id").val('<?php echo $this->getDefaultCountry() ?>');
+        }
+        if (jQuery("#region_id").val()) {
+            $('region').value = '';
+            $('region').value = $('region_id').options[$('region_id').selectedIndex].text;
+        }
+    });
+</script>

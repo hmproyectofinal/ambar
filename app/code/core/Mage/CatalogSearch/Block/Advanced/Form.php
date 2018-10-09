@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_CatalogSearch
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -195,22 +195,21 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
      * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return string
      */
-    public function getAttributeSelectElement($attribute)
-    {
+    public function getAttributeSelectElement($attribute){
         $extra = '';
         $options = $attribute->getSource()->getAllOptions(false);
+        array_unshift($options, array('value'=>'', 'label'=>Mage::helper('catalogsearch')->__('All')));
 
         $name = $attribute->getAttributeCode();
 
         // 2 - avoid yes/no selects to be multiselects
-        if (is_array($options) && count($options)>2) {
-            $extra = 'multiple="multiple" size="4"';
+        if (is_array($options)) {
+            $extra = '';
             $name.= '[]';
         }
         else {
             array_unshift($options, array('value'=>'', 'label'=>Mage::helper('catalogsearch')->__('All')));
         }
-
         return $this->_getSelectBlock()
             ->setName($name)
             ->setId($attribute->getAttributeCode())
@@ -218,7 +217,7 @@ class Mage_CatalogSearch_Block_Advanced_Form extends Mage_Core_Block_Template
             ->setExtraParams($extra)
             ->setValue($this->getAttributeValue($attribute))
             ->setOptions($options)
-            ->setClass('multiselect')
+            ->setClass('')
             ->getHtml();
     }
 

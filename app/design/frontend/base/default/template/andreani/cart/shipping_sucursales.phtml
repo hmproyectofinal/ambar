@@ -1,0 +1,89 @@
+<div class="sucursal-block display-none">
+<?php
+/**
+ * ANDREANI-9
+ * Bloque que se agrega dinámicamente en el "cart" para no tocar el template "shipping"
+ * del base.
+ *
+ */
+if(Mage::helper('core')->isModuleEnabled('Ids_Andreani'))
+{
+    if(Mage::getStoreConfig('carriers/andreanisucursal/active',Mage::app()->getStore()))
+    {
+        if(Mage::getStoreConfig('carriers/andreaniconfig/ws_cache',Mage::app()->getStore()))
+            echo $this->getLayout()->createBlock('andreani/sucursales')
+                ->setTemplate('andreani/sucursales.phtml')
+                ->toHtml();
+    }
+
+}
+
+?>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    <?php if(Mage::helper('andreani')->getIsCacheWS()):?>
+    var $j = jQuery.noConflict();
+    $j('#co-shipping-method-form .buttons-set button').addClass('update-total-andreani');
+
+    /**
+     * Validaciones estimatePost cart
+     */
+    var flatRate            = $j('#s_method_flatrate_flatrate');
+    var andreaniEstandar    = $j('#s_method_andreaniestandar_andreaniestandar');
+    var andreaniUrgente     = $j('#s_method_andreaniurgente_andreaniurgente');
+    var andreaniSucursal    = $j('#s_method_andreanisucursal_andreanisucursal');
+    var updateTotalButton   = $j('.update-total-andreani');
+    var selectProvincia     = $j('#andreani-provincia');
+    var selectLocalidad     = $j('#andreani-localidad');
+    var selectSucursal      = $j('#andreani-sucursal');
+    var priceSucursal       = $j('#ws-cache-andreani .price').text();
+
+    $j('.select-ws-andreani').insertBefore(jQuery('#s_method_andreanisucursal_andreanisucursal'));
+    $j('.select-ws-andreani').parent().attr('id','ws-cache-andreani');
+
+    $j('.select-ws-andreani select').change(function () {
+        $j('.select-ws-andreani select').removeClass('validation-failed');
+        $j('.validation-advice').remove();
+    });
+
+    if (!andreaniSucursal.is(':checked')) {
+        $j('#ws-cache-andreani label').text('Retirar en Sucursal Andreani');
+    }
+
+    updateTotalButton.click(function () {
+        $j('.validation-advice').remove();
+        $j('.select-ws-andreani select').removeClass('validation-failed');
+        if (
+            !flatRate.is(':checked') && !andreaniEstandar.is(':checked') && !andreaniUrgente.is(':checked') && !andreaniSucursal.is(':checked')
+        ) {
+            alert('Seleccione un método de envío');
+            return false;
+        }
+        else {
+            if (andreaniSucursal.is(':checked')) {
+                if (selectProvincia.val() == '') {
+                    selectProvincia.addClass('validation-failed');
+                    selectProvincia.after('<div class="validation-advice" id="advice-validate-select-andreani-provincia">Por favor seleccione una provincia</div>');
+                    return false;
+                }
+                else if (selectLocalidad.val() == '') {
+                    selectLocalidad.addClass('validation-failed');
+                    selectLocalidad.after('<div class="validation-advice" id="advice-validate-select-andreani-localidad">Por favor seleccione una localidad</div>');
+                    return false;
+                }
+                else if (selectSucursal.val() == '') {
+                    selectSucursal.addClass('validation-failed');
+                    selectSucursal.after('<div class="validation-advice" id="advice-validate-select-andreani-sucursal">Por favor seleccione una sucursal</div>');
+                    return false;
+                }
+
+            }
+        }
+
+
+    });
+
+    <?php endif;?>
+    //]]>
+</script>

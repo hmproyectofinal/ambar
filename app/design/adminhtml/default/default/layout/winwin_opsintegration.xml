@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<layout>
+
+    <!--<adminhtml_winwin_opsintegration_test_index>
+        <reference name="content">
+            <block type="winwin_opsintegration/adminhtml_test" name="admin.winwin.integration.test.grid"/>
+        </reference>
+    </adminhtml_winwin_opsintegration_test_index>-->
+
+
+
+
+
+
+    <adminhtml_winwin_integration_execution_history_index>
+        <reference name="content">
+            <!--<block type="adminhtml/store_switcher" name="store_switcher" as="store_switcher">
+                <action method="setUseConfirm"><params>0</params></action>
+            </block>-->
+                <block type="winwin_opsintegration/adminhtml_execution_history" name="admin.winwin.integration.execution.history"/>
+        </reference>
+        <referense name="head">
+            <action method="setTitle" translate="title"><title>WinWin Integration</title></action>
+        </referense>
+        <reference name="menu">
+            <action method="setActive"><menupath>winwin_opsintegration</menupath></action>
+        </reference>
+    </adminhtml_winwin_integration_execution_history_index>
+
+    <adminhtml_winwin_integration_execution_history_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="winwin_opsintegration/adminhtml_execution_history_grid" name="admin.winwin.integration.execution.history.grid"/>
+        </block>
+    </adminhtml_winwin_integration_execution_history_grid>
+
+    <adminhtml_winwin_integration_execution_history_info>
+        <reference name="content">
+            <block type="winwin_opsintegration/adminhtml_execution_history_info" name="admin.winwin.integration.execution.history.info"/>
+        </reference>
+        <referense name="head">
+            <action method="setTitle" translate="title"><title>WinWin Integration</title></action>
+        </referense>
+        <reference name="menu">
+            <action method="setActive"><menupath>winwin_opsintegration</menupath></action>
+        </reference>
+    </adminhtml_winwin_integration_execution_history_info>
+
+</layout>

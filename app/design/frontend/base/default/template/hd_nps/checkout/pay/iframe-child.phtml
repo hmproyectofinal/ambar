@@ -1,0 +1,9 @@
+<?php /* @var $this Hd_Nps_Block_Checkout_Template */ ?>
+<!-- JS Inform Parent Frame -->
+<script type="text/javascript">
+//<![CDATA[
+document.addEventListener("DOMContentLoaded", function(e) { 
+    parent.postMessage("<?php echo $this->getRoute() ?>", "*");
+});
+//]]>
+</script>

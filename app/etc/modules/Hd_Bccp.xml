@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hd_Bccp>
+            <active>false</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Core/>
+                <Mage_Eav/>
+                <Mage_Admin/>
+                <Mage_Adminhtml/>
+                <Mage_Sales/>
+                <Mage_Payment/>
+                <Hd_Base/>
+            </depends>
+        </Hd_Bccp>
+    </modules>
+</config>

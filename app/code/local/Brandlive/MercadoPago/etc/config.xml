@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Brandlive_MercadoPago>
+            <version>0.1.0</version>
+        </Brandlive_MercadoPago>
+    </modules>
+    <global>
+        <models>
+            <brandlive_mercadopago>
+                <class>Brandlive_MercadoPago_Model</class>
+            </brandlive_mercadopago>
+        </models>
+        <helpers>
+            <brandlive_mercadopago>
+                <class>Brandlive_MercadoPago_Helper</class>
+            </brandlive_mercadopago>
+        </helpers>
+    </global>
+    <crontab>
+        <jobs>
+            <brandlive_mercadopago_cancel_orders>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>brandlive_mercadopago/cron::cancelOrdersAction</model>
+                </run>
+            </brandlive_mercadopago_cancel_orders>
+        </jobs>
+    </crontab>
+    <default>
+        <payment>
+            <mercadopago>
+                <expires>0</expires>
+                <expiration_duration>4320</expiration_duration>
+                <cancelation_cron_enabled>0</cancelation_cron_enabled>
+                <cancelation_cron_expiration>10</cancelation_cron_expiration>
+                <cancelation_cron_order_statuses>pending</cancelation_cron_order_statuses>
+                <cancelation_cron_collection_limit>50</cancelation_cron_collection_limit>
+                <cancelation_cron_log>0</cancelation_cron_log>                
+                <discount_amount>1</discount_amount>
+            </mercadopago>
+        </payment>
+    </default>  
+</config>

@@ -1,0 +1,56 @@
+<?php
+/**
+ * To use in product listing or product view media call
+ * echo $this->getChild('product_labels')->setProduct($product)->toHtml();
+ * from catalog/product/list.phtml 
+ * or 
+ * from catalog/product/view/media.phtml
+ * 
+ * To use in another page add this template at page layout
+ */
+?>
+
+<?php if ( $this->isSale() || $this->isNew() || $this->isFeatured() ): ?>
+	<?php 
+		$store = Mage::app()->getStore(); // store info
+		$config_text = Mage::getStoreConfig('labels/sale_label/text', $store);
+	?>
+	
+	<?php if ($this->isSale()): ?>
+	
+	    <div class='product-label pl-top-right sale'>
+		    <ul>
+			 <!-- <?php $saleStyle = "background:" . $this->getSaleBackgroundColor() . "; color:" . $this->getSaleTextColor() . ";" ?> -->
+				<li class="label" style="<?php echo $saleStyle ?>">
+					<span class="porcentaje" style="margin-top: 3px;"><?php echo $this->getSaleText() ?></span>
+					<br>
+					<span><?php echo $config_text ?></span>
+				</li>
+			</ul>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->isNew()): ?>
+	    <div class='product-label pl-top-left new'>
+		    <ul>
+			<?php $newStyle = "background:" . $this->getNewBackgroundColor() . "; color:" . $this->getNewTextColor() . ";" ?>
+				<li class="label" style="<?php echo $newStyle ?>">
+					<span><?php echo $this->getNewText() ?></span>
+				</li>
+			</ul>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->isFeatured()): ?>
+	    <div class='product-label pl-bottom-left featured'>
+		    <ul>
+		    <?php /* featured product */ ?>
+		    <?php $featuredStyle = "background:" . $this->getFeaturedBackgroundColor() . "; color:" . $this->getFeaturedTextColor() . ";" ?>
+				<li class="label" style="<?php echo $featuredStyle ?>">
+					<span><?php echo $this->getFeaturedText() ?></span>
+				</li>
+			</ul>
+		</div>
+	<?php endif; ?>
+
+<?php endif; ?>

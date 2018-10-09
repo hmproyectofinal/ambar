@@ -20,7 +20,7 @@
  *
  * @category    Mage
  * @package     Mage_Checkout
- * @copyright  Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright  Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -350,6 +350,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             return;
         }
 
+        if ($this->isFormkeyValidationOnCheckoutEnabled() && !$this->_validateFormKey()) {
+            return;
+        }
+
         if ($this->getRequest()->isPost()) {
             $method = $this->getRequest()->getPost('method');
             $result = $this->getOnepage()->saveCheckoutMethod($method);
@@ -580,7 +584,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
                 if ($diff) {
                     $result['success'] = false;
                     $result['error'] = true;
-                    $result['error_messages'] = $this->__('Please agree to all the terms and conditions before placing the order.');
+                    $result['error_messages'] = $this->__('Acepte todos los términos y condiciones antes de realizar el pedido.');
                     $this->_prepareDataJSON($result);
                     return;
                 }

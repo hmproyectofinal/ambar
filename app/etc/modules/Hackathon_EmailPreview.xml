@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+     <modules>
+        <Hackathon_EmailPreview>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+            	<Mage_Adminhtml />
+            </depends>
+        </Hackathon_EmailPreview>
+     </modules>
+</config>

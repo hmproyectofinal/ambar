@@ -1,0 +1,529 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Footer
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Footer
+ */
+
+.footer,
+.footer button {
+    font-family: $f-stack-default;
+}
+
+.footer {
+    clear: both;
+    width: 100%;
+    padding: 40px 0;
+    background: #fff;
+    @media #{$tablet} {
+        padding: 5px 0px;
+    }
+    .footer-widget{
+        display: inline-block;
+        &.active{
+            .links-wrapper{
+                display: inline-block !important;
+                float: left;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            &:after{
+                content: '\f106';
+            }
+        }
+        @media #{$tablet}{
+            border-bottom: 1px solid #ccc;
+            padding:6px 0 7px;
+            position: relative;
+            cursor: pointer;
+            &:after{
+                content: '\f107';
+                font-family: FontAwesome;
+                font-size: 18px;
+                float: right;
+                margin-right: 15px;
+                font-weight: bold;
+                color: $c-text-blue;
+                position: absolute;
+                top: 16px;
+                right: -9px;
+                line-height: 10px;
+            }
+        }
+        h4 {
+            font-family: 'Raleway';
+            color: #004395;
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
+            margin: 0;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            @media #{$tablet} {
+                display: inline-block;
+                line-height: 25px;
+                font-size: 13px;
+                padding-bottom: 0px;
+            }
+        }
+        ul.links-wrapper{
+            @media #{$tablet} {
+                display: none;
+            }
+            li {
+                line-height: 30px;
+                @media #{$tablet} {
+                    font-size: 13px;
+                    color: #555;
+                    font-weight: 100;
+                    line-height: 22px;
+                }
+                a {
+                    font-size: 13px;
+                    /*
+                    color: #323232;
+                    font-weight: 300;
+                    letter-spacing: 1px;
+                    */
+                }
+
+            }
+        }
+    }
+    .block-title {
+        border-bottom: 0;
+        padding: 3px 0;
+    }
+
+    .block-title strong {
+        font-weight: normal;
+    }
+
+    .block-title,
+    address {
+        color: $c-text-primary;
+    }
+
+    .links {
+
+        li {
+            word-break: break-all;
+            line-height: 1.4;
+            padding: 4px 0;
+        }
+
+        a {
+            color: $c-text;
+            &:hover {
+                color: $c-action;
+            }
+        }
+    }
+
+    .block-subscribe {
+        float: right;
+        width: 320px;
+        margin-bottom: $trim;
+    }
+
+    .links,
+    .block-subscribe {
+        text-transform: uppercase;
+        font-size: $f-size-xs;
+    }
+
+    /* -------------------------------------------- *
+     * Social icons
+     */
+
+    .links.social-media em {
+        background-repeat: no-repeat;
+        font-size: $f-size-xs;
+        color: #fff;
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 0px;
+        width: 16px;
+    }
+    // ---------------------------------------------
+
+    .block-subscribe .input-box {
+        float: left;
+        width: percentage(210px/320px);
+        padding-top: 0;
+    }
+
+    .block-subscribe .input-text {
+        width: 100%;
+        border-right: 0;
+        @include border-radius(0);
+    }
+
+    .block-subscribe .block-content {
+        padding-top: 7px;
+
+        &:after {
+            @include clearfix;
+        }
+    }
+
+    .block-subscribe .actions {
+        float: left;
+        width: percentage(110px/320px);
+        margin: 0;
+    }
+
+    .block-subscribe .actions .button {
+        height: 30px;
+        line-height: 17px;
+        float: left;
+    }
+    address {
+        border-top: 1px solid $c-module-border;
+        text-align: center;
+        width: 100%;
+        font-size: $f-size-xxs;
+        margin-top: $trim;
+        padding: $trim 0;
+    }
+    .sub-footer {
+        display: inline-block;
+        margin-top: 45px;
+        width: 100%;
+        margin-bottom: 20px;
+        @media #{$tablet}{
+            margin: 0;
+            float: left;
+        }
+        h4{
+            display: inline-block;
+            margin: 0 6px;
+            color: #174f87;
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 24px;
+            text-transform: uppercase;
+            @media #{$tablet} {
+                font-size: 13px;
+                margin: 0 !important;
+                line-height: 30px;
+                letter-spacing: 0;
+            }
+        }
+    }
+    .medios-pago{
+        .title {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .images {
+            display: inline-block;
+            vertical-align: top;
+            li{
+                display: inline-block;
+            }
+        }
+        @media #{$tablet}{
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+            .images {
+               vertical-align: bottom; 
+               margin-left: 10px;
+            }
+        }
+    }
+    .sitio-seguro{
+        text-align: center;
+        em.icon-lock{
+            font-size: 20px;
+            color: #223179;
+            margin-left: -6px;
+        }
+        img{
+            display: inline-block;
+            vertical-align: top;
+            @media #{$tablet}{
+                max-width: 30px;
+            }
+        }
+        h4{
+            display: inline-block;
+            margin: 0 6px;
+        }
+        @media #{$tablet}{
+            text-align: left;
+            display: inline-block;
+            float: left;
+            width: 100%;
+            padding: 3px 0;
+            border-bottom: 1px solid #ccc;
+            img{
+                float: right;
+                margin: 0 !important;
+                vertical-align: bottom;
+            }
+        }
+    }
+    .social-media {
+        text-align: center;
+        .block-title {
+            border: none;
+            display: inline-block;
+            padding-left: 20px;
+        }
+        ul {
+            display: inline-block;
+        }
+        li {
+            display: inline-block;
+            background-color: #26327a;
+            padding: 7px 9px;
+            line-height: 18px;
+            width: 33px;
+            border-radius: 100%;
+            height: 33px;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+        @media #{$tablet}{
+            padding: 17px 0 5px;
+            float: left;
+            clear: none;
+            ul{
+                float: right;
+                li{
+                    margin: 0 5px;
+                }
+            }
+            .block-title {padding:0; float: left;}
+        }
+    }
+}
+/* ============================================ *
+ * Newsletter.
+ * ============================================ */
+ div#newsletter{
+    margin-top: 80px;
+    @media #{$tablet} {
+        margin-top: 0px;
+    }
+    .block-subscribe{
+        float: left;
+        width: 100%;
+        margin-bottom: 0;
+        @media #{$tablet} {
+            margin-top: 20px;
+        }
+        .block-content{
+            float: left;
+            display: flex;
+            width: 100%;
+            @media #{$tablet} {
+                display: inline-block;
+            }
+            .form-subscribe-header{
+                float: left;
+                width: 35%;
+                text-align: right;
+                margin: 0;
+                padding: 20px 40px;
+                background: #737478;
+                position: relative;
+                @media #{$tablet} {
+                    float: left;
+                    width: 100%;
+                    display: inline-block;
+                    text-align: center;
+                    padding: 15px 10px;
+                }
+                @media #{$desktop} {
+                    &:after{
+                        content: '';
+                        top: 0%;
+                        right: -25px;
+                        position: absolute;
+                        height: 100%;
+                        border-style: solid;
+                        border-color: transparent transparent transparent #898a8e;
+                        border-top: 46px solid #898a8e;
+                        border-bottom: 50px solid #898a8e;
+                        border-top: 47px solid #898a8e;
+                        border-bottom: 47px solid #898a8e;
+                        border-left: 25px solid #737478;
+                    }
+                }
+                label{
+                    text-transform:uppercase;
+                    font-family: $f-stack-default;
+                    font-size: 16px;
+                    font-weight: normal;
+                    text-align: left;
+                    color: #fff;
+                    line-height: 20px;
+                    max-width: 80%;
+                    float: right;
+                    text-transform: none;
+                    @media #{$tablet} {
+                        font-size: 14px;
+                        float: left;
+                        font-weight: 400;
+                        line-height: 18px;
+                        max-width: 100%;
+                    }
+                }
+            }
+            .inputs-wrapper{
+                display: inline-block;
+                width: 65%;
+                text-align: center;
+                line-height: 35px;
+                padding: 15px 20px 15px 50px;
+                // background-image: linear-gradient(to right, #bbb 0%, #bbb 1%, #88898d 49%, #88898d 100%);
+                background: #898a8e;
+                @media #{$tablet}{
+                    width: 100%;
+                    text-align: center;
+                    padding: 20px 10px 30px 10px;
+                }
+                .input-box{
+                    float: left;
+                    width: 35%;
+                    position: relative;
+                    padding: 0;
+                    @media #{$tablet} {
+                        width: 100%;
+                        margin: 0 auto;
+                        float: none;
+                        margin-bottom: 10px;
+                    }
+                    label{
+                        display: inline-block;
+                        color: #ffffff;
+                        font-size: 14px;
+                        line-height: 22px;
+                        font-weight: 500;
+                        float: left;
+                        text-transform: none;
+                        @media #{$tablet} {
+                            font-size: 14px;
+                            line-height: 30px;
+                        }
+                    }
+                    input[type="date"] {
+                        padding: 10px;
+                        border-radius: 2px;
+                        font-size: 13px;
+                        color: #a5a5a5;
+                        &:after{
+                            @extend %icon-calendar;    
+                        }
+                        @media #{$tablet}{
+                            width: 100%;
+                            height: 40px;
+                            min-width: 96%;
+                            font-size: 16px;
+
+                        }
+                    }
+                    input{
+                        width: 88%;
+                        float: left;
+                        text-transform: uppercase;
+                        font-size: 9px;
+                        letter-spacing: 1px;
+                        border: none;
+                        padding: 6px 10px;
+                        height: auto;
+                        &::placeholder{
+                            text-indent: 999px;
+                        }
+                        @media #{$tablet} {
+                            width: 100%;
+                            font-size: 16px;
+                            max-width: 100%;
+                            text-transform: none;
+                        }
+                    }
+                    .validation-advice{
+                        position: absolute;
+                        bottom: -28px;
+                        font-size: $f-size-xs;
+                        color: #b12008;
+                    }
+                }
+                .actions{
+                    float: left;
+                    margin: 0;
+                    @media #{$tablet} {
+                        width: 100%;
+                        margin-top: 5px;
+                    }
+                    .button{
+                        padding: 15px 30px;
+                        line-height: 16px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        min-height: 23px;
+                        background-color: #071689;
+                        margin-top: 20px;
+                        @media #{$tablet} {
+                            width: auto;
+                            float: none;
+                            font-size: 12px;
+                            padding: 12px 21px !important;
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+ }
+
+/* ============================================ *
+ * Bottom footer.
+ * ============================================ */
+ .bottom-footer {
+    @media #{$tablet} {
+        padding: 15px 0px;
+    }
+    address {
+        color: #606060;
+        margin: 0;
+        font-size: $f-size-xs;
+        font-weight: 500;
+        line-height: 20px;
+        @media #{$tablet} {
+            line-height: 14px;
+        }
+    }
+ }

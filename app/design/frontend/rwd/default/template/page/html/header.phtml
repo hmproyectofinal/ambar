@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     rwd_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
@@ -39,31 +39,7 @@
         <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getChildHtml('accountLinks') ?></p>
     </div>
 </div>
-<div class="pre-header">
-    <div class="page-header">
-        <div class="section first">
-            <li class="label">Seguinos en nuestras redes </li>
-            <li><a target="_blank" href="https://www.facebook.com/ambarsn/" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-            <li><a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-        </div>
-        <div class="section middle">
 
-        </div>
-        <div class="section last">
-            <li> 
-                <a target="_blank" href="https://m.me/ambarsn/">
-                    <img src="<?php echo $this->getSkinUrl('images/icon-fbmessenger.png') ?>">
-                </a>
-            </li>
-            <li>
-                <a target="_blank" href="https://api.whatsapp.com/send?phone=5493416607311&text=Hola,%20me%20gustaría%20hacerles%20una%20consulta" class="whatsapp">
-                    <i class="fa fa-whatsapp" aria-hidden="true"><span class="label"></span></i>
-                </a>
-            </li>
-            <li class="message-header-label">Envianos un mensaje </li>
-        </div>
-    </div>
-</div>
 <header id="header" class="page-header">
     <div class="page-header-container">
         <a class="logo" href="<?php echo $this->getUrl('') ?>">
@@ -107,11 +83,6 @@
         <!-- Navigation -->
 
         <div id="header-nav" class="skip-content">
-            <div id="logo">
-                <a href="#">
-                    <img src="<?php echo $this->getSkinUrl('images/ambar-logo.png') ?>">
-                </a>
-            </div>
             <?php echo $this->getChildHtml('topMenu') ?>
         </div>
 
@@ -131,22 +102,3 @@
 
 
 <?php echo $this->getChildHtml('topContainer'); ?>
-
-<script type="text/javascript">
-    jQuery(document).ready(function(){
-        jQuery(window).scroll(function () {
-            if (jQuery(this).scrollTop() > 150) {
-                jQuery("#header").addClass('sticky');
-            } else {
-                jQuery("#header").removeClass('sticky');
-            }
-        });
-        jQuery(window).scroll(function () {
-            if (jQuery(this).scrollTop() > 55) {
-                jQuery(".page").addClass('msticky');
-            } else {
-                jQuery(".page").removeClass('msticky');
-            }
-        });
-    });
-</script>

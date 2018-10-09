@@ -1,0 +1,302 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Search - Auto Suggest
+ * ============================================ */
+
+.search-autocomplete {
+    left: 0 !important;
+    overflow: visible !important;
+    position: relative !important;
+    top: 45px !important;
+    width: 100% !important;
+    z-index: 200;
+    @media #{$tablet}{
+        top: 140px !important;
+        width: 100% !important;
+        position: fixed !important;
+    }
+    ul {
+        @include border-radius(2px);
+        background-color: #FFFFFF;
+        border: 1px solid $c-module-border-highlight;
+        left: 0;
+        padding-left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+        li {
+            border-bottom: 1px solid $c-module-background;
+            color: $c-link;
+            cursor: pointer;
+            font-size: $f-size-xs;
+            padding: 4px 6px;
+            text-align: left;
+
+            &:hover {
+                color: $c-link-hover;
+            }
+
+            &.selected {
+                background-color: $c-action;
+                color: white;
+            }
+
+            .amount {
+                float: right;
+                font-weight: bold;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &:before {
+        @include triangle(up, 7px, $c-action);
+        left: 5%;
+        top: -7px;
+    }
+}
+
+/* ============================================ *
+ * Search - Advanced
+ * ============================================ */
+.container-advanced-search{
+    width: 100%;
+    margin-top: 50px;
+    background: linear-gradient(90deg, #f04c50 40%, #f6f5f5 61%);
+}
+#pdp-advanced-search{
+    display: flex;
+    align-items: center; 
+    padding: 0;
+    margin-top: 100px;
+    float: left;
+
+    .middle-advance-search {
+        #form-validate{
+            min-height:198px;
+        }
+        .buttons-set{
+            margin: -120px 0 0;
+            @media #{$tablet}{
+                width: 100%;
+                margin: 0px 0;
+            }
+        }
+    }
+
+}
+.home-advanced-search{
+    background-color: #f6f5f5;
+    // display: flex;
+    // align-items: center; 
+    // padding: 0;
+    // margin-top: 50px;
+    // float: left;
+    // width: 100%;
+    // margin: 30px 0;
+
+    @media #{$tablet}{        
+        flex-direction: column;
+        margin: 0px 0;
+    }
+    .left-advance-search {
+        float: left;
+        width: 37.5%;
+        background-color:#f04c50;
+        @media #{$tablet}{
+            width: 100%;
+        }
+    }
+    .middle-advance-search{
+        float: left;
+        width: 62.5%;
+        @media #{$tablet}{
+            width: 100%;            
+        }
+        @media #{$phone}{
+                height:350px;
+                overflow:hidden;
+            }
+        
+        #form-validate{
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            background-color: #f6f5f5;
+            min-height: 261px;
+            @media #{$phone}{
+                display:block;
+            }
+        }
+
+        .fieldset.advanced-search{
+            float:left;
+            width: 64%;
+            padding: 0% 6%;
+            @media #{$tablet}{
+                width: 60%;
+                margin: 26px 0;
+            }
+            @media #{$phone}{
+                width: 100%;
+            }
+            .legend{
+                display: none;
+            }
+            li{
+                margin-bottom: 20px;
+                label{
+                    font-size: 16px;
+                    color: $c-blue;
+                    font-family:$font-GothamR;
+                    text-transform: initial;
+                    float: left;
+                    padding: 0 10px 0 0;
+                    font-weight: 500;
+                }
+                &.last{
+                    margin-bottom: 0px;
+                }
+            }
+            .input-box{
+                select{
+                    width: 200px;
+                    -webkit-appearance: none;
+                    border: none;
+                    border-bottom: 1px solid $c-blue;
+                    cursor: pointer;
+                    font-size: 14px;
+                    background: url(../images/angle-down.png) no-repeat right center;
+                    background-size: 18px;
+                    line-height: 16px;
+                    border-radius: 0px;
+                    @media #{$tablet}{
+                        margin-top: 10px;
+                    }
+                }
+                .fa{
+                    color: $c-blue;
+                    font-size: 16px;
+                    padding: 0px 0 0 7px;
+                    vertical-align: bottom;
+                }
+            }
+        }
+        .buttons-set{
+            float: left;
+            width: 160px;
+            clear: none;
+            margin: -180px 0 0;
+            padding: 0;
+            border: none;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            @media #{$tablet}{
+                width: 60%;
+                margin: 0px 0;
+                img{
+                    display: block;
+                    width: 100px;
+                }
+            }
+            @media #{$mobile}{
+                width: 100%;
+                padding: 0;
+                margin: 0px 0 40px;
+               // position: relative;
+                bottom: 120px;
+                left: 60px;
+            }
+            img{
+                float: right;
+                width: 100px;
+                @media #{$mobile}{
+                    display:none;
+                }
+            }
+            .button {
+                border-radius: 0px;
+                background-color: #e65151;
+                box-shadow: 4px 4px 10px 0px $c-black;
+                width: 200px;
+                line-height: 60px;
+                span{
+                    font-size: 22px;
+                    font-weight: 500;
+                }
+            }
+        }
+        .input-range{
+            color: $c-blue;
+            position: relative;
+            input{
+                border: 0px;
+                background-color: transparent;
+                border-bottom: 1px solid $c-blue;
+                border-radius: 0px;
+                height: 24px;
+                font-family: $font-GothamR;
+                font-weight: 500;
+                font-size: 14px;
+            }
+            .validation-advice{
+                position: absolute;
+                top: 20px;
+                font-size: 12px;
+            }
+        }
+    }
+}
+.advanced-search {
+    select.multiselect {
+        option {
+            border-bottom: 1px solid $c-module-border-light;
+            padding: 2px 5px;
+        }
+    }
+}
+
+@include bp(max-width, $bp-xsmall) {
+    .advanced-search {
+        padding: $trim-small;
+    }
+}
+
+.catalogsearch-advanced-result{
+    .main-container{
+        &.col2-right-layout{
+            padding-top: 20px;
+        }
+    }
+}

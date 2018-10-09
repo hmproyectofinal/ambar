@@ -1,0 +1,634 @@
+<?xml version="1.0"?>
+<config>
+   <sections>
+        <hd_nps_fraud translate="label" module="hd_bccp">
+            <label>NPS . Fraud Evaluation</label>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <customer translate="label" module="hd_nps">
+                    <label>Customer Fields Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        
+                    </fields>
+                </customer>
+                <address_person translate="label" module="hd_nps">
+                    <label>Address Person Fields Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        
+                    </fields>
+                </address_person>
+                <address translate="label" module="hd_nps">
+                    <label>Address Fields Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        
+                    </fields>
+                </address>
+                <shipping translate="label" module="hd_nps">
+                    <label>Shipping Fields Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        
+                    </fields>
+                </shipping>
+                <order_items translate="label" module="hd_nps">
+                    <label>Order Items Fields Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        
+                    </fields>
+                </order_items>
+                
+            </groups>
+        </hd_nps_fraud>
+        
+        <payment>
+            <groups>
+                
+                <nps_cc translate="label" module="hd_nps">
+                    <label>NPS - CC (Credit Cards)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <sort_order translate="label">
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                         <send_mail_on_process translate="label">
+                            <label>Send Mail on Process</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>131</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </send_mail_on_process>
+
+                        <heading_country translate="label">
+                            <label>Countries Support</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_country>
+                        <allowspecific translate="label">
+                            <label>Payment from Applicable Countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>210</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment from Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>220</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends>
+                                <allowspecific>1</allowspecific>
+                            </depends>
+                        </specificcountry>
+                        
+                        <heading_order translate="label">
+                            <label>Post Order Configurations</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_order>
+                        
+                        <!-- Invoice -->
+                        <invoice_active translate="label">
+                            <label>Enable Auto-Invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </invoice_active>
+
+                        <!-- Iframe Support -->    
+                        <heading_iframe translate="label">
+                            <label>Iframe Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_iframe>
+                        <iframe_active translate="label">
+                            <label>Enable Iframe Payment Support</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>410</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[<strong>Iframe support must be enable in NPS.</strong>]]></comment>
+                        </iframe_active>
+                        
+                        <!-- AVS Support -->    
+                        <heading_avs_visa translate="label">
+                            <label>AVS Visa Argentina Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_avs_visa>
+                        <avs_visa_active translate="label">
+                            <label>Enable AVS Visa Argentina</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>510</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[<strong>Visa Argentina AVS Support must be enable in NPS.</strong>]]></comment>
+                        </avs_visa_active>
+                        <avs_visa_n_0 translate="label">
+                            <label>Validar Tipo de Documento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>520</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_0>
+                        <avs_visa_n_1 translate="label">
+                            <label>Validar Número de Documento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>521</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_1>
+                        <avs_visa_n_2 translate="label">
+                            <label>Validar Número de Puerta</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>522</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_2>
+                        <avs_visa_n_3 translate="label">
+                            <label>Validar Fecha de Nacimiento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>523</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_3>
+                        <avs_visa_n_4 translate="label">
+                            <label>Validar Nombre</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>524</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_4>
+                        
+                        <!-- Fraud Support -->    
+                        <heading_fraud translate="label">
+                            <label>Fraud Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_fraud>
+                        <fraud_active translate="label">
+                            <label>Enable Fraud Evaluation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>610</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </fraud_active>
+                        
+                        <!-- SOAP CONFIGURATION -->    
+                        <heading_ws translate="label">
+                            <label>SOAP Web Service</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>9000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_ws>
+                        <ws_wsdl_url translate="label">
+                            <label>SOAP WSDL Url</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>hd_nps/system_config_source_url</source_model>
+                            <sort_order>9010</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </ws_wsdl_url>
+                        <ws_merchant_id translate="label">
+                            <label>SOAP . Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9020</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </ws_merchant_id>
+                        <ws_merchant_secret_key translate="label">
+                            <label>SOAP . Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9030</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </ws_merchant_secret_key>
+                        <merchcant_email translate="label">
+                            <label>SOAP . Merchant Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9040</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </merchcant_email>
+                        
+
+                        <heading_debug translate="label">
+                            <label>Debug Tools</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>10000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_debug>
+                        <debug_mode translate="label, comment">
+                            <label>Debug Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10010</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[Display Real Exception messages in frontend.<br/>Activates Redirect Form debug buttons.<br/><strong>Don't enable in production environments</strong>]]></comment> 
+                        </debug_mode>
+                        <debug_avs_visa_mock translate="label">
+                            <label>Force Visa AVS Response</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10011</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends>
+                                <debug_mode>1</debug_mode>
+                                <avs_visa_active>1</avs_visa_active>
+                            </depends>
+                        </debug_avs_visa_mock>
+                        <debug_fraud_fail translate="label">
+                            <label>Force Fraud Evaluation to Fail</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10012</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <depends>
+                                <debug_mode>1</debug_mode>
+                                <fraud_active>1</fraud_active>
+                            </depends>
+                        </debug_fraud_fail>
+                                                
+                    </fields>
+                </nps_cc>
+                
+                
+                <nps_bcc translate="label" module="hd_nps">
+                    <label>NPS - BCC (Banks and Credit Cards)</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10001</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                        <title translate="label">
+                            <label>Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <sort_order translate="label">
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sort_order>
+                        <send_mail_on_process translate="label">
+                            <label>Send Mail on Process</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>131</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </send_mail_on_process>
+
+                        <heading_country translate="label">
+                            <label>Countries Support</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_country>
+                        <allowspecific translate="label">
+                            <label>Payment from Applicable Countries</label>
+                            <frontend_type>allowspecific</frontend_type>
+                            <sort_order>210</sort_order>
+                            <source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </allowspecific>
+                        <specificcountry translate="label">
+                            <label>Payment from Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>220</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends>
+                                <allowspecific>1</allowspecific>
+                            </depends>
+                        </specificcountry>
+                        
+                        <heading_order translate="label">
+                            <label>Post Order Configurations</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_order>
+                        <!-- Invoice -->
+                        <invoice_active translate="label">
+                            <label>Enable Auto-Invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </invoice_active>
+
+                        <!-- Iframe Support -->    
+                        <heading_iframe translate="label">
+                            <label>Iframe Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>400</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_iframe>
+                        <iframe_active translate="label">
+                            <label>Enable Iframe Payment Support</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>410</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[<strong>Iframe support must be enable in NPS.</strong>]]></comment>
+                        </iframe_active>
+                        
+                        <!-- AVS Support -->    
+                        <heading_avs_visa translate="label">
+                            <label>AVS Visa Argentina Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_avs_visa>
+                        <avs_visa_active translate="label">
+                            <label>Enable AVS Visa Argentina</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>510</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[<strong>Visa Argentina AVS Support must be enable in NPS.</strong>]]></comment>
+                        </avs_visa_active>
+                        <avs_visa_n_0 translate="label">
+                            <label>Validar Tipo de Documento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>520</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_0>
+                        <avs_visa_n_1 translate="label">
+                            <label>Validar Número de Documento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>521</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_1>
+                        <avs_visa_n_2 translate="label">
+                            <label>Validar Número de Puerta</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>522</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_2>
+                        <avs_visa_n_3 translate="label">
+                            <label>Validar Fecha de Nacimiento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>523</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_3>
+                        <avs_visa_n_4 translate="label">
+                            <label>Validar Nombre</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>524</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends><avs_visa_active>1</avs_visa_active></depends>
+                        </avs_visa_n_4>
+                        
+                        <!-- Fraud Support -->    
+                        <heading_fraud translate="label">
+                            <label>Fraud Configuration</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>600</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_fraud>
+                        <fraud_active translate="label">
+                            <label>Enable Fraud Evaluation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>610</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </fraud_active>
+                        
+                        <!-- SOAP CONFIGURATION -->    
+                        <heading_ws translate="label">
+                            <label>SOAP Web Service</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>9000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_ws>
+                        <ws_wsdl_url translate="label">
+                            <label>SOAP WSDL Url</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>hd_nps/system_config_source_url</source_model>
+                            <sort_order>9010</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </ws_wsdl_url>
+                        <ws_merchant_id translate="label">
+                            <label>SOAP . Merchant ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9020</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </ws_merchant_id>
+                        <ws_merchant_secret_key translate="label">
+                            <label>SOAP . Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9030</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </ws_merchant_secret_key>
+                        <merchcant_email translate="label">
+                            <label>SOAP . Merchant Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9040</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </merchcant_email>
+                        <heading_debug translate="label">
+                            <label>Debug Tools</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>10000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </heading_debug>
+                        <debug_mode translate="label, comment">
+                            <label>Debug Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10010</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <comment><![CDATA[Display Real Exception messages in frontend.<br/>Activates Redirect Form debug buttons.<br/><strong>Don't enable in production environments</strong>]]></comment>
+                        </debug_mode>
+                        <debug_avs_visa_mock translate="label">
+                            <label>Force Visa AVS Response</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10011</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <depends>
+                                <debug_mode>1</debug_mode>
+                                <avs_visa_active>1</avs_visa_active>
+                            </depends>
+                        </debug_avs_visa_mock>
+                        <debug_fraud_fail translate="label">
+                            <label>Force Fraud Evaluation to Fail</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10012</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <depends>
+                                <debug_mode>1</debug_mode>
+                                <fraud_active>1</fraud_active>
+                            </depends>
+                        </debug_fraud_fail>
+                        
+                        <debug_mock_bccp_data translate="label">
+                            <label>MockUp BCCP Configuration</label>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>hd_nps/system_config_button_create</frontend_model>
+                            <sort_order>10020</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <depends>
+                                <debug_mode>1</debug_mode>
+                                <show_bccp_buttons>1</show_bccp_buttons>
+                            </depends>
+                        </debug_mock_bccp_data>
+                        
+                        <debug_reset_bccp_data translate="label">
+                            <label>Reset BCCP Configuration</label>
+                            <frontend_model>button</frontend_model>
+                            <frontend_model>hd_nps/system_config_button_reset</frontend_model>
+                            <sort_order>10030</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <depends>
+                                <debug_mode>1</debug_mode>
+                                <show_bccp_buttons>1</show_bccp_buttons>
+                            </depends>
+                        </debug_reset_bccp_data>
+                                                
+                    </fields>
+                </nps_bcc>
+                
+            </groups>
+        </payment>
+    </sections>
+</config>

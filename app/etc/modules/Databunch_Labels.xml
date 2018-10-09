@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Databunch_Labels>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Databunch_Labels>
+    </modules>
+</config>

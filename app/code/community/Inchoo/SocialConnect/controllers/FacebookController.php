@@ -31,10 +31,45 @@
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
-class Inchoo_SocialConnect_FacebookController extends Inchoo_SocialConnect_Controller_Abstract
+class Inchoo_SocialConnect_FacebookController extends Mage_Core_Controller_Front_Action
 {
+    protected $referer = null;
+
+    public function connectAction()
+    {
+        try {
+            $this->_connectCallback();
+        } catch (Exception $e) {
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+        }
+
+        if(!empty($this->referer)) {
+            $this->_redirectUrl($this->referer);
+        } else {
+            Mage::helper('inchoo_socialconnect')->redirect404($this);
+        }
+    }
+
+    public function disconnectAction()
+    {
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+
+        try {
+            $this->_disconnectCallback($customer);
+        } catch (Exception $e) {
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+        }
+
+        if(!empty($this->referer)) {
+            $this->_redirectUrl($this->referer);
+        } else {
+            Mage::helper('inchoo_socialconnect')->redirect404($this);
+        }
+    }
 
     protected function _disconnectCallback(Mage_Customer_Model_Customer $customer) {
+        $this->referer = Mage::getUrl('socialconnect/account/facebook');  
+        
         Mage::helper('inchoo_socialconnect/facebook')->disconnect($customer);
 
         Mage::getSingleton('core/session')
@@ -47,14 +82,16 @@ class Inchoo_SocialConnect_FacebookController extends Inchoo_SocialConnect_Contr
         $errorCode = $this->getRequest()->getParam('error');
         $code = $this->getRequest()->getParam('code');
         $state = $this->getRequest()->getParam('state');
-
         if(!($errorCode || $code) && !$state) {
             // Direct route access - deny
-            return $this;
+            return;
         }
+        
+        $this->referer = Mage::getSingleton('core/session')
+            ->getFacebookRedirect();
 
         if(!$state || $state != Mage::getSingleton('core/session')->getFacebookCsrf()) {
-            return $this;
+            return;
         }
 
         if($errorCode) {
@@ -65,7 +102,7 @@ class Inchoo_SocialConnect_FacebookController extends Inchoo_SocialConnect_Contr
                         $this->__('Facebook Connect process aborted.')
                     );
 
-                return $this;
+                return;
             }
 
             throw new Exception(
@@ -74,127 +111,110 @@ class Inchoo_SocialConnect_FacebookController extends Inchoo_SocialConnect_Contr
                     $errorCode
                 )
             );
+
+            return;
         }
 
         if ($code) {
-            /** @var Inchoo_SocialConnect_Helper_Facebook $helper */
-            $helper = Mage::helper('inchoo_socialconnect/facebook');
-
             // Facebook API green light - proceed
-            /** @var Inchoo_SocialConnect_Model_Facebook_Info $info */
-            $info = Mage::getModel('inchoo_socialconnect/facebook_info');
+            $client = Mage::getSingleton('inchoo_socialconnect/facebook_client');
 
-            $token = $info->getClient()->getAccessToken($code);
+            //$userInfo = $client->api('/me');
+            try {
+                $userInfo = $client->api('/me?fields=email,first_name,last_name');
+            } catch (FacebookApiException $e) {
+                Mage::log('My log entry'.$e, null, 'mylogfile.log');
+            }
+            $token = $client->getAccessToken();
 
-            $info->load();
-
-            $customersByFacebookId = $helper->getCustomersByFacebookId($info->getId());
+            $customersByFacebookId = Mage::helper('inchoo_socialconnect/facebook')
+                ->getCustomersByFacebookId($userInfo->id);
 
             if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // Logged in user
-                if($customersByFacebookId->getSize()) {
+                if($customersByFacebookId->count()) {
                     // Facebook account already connected to other account - deny
                     Mage::getSingleton('core/session')
                         ->addNotice(
                             $this->__('Your Facebook account is already connected to one of our store accounts.')
                         );
 
-                    return $this;
+                    return;
                 }
 
                 // Connect from account dashboard - attach
                 $customer = Mage::getSingleton('customer/session')->getCustomer();
 
-                $helper->connectByFacebookId(
+                Mage::helper('inchoo_socialconnect/facebook')->connectByFacebookId(
                     $customer,
-                    $info->getId(),
+                    $userInfo->id,
                     $token
                 );
 
                 Mage::getSingleton('core/session')->addSuccess(
-                    $this->__('Your Facebook account is now connected to your store account. You can now login using '.
-                        'our Facebook Login button or using store account credentials you will receive to your email '.
-                        'address.')
+                    $this->__('Your Facebook account is now connected to your store accout. You can now login using our Facebook Connect button or using store account credentials you will receive to your email address.')
                 );
 
-                return $this;
+                return;
             }
 
-            if($customersByFacebookId->getSize()) {
+            if($customersByFacebookId->count()) {
                 // Existing connected user - login
                 $customer = $customersByFacebookId->getFirstItem();
 
-                $helper->loginByCustomer($customer);
+                Mage::helper('inchoo_socialconnect/facebook')->loginByCustomer($customer);
 
                 Mage::getSingleton('core/session')
                     ->addSuccess(
                         $this->__('You have successfully logged in using your Facebook account.')
                     );
 
-                return $this;
+                return;
             }
 
-            $customersByEmail = $helper->getCustomersByEmail($info->getEmail());
+            $customersByEmail = Mage::helper('inchoo_socialconnect/facebook')
+                ->getCustomersByEmail($userInfo->email);
 
-            if($customersByEmail->getSize()) {
+            if($customersByEmail->count()) {                
                 // Email account already exists - attach, login
                 $customer = $customersByEmail->getFirstItem();
-
-                $helper->connectByFacebookId(
+                
+                Mage::helper('inchoo_socialconnect/facebook')->connectByFacebookId(
                     $customer,
-                    $info->getId(),
+                    $userInfo->id,
                     $token
                 );
 
                 Mage::getSingleton('core/session')->addSuccess(
-                    $this->__('We have discovered you already have an account at our store. Your Facebook account is '.
-                        'now connected to your store account.')
+                    $this->__('We have discovered you already have an account at our store. Your Facebook account is now connected to your store account.')
                 );
 
-                return $this;
+                return;
             }
 
             // New connection - create, attach, login
-            $firstName = $info->getFirstName();
-            if(empty($firstName)) {
+            if(empty($userInfo->first_name)) {
                 throw new Exception(
                     $this->__('Sorry, could not retrieve your Facebook first name. Please try again.')
                 );
             }
 
-            $lastName = $info->getLastName();
-            if(empty($lastName)) {
+            if(empty($userInfo->last_name)) {
                 throw new Exception(
                     $this->__('Sorry, could not retrieve your Facebook last name. Please try again.')
                 );
             }
 
-            $birthday = $info->getBirthday();
-            $birthday = Mage::app()->getLocale()->date($birthday, null, null, false)
-                ->toString('yyyy-MM-dd');
-
-            $gender = $info->getGender();
-            if(empty($gender)) {
-                $gender = null;
-            } else if($gender = 'male') {
-                $gender = 1;
-            } else if($gender = 'female') {
-                $gender = 2;
-            }
-
-            $helper->connectByCreatingAccount(
-                $info->getEmail(),
-                $info->getFirstName(),
-                $info->getLastName(),
-                $info->getId(),
-                $birthday,
-                $gender,
+            Mage::helper('inchoo_socialconnect/facebook')->connectByCreatingAccount(
+                $userInfo->email,
+                $userInfo->first_name,
+                $userInfo->last_name,
+                $userInfo->id,
                 $token
             );
 
             Mage::getSingleton('core/session')->addSuccess(
-                $this->__('Your Facebook account is now connected to your new user account at our store.'.
-                    ' Now you can login using our Facebook Login button.')
+                $this->__('Your Facebook account is now connected to your new user accout at our store. Now you can login using our Facebook Connect button or using store account credentials you will receive to your email address.')
             );
         }
     }

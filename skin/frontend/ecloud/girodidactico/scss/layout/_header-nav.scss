@@ -1,0 +1,549 @@
+//
+// Magento
+//
+// NOTICE OF LICENSE
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available through the world-wide-web at this URL:
+// http://opensource.org/licenses/afl-3.0.php
+// If you did not receive a copy of the license and are unable to
+// obtain it through the world-wide-web, please send an email
+// to license@magento.com so we can send you a copy immediately.
+//
+// DISCLAIMER
+//
+// Do not edit or add to this file if you wish to upgrade Magento to newer
+// versions in the future. If you wish to customize Magento for your
+// needs please refer to http://www.magento.com for more information.
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+// @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Nav - Skip Link
+ * ============================================ */
+
+.skip-nav {
+    width: 40%;
+    padding: 4px 0;
+    @media #{$tablet} {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute !important;
+        left: 113px;
+        top: 16px;
+        padding: 0;
+        width: 50px !important;
+        height: 57px !important;
+        // background: #f1f1f1;
+        @media only screen and (max-width: 480px){
+            // padding: 20px 0;
+        }
+        &.skip-active{
+            position: absolute !important;
+        }
+    }
+    @media #{$phone} {
+        left: 90px;
+    }
+    &:not(.skip-active):hover {
+        text-decoration: none;
+
+        .icon {
+            background-position: -50px+4px ($toolbar-icon-padding-offset/2);
+        }
+    }
+}
+
+.skip-nav .label {
+    display: inline;
+}
+
+.skip-nav .icon {
+    @extend .icon-sprite;
+    background-position: 0+4px ($toolbar-icon-padding-offset/2);
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, 500px) {
+
+    .skip-nav {
+        width: 25%;
+    }
+
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+    #header-nav{
+
+    }
+    .skip-nav {
+        display: none;
+    }
+
+}
+
+/* ============================================ *
+ * Nav - Skip Content (mobile)
+ * ============================================ */
+
+@include bp(max-width, $bp-medium) {
+
+    #header-nav {
+        @include transition(transform, 500ms);
+        @include transform-origin(0%, 0%, false);
+        @include scaleY(0);
+        top: $mobile-header-height;
+        /* Fix de scroll vertical del menu*/
+        max-height: 100%;
+        overflow-y: scroll;
+        position: fixed;
+        padding-bottom: 97px; /* Esto evita el corte, buscar un mejor fix*/
+        height: 100%;
+        background-image: url(../images/home/background.png);
+        background-size: cover;
+        &.skip-active {
+            @include scaleY(1);
+            &:before {
+                display: none;
+                content: '\f0d7';
+                font-family: FontAwesome;
+                color: #f1f1f1;
+                font-size: 24px;
+                top: -15px;
+                position: absolute;
+                left: 18px;
+                line-height: 30px;
+            }
+        }
+        .top-links{
+            display: inline-block !important;
+            padding: 0 20px;
+            line-height: 31px;
+            font-size: 13px;
+            color: #555;
+            padding-top: 20px;
+            width: 100%;
+        }
+    }
+
+}
+/* ============================================ *
+ * Nav Primary (desktop)
+ * ============================================ */
+
+@include bp(min-width, $bp-medium + 1) { 
+    #header-nav {
+        // padding: 5px 0;
+        background: transparent;
+        float: left;
+        width: 100%;
+        display: block; /* Force visibility */
+    }
+    .nav-primary {
+        // padding: 15px 0;
+        display: block;
+        text-align: center;
+        float: left;
+        li.mobile-button{
+            display: none;
+        }
+    }
+}
+
+/* ============================================ *
+ * General Navigation Styles
+ * ============================================ */
+
+$nav-primary-height: 32px;
+
+.nav-primary {
+    .menu-active{
+        transition: all 1s;
+        li {
+            transition: background .3s;
+            float: left;
+            width: 100%;
+            background: transparent;transition: background .3s;
+            padding: 5px 15px;
+            a{
+                font-size: 12px;
+                letter-spacing: 0;
+                color: #4a4a4a;
+                font-family:$font-GothamR;
+                font-weight: 400;
+                line-height: 20px;                              
+            }
+            &.view-all {
+                a {
+                    color: $c-blue;
+                }
+            }
+            @media #{$desktop} {
+                &:hover {
+                    background: $c-blue;
+                    & > a {
+                        color: $c-text-white;
+                    }
+                }
+                .categories {
+                    a {
+                        color: #4a4a4a;
+                        &:hover {
+                            color: $c-text-white;
+                        }                
+                    }
+                }
+            }
+        }
+    }
+    a {
+        text-decoration: none;
+        position: relative;
+        display: block;
+        color: #174f87;
+        line-height: $nav-primary-height;
+        font-family: $f-stack-default;
+        font-size: 15px;
+        letter-spacing: 1.15px;
+        font-weight: normal;
+        &.has-children:after{
+            display: none;
+            content: '\f105';
+            font-family: FontAwesome;
+            margin-left: 5px;
+        }
+    }
+
+    li {
+        position: relative;
+        // padding: 5px 0;
+        &.level0{
+            @media #{$desktop}{
+                padding: 10px 0px;
+                border-top: 0;
+                transition: border 0.4s linear;
+
+            }
+            &.active{
+                @media #{$desktop}{
+                    background: #fff;
+                }
+                @media #{$tablet}{
+                    border-left: 2px solid $color;
+                }
+            }            
+        }
+    }
+
+    li.level1 a {
+        &:before{
+            content: '\f105';
+            font-family: FontAwesome;
+            margin-right: 10px;
+        }
+    }
+}
+
+// Show sub-menus when JS adds the appropriate classes
+.nav-primary .menu-active > ul.level0,
+.nav-primary li.level0 li.sub-menu-active > ul {
+    display: block;
+    @media #{$tablet} {
+        margin: 10px 0;
+    }
+}
+
+
+/* ============================================ *
+ * Small Viewports - Accordion Style Menu
+ * ============================================ */
+
+@include bp(max-width, $bp-medium) {
+
+    .nav-primary {
+        padding: 20px 0;
+        background: #fff;
+
+        // Increase clickable area of anchors for small viewports
+        // a.level0,
+        // a {
+        //     line-height: $nav-primary-height - 5px;
+        // }
+
+        // Hide all sub-menus
+        li.level0 ul {
+            display: none;
+        }
+
+        // Indent sub-menus
+        li.level0 li {
+            padding: 0 0 0 15px;
+        }
+
+        li.level1 a {
+            padding: 0 0 0 15px;
+            text-align: left;
+            border-left: 1px solid #c6c6c6;
+            font-weight: 100;
+        }
+
+        li.parent > a:after {
+            content: '\f107';
+            font-family: Fontawesome;
+            color: black;
+            font-size: 16px;
+            position: absolute;
+            top: 0;
+            display: inline-block;
+            @include transition(transform, 300ms);
+        }
+
+        // Menu active states
+        li.parent.sub-menu-active > a:after,
+        li.parent.menu-active > a:after {
+            transform: rotate(180deg);
+        }
+
+        li.menu-active > a,
+        li.sub-menu-active > a {
+            color: $c-action;
+        }
+    }
+}
+
+/* ============================================ *
+ * Large Viewports - Dropdown Menu
+ * ============================================ */
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .nav-primary {
+        margin: 0 auto;
+        float: none;
+        text-align: left;
+        width: 100%;
+        padding: 0;
+        a.level0 {
+            border-right: 1px solid #d9d6d6;
+            line-height: 20px;
+            color: $c-blue;
+            font-family: $font-GothamR;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0 7px;
+            letter-spacing: 0;
+            &:hover{
+                opacity: 0.8;
+                text-decoration: none;
+            }
+        }
+
+        li.level0{
+            &:hover{
+                // border-top: 2px solidx $c-celeste;
+            }
+        }
+        
+        li.level0,
+        a.level0 {
+            display: inline-block;
+            &.first{
+                // margin-left: -15px;
+            }
+            &:hover{
+                // color: $c-celeste;
+            }
+        }
+
+        a:hover,
+        li:hover > a {
+            // color: #ddd;
+            // text-decoration: underline
+        }
+
+        .menu-active {
+            z-index: 999999;
+        }
+
+        /* Default styles for 1+ drop-down menus */
+        li.level0 ul {
+            // @include menu;
+            background: #fff;
+            position: absolute;
+            left: 0;
+            top: 39px; /* Height of ".nav-primary a.level0" */
+            z-index: 10;
+            min-width: 280px;
+            padding: 20px 0;
+            box-shadow: 1px 0 4px rgba(0, 0, 0, 0.06);
+            border: 1px solid #eeeeee;
+            border-top: 2px solid $c-blue;
+            
+            text-align: left;
+            display: none; /* Hide until displayed. */
+            a:hover,
+            li:hover > a {
+                // color: #ddd;
+                text-decoration: none;
+            }
+            &.hasbanner{
+                min-width: 600px !important;
+                .categories{
+                    float: left;
+                    width: auto;
+                    max-width: 70%;
+                }
+                .submenu-banner{
+                    float: right;
+                    max-width:75%;
+                    width: auto;
+                }
+            }
+        }
+
+        /* Level 2+ */
+        li.level1 ul {
+            left: 100%;
+            top: 0;
+        }
+
+        /* Class for js to add briefly to evaluate element positioning. */
+        li.level0 ul.level0.position-test {
+            display: block;
+        }
+
+        /* Correct menus that will hang off the page (class added by js) */
+        li.level0 ul.level0.spill {
+            right: 0;
+            left: auto;
+
+            // Sub-menu drop down to the left
+            li.level1 ul {
+                left: auto;
+                right: 50px;
+                top: 20px;
+            }
+        }
+
+        /* Level 1+ */
+        li.level0 li.parent > a {
+            position: relative;
+
+            &:after {
+                // @include triangle(right, 4px, #ccc);
+                content: '\f105';
+                right: 5px;
+                top: 5px;
+                position: absolute;
+                margin-top: -3px;
+                font-family: FontAwesome;
+            }
+        }
+    }
+}
+
+.nav-primary li.menu-active {
+    @media #{$desktop} {
+        &.parent:before {
+            content: '\f0d8';
+            font-family: FontAwesome;
+            color: $c-blue;
+            z-index: 99999999;
+            bottom: -8px;
+            position: absolute;
+            left: 45%;
+            font-size: 15px;
+        }        
+    }
+    > ul {
+        display: block;
+    }
+}
+
+// a.level0 {
+//         border-right: 1px solid #d9d6d6;
+//         line-height: 20px;
+//         color: $c-blue;
+//         font-family: $font-GothamR;
+//         font-size: 14px;
+//         font-weight: 500;
+//     }
+
+@media #{$tablet} {
+    #nav{
+        li {
+            float: left;
+            width: 100%;
+            padding: 0 10px;
+            a {
+                float: left;
+                width: 100%;
+                color: #4a4a4a !important;
+                font-family: $font-GothamR;
+                line-height: 45px;
+                padding: 0;
+                font-size: 15px;  
+                letter-spacing: 0;  
+                &:after{
+                    display: none;
+                }                            
+            }
+            &.parent {
+                a {
+                    &:after{
+                        display: block;
+                        color: #4a4a4a !important;
+                        top: 0;
+                        right: 0px;
+                        margin: 0;
+                    }
+                }
+            }
+            ul.level0 {
+                float: left;
+                width: 100%;
+                margin:0 0 15px 0;
+                padding: 0 0 0 10px;                            
+                .categories {
+                    float: left;
+                    width: 100%;
+                    & > .level1 {              
+                        float: left;
+                        width: 100%;
+                        padding: 10px 0 10px 10px;
+                        &.menu-active {
+                            margin-bottom: 15px;
+                            ul {
+                                padding: 0 0 0 10px;
+                            }
+                        }   
+                        .level2{
+                            padding-top: 5px;
+                        }                                                  
+                    }
+                    a {
+                        line-height: 30px;
+                        border: 0; 
+                    }
+                    .view-all {
+                        a {
+                            color: $c-blue !important;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }            
+        }
+
+    }
+}
+

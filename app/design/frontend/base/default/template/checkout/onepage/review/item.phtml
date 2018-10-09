@@ -20,18 +20,21 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
 <?php $_item = $this->getItem()?>
 <tr>
-    <td><h3 class="product-name"><?php echo $this->escapeHtml($this->getProductName()) ?></h3>
+    <td class="producto-review">
+        <img src="<?php echo $this->getProductThumbnail()->resize(50, 50)->setWatermarkSize('30x10'); ?>" width="80" height="" alt="<?php echo $this->escapeHtml($this->getProductName()) ?>" />
+        <div class="prod-review-info">
+        <h3 class="product-name"><?php echo $this->escapeHtml($this->getProductName()) ?></h3>
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">
             <?php foreach ($_options as $_option) : ?>
             <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>
-            <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
+            <dt><?php echo $this->escapeHtml($_option['label']) ?>: </dt>
             <dd<?php if (isset($_formatedOptionValue['full_view'])): ?> class="truncated"<?php endif; ?>><?php echo $_formatedOptionValue['value'] ?>
                 <?php if (isset($_formatedOptionValue['full_view'])): ?>
                 <div class="truncated_full_value">
@@ -45,6 +48,7 @@
             <?php endforeach; ?>
         </dl>
         <?php endif;?>
+        </div>
         <?php if ($addtInfoBlock = $this->getProductAdditionalInformationBlock()):?>
             <?php echo $addtInfoBlock->setItem($_item)->toHtml() ?>
         <?php endif;?>
@@ -54,7 +58,7 @@
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
             <span class="cart-tax-total" onclick="taxToggle('eunit-item-tax-details<?php echo $_item->getId(); ?>', this, 'cart-tax-total-expanded');">
         <?php else: ?>
-            <span class="cart-price">
+            <span class="cart-price unitario">
         <?php endif; ?>
 
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
@@ -142,14 +146,14 @@
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-center"><?php echo $_item->getQty() ?></td>
+    <td class="a-center cantidad"><?php echo $_item->getQty() ?></td>
     <!-- sub total starts here -->
     <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
     <td class="a-right">
         <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>
             <span class="cart-tax-total" onclick="taxToggle('esubtotal-item-tax-details<?php echo $_item->getId(); ?>', this, 'cart-tax-total-expanded');">
         <?php else: ?>
-            <span class="cart-price">
+            <span class="cart-price subtotal">
         <?php endif; ?>
 
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales') && $_item->getWeeeTaxAppliedAmount()): ?>

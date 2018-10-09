@@ -1,4 +1,4 @@
-<!--@subject {{var store.getFrontendName()}}: Nueva orden # {{var order.increment_id}} @-->
+<!--@subject {{var store.getFrontendName()}}: New Order # {{var order.increment_id}} @-->
 <!--@vars
 {"store url=\"\"":"Store Url",
 "var logo_url":"Email Logo Image Url",
@@ -27,18 +27,20 @@
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td class="email-heading">
-                        <p>
-                            Hola {{htmlescape var=$order.getCustomerName()}},
-                        </p>
                         <p style="font-size:12px; line-height:1.3; margin:0;">
-                            <p>¡Felicitaciones por tu compra! Gracias por elegir {{var store.getFrontendName()}}.</p>
-                            <p>El tiempo para que preparemos tu pedido es de hasta 3 d&iacute;as h&aacute;biles.</p>
-                            <p>Te enviaremos un mail de confirmaci&oacute;n cuando el paquete ya est&eacute; en camino, incluyendo un link para hacer seguimiento del env&iacute;o.</p>
-                            <p>Una vez despachado desde nuestro dep&oacute;sito, el tiempo de entrega para Capital y GBA es de hasta 2 d&iacute;as h&aacute;biles.</p>
+                            Gracias por realizar tu pedido en {{var store.getFrontendName()}}.
+                            Podes consultar el estado de tu pedido <a href="{{store url="customer/account/"}}">accediendo a tu cuenta</a>.
+                            Si ten&eacute;s alguna pregunta sobre tu pedido por favor mandanos un mail a <a href="mailto:{{config path='trans_email/ident_support/email'}}">{{config path='trans_email/ident_support/email'}}</a>.
                         </p>
                     </td>
                 </tr>
             </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="order-details">
+            <h3>Compra <span class="no-link">#{{var order.increment_id}}</span></h3>
+            <!--<p>Placed on {{var order.getCreatedAtFormated('long')}}</p>-->
         </td>
     </tr>
     <tr class="order-information">
@@ -50,6 +52,7 @@
                 </tr>
             </table>
             {{/if}}
+            {{layout handle="sales_email_order_items" order=$order}}
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td class="address-details">
@@ -76,18 +79,6 @@
                     </td>
                 </tr>
             </table>
-            {{layout handle="sales_email_order_items" order=$order}}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p>Consult&aacute; cuando quieras el estado de tus compras ingresando a <a href="{{store url="customer/account/"}}">Mi Cuenta</a>.</p>
-            <p>Si ten&eacute;s una consulta, no dudes en contactarte con nuestro Centro de Atenci&oacute;n al Cliente</p>
-            <p>
-                -Por email a <a href="mailto:{{config path='trans_email/ident_support/email'}}">{{config path='trans_email/ident_support/email'}}</a>.
-            </p>
-            <p>-Por tel&eacute;fono al {{var store_phone}}. Horario de atenci&oacute;n: 8hs a 20hs, de Lunes a Viernes. S&aacute;bados y Domingos de 10hs a 16hs.
-            </p>
         </td>
     </tr>
 </table>

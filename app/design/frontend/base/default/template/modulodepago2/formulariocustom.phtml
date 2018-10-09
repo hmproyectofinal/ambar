@@ -1,0 +1,219 @@
+<?php
+	if(Mage::getStoreConfig('payment/modulodepago2/modo_test_prod') == "test"){
+		?><script src="https://developers.todopago.com.ar/resources/v2/TPBSAForm.min.js"></script><?php
+	} else {
+		?><script src="https://forms.todopago.com.ar/resources/v2/TPBSAForm.min.js"></script><?php
+	}
+?>
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS).'modulodepago2/jquery.js'; ?>"></script>
+<script>
+	jQuery(document).ready(function() {
+		jQuery("#tp-bt-wrapper").click(function(e){
+			jQuery("input,select").removeClass("error");
+			jQuery("span.error").html("");
+		})
+
+	    setTimeout(function () {
+	    	if ( jQuery("#formaPagoCbx").val() == 1 ){  		
+		    	jQuery("#fields-card-payment").show();
+		    }else{   		
+		    	jQuery("#fields-card-payment").hide();
+		    }
+
+        }, 1000);
+
+	});
+</script>
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)."/frontend/base/default/css/modulodepago2/form.css";?>">
+</head>
+<body>
+	<div class="contentContainer main" style="width: auto">
+		<div id="tp-form-tph" class="left">
+			<div id="tp-logo"></div>
+			<div id="tp-content-form fieldset"><br/>
+				<div class="field field-payment-method">
+					<label for="formaPagoCbx" class="tp-label required"><em>*</em>Forma de Pago</label>
+					<div class="input-box">
+						<select id="formaPagoCbx" ></select><span class="error" id="formaPagoCbxError"></span>
+					</div>
+				</div>
+
+				<div id="fields-card-payment">
+					<div class="field">
+						<label for="numeroTarjetaTxt" class="tp-label required spacer"><em>*</em>Número de Tarjeta</label>
+						<div class="input-box">
+							<input id="numeroTarjetaTxt" class="input-text required-entry"  maxlength="16" title="Número de Tarjeta"/>
+							<span class="error" id="numeroTarjetaTxtError"></span>
+							<label id="numeroTarjetaLbl"  class="error"></label>
+						</div>
+					</div>
+				
+					<div class="field">
+						<label for="medioPagoCbx" class="tp-label required"><em>*</em>Medio de Pago</label>
+						<div class="input-box">
+							<select id="medioPagoCbx"></select><span class="error" id="medioPagoCbxError"></span>
+						</div>
+					</div>
+					<div class="field">
+						<label for="bancoCbx" class="tp-label required spacer"><em>*</em>Banco Emisor</label>
+						<div class="input-box">
+							<select id="bancoCbx"></select><span class="error" id="bancoCbxError"></span>
+						</div>
+					</div>
+
+					<div class="field">
+						<label for="promosCbx" class="tp-label required spacer"><em>*</em>Cantidad de cuotas</label>
+						<div class="input-box">
+							<select id="promosCbx" class="left"></select><span class="error" id="promosCbxError"></span>
+							<div class="clear"><label id="promosLbl" class="left"></label></div>
+						</div>
+					</div>
+
+					<div class="field">
+						<label id="peiLbl" for="peiCbx" class="tp-label spacer">Pago con PEI</label>
+						<div class="input-box">
+							<input id="peiCbx" maxlength="16" title="Pago con PEI"/>
+						</div>
+					</div>
+					<div class="field">
+						<label for="mesCbx" class="tp-label required spacer"><em>*</em>Fecha de Vencimiento</label>
+						<div class="dateFields">
+							<div class="input-box">
+								<select id="mesCbx" maxlength="2" class="left required-entry small"></select>
+								<span class="left spacer">/</span>
+								<select id="anioCbx" maxlength="2" class="left required-entry small"></select>
+								<div class="clear"><label id="fechaLbl" class="left error"></label></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="field">
+						<div class="input-box">
+							<label for="codigoSeguridadTxt" class="left tp-label spacer tp-label required"><em>*</em>Código de Seguridad</label>
+							<input id="codigoSeguridadTxt" class="left input-text required-entry small"/>
+							<span class="error" id="codigoSeguridadTxtError"></span>
+							<label id="codigoSeguridadLbl" class="left tp-label spacer"></label>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<div class="field">
+						<label for="nombreTxt" class="tp-label required"><em>*</em>Nombre y Apellido</label>
+						<div class="input-box">
+							<input id="nombreTxt"/>
+							<span class="error" id="nombreTxtError"></span>
+						</div>
+					</div>
+					<div class="field">
+						<label for="tipoDocCbx" class="tp-label required spacer"><em>*</em>Documento</label>
+						<div>
+							<div class="input-box">
+								<select id="tipoDocCbx" class="left"></select>
+								<span class="left spacer">&nbsp;</span>
+								<input id="nroDocTxt" class="left input-text required-entry" />
+							</div>
+							<div class="clear"></div>
+							<span class="error" id="nroDocTxtError"></span>
+						</div>
+					</div>
+					<div class="field">
+						<label for="emailTxt" class="tp-label required"><em>*</em>Email</label>
+						<div class="input-box">
+							<input id="emailTxt"/><br/>
+							<span class="error" id="emailTxtError"></span>
+						</div>
+					</div>
+					<div class="field">
+						<label id="tokenPeiLbl" for="tokenPeiTxt" class="tp-label">Token PEI</label>
+						<div class="input-box">
+							<input id="tokenPeiTxt"/>
+							<span class="error" id="peiTokenTxtError"></span>
+						</div>
+					</div>
+				</div>
+					<div class="button-billetera">
+						<button id="MY_btnConfirmarPago" title="Pagar" class="button"><span>Pagar</span></button>
+						<button id="MY_btnPagarConBilletera" title="Pagar con Billetera" class="button"><span>Pagar con Billetera</span></button>
+					</div>
+
+			</div>
+		</div>
+
+	</div>
+<?php
+	//aca ponco la consula la base de datos a partir de orden id
+?>
+
+	<script>
+		//securityRequesKey, esta se obtiene de la respuesta del SAR
+		var security = "<?php echo $this->requestkey; ?>";
+		//merchandID
+		var merchantId = "<?php echo $this->merchant; ?>";
+		//monto del pago
+		var numericAmount = "<?php echo $this->amount; ?>";
+		var mail = "<?php echo $this->mail; ?>";
+		var CompleteName = "<?php echo $this->nombre; ?>";
+
+
+
+		/************* CONFIGURACION DEL API ************************/
+		window.TPFORMAPI.hybridForm.initForm({
+			callbackValidationErrorFunction: 'validationCollector',
+			callbackBilleteraFunction: 'billeteraPaymentResponse',
+			botonPagarConBilleteraId: 'MY_btnPagarConBilletera',
+			modalCssClass: 'modal-class',
+			modalContentCssClass: 'modal-content',
+			beforeRequest: 'initLoading',
+			afterRequest: 'stopLoading',
+			callbackCustomSuccessFunction: 'customPaymentSuccessResponse',
+			callbackCustomErrorFunction: 'customPaymentErrorResponse',
+			botonPagarId: 'MY_btnConfirmarPago',
+			codigoSeguridadTxt: 'Codigo',
+		});
+
+		window.TPFORMAPI.hybridForm.setItem({
+			publicKey: security,
+			merchantId: merchantId,
+			defaultNombreApellido: CompleteName,
+			defaultMail: mail,
+			numericAmount: numericAmount
+		});
+		//callbacks de respuesta del pago
+		function validationCollector(parametros) {
+			jQuery("#"+parametros.field).addClass("error");
+			jQuery("#"+parametros.field+"Error").html("<span class='error'>"+parametros.error+"</span>");
+			console.log(parametros.field + " ==> " + parametros.error);
+		}
+		function billeteraPaymentResponse(response) {
+			if(response.AuthorizationKey) {
+				window.top.location = "<?php echo Mage::getBaseUrl().'modulodepago2/payment/secondStep?Order='.$this->orden; ?>&Answer="+response.AuthorizationKey;
+			} else {
+				window.top.location = "<?php echo Mage::getBaseUrl().'modulodepago2/payment/secondStep?Order='.$this->orden; ?>&Error="+response.ResultMessage;
+			}
+		}
+		function customPaymentSuccessResponse(response) {
+			window.top.location = "<?php echo Mage::getBaseUrl().'modulodepago2/payment/secondStep?Order='.$this->orden; ?>&Answer="+response.AuthorizationKey;
+		}
+		function customPaymentErrorResponse(response) {
+			if(response.AuthorizationKey) {
+				window.top.location = "<?php echo Mage::getBaseUrl().'modulodepago2/payment/secondStep?Order='.$this->orden; ?>&Answer="+response.AuthorizationKey;
+			} else {
+				window.top.location = "<?php echo Mage::getBaseUrl().'modulodepago2/payment/secondStep?Order='.$this->orden; ?>&Error="+response.ResultMessage;
+			}
+		}
+		function initLoading() {
+			console.log('Cargando');
+			$("#fields-card-payment").hide();
+		}
+		
+		function stopLoading() {
+			console.log('Stop loading...');
+			setTimeout(function () {
+				if($("#formaPagoCbx").val() == 1){
+					$("#fields-card-payment").show();
+				}else{
+					$("#fields-card-payment").hide();
+				}
+			}, 500);
+		}
+	</script>
+</body></html>

@@ -12,7 +12,7 @@
 "City","Ciudad"
 "Clear Persistence on Log Out","Persistencia transparente al cerrar sesión"
 "Close","Cerrar"
-"Company","Nº Tarjeta Club Idrogeno"
+"Company","Empresa"
 "Confirm Password","Confirmar Contraseña"
 "Continue","Continuar"
 "Country","País"
@@ -58,7 +58,16 @@
 "Submit","Enviar"
 "Telephone","Teléfono"
 "To proceed to Checkout, please log in using your email address.","Para proceder a la comprobación, por favor, inicie sesión con su dirección de correo electrónico."
-"VAT Number","Cuil/Cuit"
+"VAT Number","Número de IVA"
 "Welcome, %s!","¡Bienvenido, %s!"
 "What\'s this?","¿Qué es esto?"
 "Zip/Postal Code","Código postal"
+"Our Stores","Locales"
+"View and track orders and more","Mirá y rastreá tus pedidos"
+"Save multiple shipping addresses","Guarda múltiples direcciones de envío"
+"Register and save time!","Registrate y ahorrá!"
+"Faster checkout","Compta"
+"Faster checkout","Comprá más rápido"
+
+
+

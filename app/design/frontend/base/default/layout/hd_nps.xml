@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+    <!-- Payments Preview -->
+    <catalog_product_view>
+        <reference name="head">
+            <action method="addJs" ifconfig="hd_bccp/frontend/import_jquery"><script>jquery/core/jquery-1.10.2.min.js</script></action>
+            <action method="addJs" ifconfig="hd_bccp/frontend/import_jquery"><script>jquery/core/jquery-noconflict.js</script></action>
+            <action method="addJs"><script>hd/bccp/form.js</script></action>
+        </reference>
+        <reference name="product.info">
+            <block type="hd_bccp/form_preview_bcc" ifconfig="payment/nps_bcc/payment_preview_enable" name="payment_form_preview_nps_bcc">
+                <action method="setMethodCode"><method_code>nps_bcc</method_code></action>
+            </block>
+            <block type="hd_bccp/form_preview_cc" ifconfig="payment/nps_cc/payment_preview_enable" name="payment_form_preview_nps_cc">
+                <action method="setMethodCode"><method_code>nps_cc</method_code></action>
+            </block>
+        </reference>
+    </catalog_product_view>
+    
+    <remove_blocks_handle>
+        <remove name="top.menu"/>
+        <remove name="catalog.topnav"/>
+        <remove name="store_language"/>
+        <remove name="store_switcher"/>
+        <remove name="top.links"/>
+        <remove name="top.bar"/>
+        <remove name="top.container"/>
+        <remove name="left"/>
+        <remove name="right"/>
+        <remove name="optional_zip_countries"/>
+        <remove name="right.poll"/>
+        <remove name="head_rss"/>
+        <remove name="catalog_product_price_template"/>
+        <remove name="paypal.partner.top_cart.shortcut"/>
+        <remove name="paypal.partner.cart_sidebar.shortcut"/>
+        <remove name="paypaluk.partner.top_cart.shortcut"/>
+        <remove name="paypaluk.partner.cart_sidebar.shortcut"/>
+        <remove name="bottom.container"/>
+        <remove name="footer"/>
+        <remove name="wishlist_sidebar"/>
+        <remove name="cart_sidebar"/>
+        <remove name="footer_links"/>
+        <remove name="newsletter"/>
+        <remove name="cms_footer_links"/>
+        <remove name="after_body_start"/>
+        <remove name="before_body_end"/>
+        <remove name="global_notices"/>
+        <remove name="global_messages"/>
+    </remove_blocks_handle>
+    
+    <remove_all_blocks_handle>
+        <update handle="remove_blocks_handle" />
+        <remove name="head"/>
+        <remove name="header"/>
+        <remove name="messages"/>
+    </remove_all_blocks_handle>
+        
+    <empty_handle>
+        <update handle="remove_all_blocks_handle" />
+        <reference name="root">
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+        </reference>
+    </empty_handle>
+    
+    <hd_nps_iframe_child_default>
+        <update handle="empty_handle"/>
+        <reference name="content">
+            <block type="hd_nps/checkout_template" name="nps.pay.iframe.child" template="hd_nps/checkout/pay/iframe-child.phtml"/>
+        </reference>
+    </hd_nps_iframe_child_default>
+        
+    
+    <!-- Default Pages -->
+    <hd_nps_default>
+        <update handle="remove_blocks_handle" />
+        <reference name="head">
+            <action method="setTitle" translate="title" module="hd_nps"><title>NPS Payment Service</title></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+    </hd_nps_default>
+        
+    <!-- Redirect Controller -->
+    <hd_nps_redirect_form>
+        <update handle="hd_nps_default"/>
+        <reference name="content">
+            <block type="hd_nps/checkout_redirect_form" name="nps.redirect.form" template="hd_nps/checkout/redirect/form.phtml"/>
+        </reference>
+    </hd_nps_redirect_form>
+        
+    <!-- Pay Controller (iframe) -->
+    <hd_nps_pay_index>
+        <update handle="hd_nps_default"/>
+        <reference name="content">
+            <block type="hd_nps/checkout_template" name="nps.pay.iframe.wrapper" template="hd_nps/checkout/pay/iframe.phtml"/>
+        </reference>
+    </hd_nps_pay_index>
+    
+    <hd_nps_pay_form>
+        <update handle="remove_all_blocks_handle"/>
+        <update handle="hd_nps_redirect_form"/>
+        <reference name="nps.redirect.form">
+            <action method="setHideMessage"><value>1</value></action>
+        </reference>
+    </hd_nps_pay_form>
+    
+    <hd_nps_pay_return>
+        <update handle="hd_nps_iframe_child_default"/>
+        <reference name="nps.pay.iframe.child">
+            <action method="setRoute"><route>return</route></action>
+        </reference>
+    </hd_nps_pay_return>
+
+    <hd_nps_pay_decline>
+        <update handle="hd_nps_iframe_child_default"/>
+        <reference name="nps.pay.iframe.child">
+            <action method="setRoute"><route>decline</route></action>
+        </reference>
+    </hd_nps_pay_decline>
+    
+    <hd_nps_pay_error>
+        <update handle="hd_nps_iframe_child_default"/>
+        <reference name="nps.pay.iframe.child">
+            <action method="setRoute"><route>error</route></action>
+        </reference>
+    </hd_nps_pay_error>
+    
+</layout>

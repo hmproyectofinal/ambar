@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @description: Layout para el System->Config->Sales->Payment Methods->andreani.
+ *
+ *
+ */
+-->
+
+<layout>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>lib/andreani.js</name></action>
+        </reference>
+    </adminhtml_system_config_edit>
+
+</layout>

@@ -20,7 +20,7 @@
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2018 Magento, Inc. (http://www.magento.com)
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
@@ -28,7 +28,8 @@
     <div class="discount">
         <h2><?php echo $this->__('Discount Codes') ?></h2>
         <div class="discount-form">
-            <label for="coupon_code"><?php echo $this->__('Enter your coupon code if you have one.') ?></label>
+            <label for="coupon_code"><?php echo $this->__('Si tenés un código de descuento') ?></label>
+            <div class="ingresar-codigo">Ingresalo aquí</div>
             <input type="hidden" name="remove" id="remove-coupone" value="0" />
             <div class="input-box">
                 <input class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $this->escapeHtml($this->getCouponCode()) ?>" />

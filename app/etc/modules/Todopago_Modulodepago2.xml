@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Todopago_Modulodepago2>
+      <active>true</active>
+      <codePool>community</codePool>
+      <version>1.12.0</version>
+      <depends>
+      	<Mage_Payment />
+      </depends>
+    </Todopago_Modulodepago2>
+  </modules>
+</config>

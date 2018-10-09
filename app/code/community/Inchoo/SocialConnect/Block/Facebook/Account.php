@@ -33,22 +33,13 @@
 
 class Inchoo_SocialConnect_Block_Facebook_Account extends Mage_Core_Block_Template
 {
-    /**
-     *
-     * @var Inchoo_SocialConnect_Model_Facebook_Oauth2_Client
-     */
     protected $client = null;
-
-    /**
-     *
-     * @var Inchoo_SocialConnect_Model_Facebook_Info_User
-     */
     protected $userInfo = null;
 
     protected function _construct() {
         parent::_construct();
 
-        $this->client = Mage::getSingleton('inchoo_socialconnect/facebook_oauth2_client');
+        $this->client = Mage::getSingleton('inchoo_socialconnect/facebook_client');
         if(!($this->client->isEnabled())) {
             return;
         }
@@ -57,24 +48,24 @@ class Inchoo_SocialConnect_Block_Facebook_Account extends Mage_Core_Block_Templa
 
         $this->setTemplate('inchoo/socialconnect/facebook/account.phtml');
     }
-    
-    protected function _hasData()
+
+    protected function _hasUserInfo()
     {
-        return $this->userInfo->hasData();
-    }    
+        return (bool) $this->userInfo;
+    }
 
     protected function _getFacebookId()
     {
-        return $this->userInfo->getId();
+        return $this->userInfo->id;
     }
 
     protected function _getStatus()
     {
-        if($this->userInfo->getLink()) {
-            $link = '<a href="'.$this->userInfo->getLink().'" target="_blank">'.
-                    $this->escapeHtml($this->userInfo->getName()).'</a>';
+        if(!empty($this->userInfo->link)) {
+            $link = '<a href="'.$this->userInfo->link.'" target="_blank">'.
+                    $this->htmlEscape($this->userInfo->name).'</a>';
         } else {
-            $link = $this->userInfo->getName();
+            $link = $this->userInfo->name;
         }
 
         return $link;
@@ -82,15 +73,15 @@ class Inchoo_SocialConnect_Block_Facebook_Account extends Mage_Core_Block_Templa
 
     protected function _getEmail()
     {
-        return $this->userInfo->getEmail();
+        return $this->userInfo->email;
     }
 
     protected function _getPicture()
     {
-        if($this->userInfo->getPicture()) {
+        if(!empty($this->userInfo->picture)) {
             return Mage::helper('inchoo_socialconnect/facebook')
-                    ->getProperDimensionsPictureUrl($this->userInfo->getId(),
-                            $this->userInfo->getPicture()->data->url);
+                    ->getProperDimensionsPictureUrl($this->userInfo->id,
+                            $this->userInfo->picture->data->url);
         }
 
         return null;
@@ -98,13 +89,13 @@ class Inchoo_SocialConnect_Block_Facebook_Account extends Mage_Core_Block_Templa
 
     protected function _getName()
     {
-        return $this->userInfo->getName();
+        return $this->userInfo->name;
     }
 
     protected function _getGender()
     {
-        if($this->userInfo->getGender()) {
-            return ucfirst($this->userInfo->getGender());
+        if(!empty($this->userInfo->gender)) {
+            return ucfirst($this->userInfo->gender);
         }
 
         return null;
@@ -112,8 +103,8 @@ class Inchoo_SocialConnect_Block_Facebook_Account extends Mage_Core_Block_Templa
 
     protected function _getBirthday()
     {
-        if($this->userInfo->getBirthday()) {
-            $birthday = date('F j, Y', strtotime($this->userInfo->getBirthday()));
+        if(!empty($this->userInfo->birthday)) {
+            $birthday = date('F j, Y', strtotime($this->userInfo->birthday));
             return $birthday;
         }
 

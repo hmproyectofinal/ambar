@@ -34,5 +34,12 @@
 <script type="text/javascript">
     jQuery(document).ready(function(){
         jQuery('.block.block-subscribe').insertBefore('.footer-container');
+
+        if(jQuery(window).width() < 767){
+        	jQuery( ".footer .block-title" ).click(function() {
+        	  jQuery(this).next().slideToggle();
+        	  jQuery(this).toggleClass('active');
+        	});
+        }
     });
 </script>

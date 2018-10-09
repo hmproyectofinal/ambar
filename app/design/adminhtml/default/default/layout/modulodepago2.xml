@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <modulodepago2_adminhtml_formulariocustom_index>
+  	<reference name="head">
+        <action method="addJs"><script>modulodepago2/formulariocustom.js</script></action>
+      </reference>
+  	<reference name="head">
+        <action method="addCss"><stylesheet>modulodepago2/formulariocustom.css</stylesheet></action>
+      </reference>
+	<reference name="content">
+	  <block type="modulodepago2/adminhtml_formulariocustom" name="formulariocustom" template="modulodepago2/formulariocustom.phtml"/>
+	</reference>
+  </modulodepago2_adminhtml_formulariocustom_index>
+  <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab">
+                <name>Get Status</name>
+                <block>modulodepago2/adminhtml_sales_order_view_tab_getstatus</block>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>

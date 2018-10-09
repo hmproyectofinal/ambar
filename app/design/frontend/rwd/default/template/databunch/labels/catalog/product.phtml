@@ -1,0 +1,55 @@
+<?php
+/**
+ * To use in product listing or product view media call
+ * echo $this->getChild('product_labels')->setProduct($product)->toHtml();
+ * from catalog/product/list.phtml 
+ * or 
+ * from catalog/product/view/media.phtml
+ * 
+ * To use in another page add this template at page layout
+ */
+?>
+
+<?php if ( $this->isSale() || $this->isNew() || $this->isFeatured() ): ?>
+	<?php $locationClass = $this->getLocationClass(); ?>
+	<div class='product-label <?php echo $locationClass ?>'>
+	<ul>
+<?php endif; ?>
+
+<?php if ($this->isSale()): ?>
+    <?php /* product on sale */ ?>
+    <?php $saleStyle = "background:" . $this->getSaleBackgroundColor() . "; color:" . $this->getSaleTextColor() . ";" ?>
+	<li class="label" style="<?php echo $saleStyle ?>">
+		<span><?php echo $this->getSaleText() ?></span>
+		<span class="arrow l-arrow" style="border-top:5px solid <?php echo $this->getSaleBackgroundColor() ?>;">&nbsp;</span>
+		<span class="arrow rt-arrow" style="border-top:20px solid <?php echo $this->getSaleBackgroundColor() ?>;">&nbsp;</span>
+		<span class="arrow rb-arrow" style="border-bottom:20px solid <?php echo $this->getSaleBackgroundColor() ?>;">&nbsp;</span>
+	</li>
+<?php endif; ?>
+
+<?php if ($this->isNew()): ?>
+	<?php /* new product */ ?>
+	<?php $newStyle = "background:" . $this->getNewBackgroundColor() . "; color:" . $this->getNewTextColor() . ";" ?>
+	<li class="label" style="<?php echo $newStyle ?>">
+		<span><?php echo $this->getNewText() ?></span>
+		<span class="arrow l-arrow" style="border-top:5px solid <?php echo $this->getNewBackgroundColor() ?>;">&nbsp;</span>
+		<span class="arrow rt-arrow" style="border-top:20px solid <?php echo $this->getNewBackgroundColor() ?>;">&nbsp;</span>
+		<span class="arrow rb-arrow" style="border-bottom:20px solid <?php echo $this->getNewBackgroundColor() ?>;">&nbsp;</span>
+	</li>
+<?php endif; ?>
+
+<?php if ($this->isFeatured()): ?>
+    <?php /* featured product */ ?>
+    <?php $featuredStyle = "background:" . $this->getFeaturedBackgroundColor() . "; color:" . $this->getFeaturedTextColor() . ";" ?>
+	<li class="label" style="<?php echo $featuredStyle ?>">
+		<span><?php echo $this->getFeaturedText() ?></span>
+		<span class="arrow l-arrow" style="border-top:5px solid <?php echo $this->getFeaturedBackgroundColor() ?>;">&nbsp;</span>
+		<span class="arrow rt-arrow" style="border-top:20px solid <?php echo $this->getFeaturedBackgroundColor() ?>;">&nbsp;</span>
+		<span class="arrow rb-arrow" style="border-bottom:20px solid <?php echo $this->getFeaturedBackgroundColor() ?>;">&nbsp;</span>
+	</li>
+<?php endif; ?>
+
+<?php if ( $this->isSale() || $this->isNew() || $this->isFeatured() ): ?>
+	</ul>
+	</div>
+<?php endif; ?>

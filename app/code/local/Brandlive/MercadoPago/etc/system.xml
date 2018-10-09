@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+
+<config>
+    <sections>
+        <payment translate="label">
+            <groups>
+                <mercadopago type="group">
+                    <fields>
+                        <expiration_order_header translate="label">
+                            <label>Expiración de Pago</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>500</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </expiration_order_header>
+                        <expires translate="label">
+                            <label>Habilitar la expiración del pago</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>510</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </expires>
+                        <expiration_duration translate="label">
+                            <label>Duración de la ventana de pago</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits validate-digits-range digits-range-5-4320</validate>
+                            <sort_order>520</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>En minutos. Mínimo: 5 Máximo: 4320 (72 horas)</comment>
+                            <depends>
+                                <expires>1</expires>
+                            </depends>
+                        </expiration_duration>
+                        <cancelation_order_header translate="label">
+                            <label>Cancelación de Ordenes</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>530</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <expires>1</expires>
+                            </depends>
+                        </cancelation_order_header>
+                        <cancelation_cron_enabled translate="label">
+                            <label>Habilitar cron de cancelación de ordenes</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>540</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                    NOTA: Debe estar habilitada la funcionalidad de "Expiración de Pago".
+                                ]]>
+                            </comment>
+                            <depends>
+                                <expires>1</expires>
+                            </depends>
+                        </cancelation_cron_enabled>
+                        <cancelation_cron_expiration translate="label">
+                            <label>Vigencia de la orden luego de la expiración en MP</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits validate-digits-range digits-range-5-60</validate>
+                            <sort_order>550</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>En minutos. Mínimo: 5. Máximo 60.</comment>
+                            <depends>
+                                <expires>1</expires>
+                                <cancelation_cron_enabled>1</cancelation_cron_enabled>
+                            </depends>
+                        </cancelation_cron_expiration>
+                        <cancelation_cron_order_statuses translate="label">
+                            <label>Estados de las Ordenes a verificar por el cron</label>
+                            <frontend_type>multiselect</frontend_type>                                          
+                            <source_model>brandlive_mercadopago/system_config_source_order_newstatuses</source_model>
+                            <sort_order>560</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                            <comment>Statuses de state NEW</comment>
+                            <depends>
+                                <expires>1</expires>
+                                <cancelation_cron_enabled>1</cancelation_cron_enabled>
+                            </depends>
+                        </cancelation_cron_order_statuses>
+                        <cancelation_cron_collection_limit translate="label">
+                            <label>Limite de ordenes a cancelar por cron</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits validate-digits-range digits-range-1-50</validate>
+                            <sort_order>570</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Mínimo: 1. Máximo: 50</comment>
+                            <depends>
+                                <expires>1</expires>
+                                <cancelation_cron_enabled>1</cancelation_cron_enabled>
+                            </depends>
+                        </cancelation_cron_collection_limit>     
+                        <cancelation_cron_log translate="label">
+                            <label>Habilitar log de Cancelación de Ordenes</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>580</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                    El archivo se guardará en la siguiente ubicación: /var/log/mercadopago-cancelacion.log
+                                ]]>
+                            </comment>
+                            <depends>
+                                <expires>1</expires>
+                                <cancelation_cron_enabled>1</cancelation_cron_enabled>
+                            </depends>
+                        </cancelation_cron_log>
+                        <sort_order_header translate="label">
+                                <label>Orden de Aparición en el Checkout</label>
+                                <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                                <sort_order>1000</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                            </sort_order_header>
+                        <sort_order translate="label">
+                                <label>Sort Order</label>
+                                <frontend_type>text</frontend_type>
+                                <sort_order>1010</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>1</show_in_website>
+                                <show_in_store>1</show_in_store>
+                        </sort_order>           
+                        
+                        <discount_amount translate="label">
+                                <label>Subtract Discount Amount</label>
+                                <frontend_type>select</frontend_type>
+                                <source_model>adminhtml/system_config_source_yesno</source_model>
+                                <sort_order>151</sort_order>
+                                <show_in_default>1</show_in_default>
+                                <show_in_website>0</show_in_website>
+                                <show_in_store>0</show_in_store>                                
+                        </discount_amount>           
+                    </fields>
+                </mercadopago>
+            </groups>
+        </payment>
+    </sections>
+</config>

@@ -31,12 +31,47 @@
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
-class Inchoo_SocialConnect_GoogleController extends Inchoo_SocialConnect_Controller_Abstract
+class Inchoo_SocialConnect_GoogleController extends Mage_Core_Controller_Front_Action
 {
+    protected $referer = null;
+
+    public function connectAction()
+    {
+        try {
+            $this->_connectCallback();
+        } catch (Exception $e) {
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+        }
+
+        if(!empty($this->referer)) {
+            $this->_redirectUrl($this->referer);
+        } else {
+            Mage::helper('inchoo_socialconnect')->redirect404($this);
+        }
+    }
+
+    public function disconnectAction()
+    {
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+
+        try {
+            $this->_disconnectCallback($customer);
+        } catch (Exception $e) {
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+        }
+
+        if(!empty($this->referer)) {
+            $this->_redirectUrl($this->referer);
+        } else {
+            Mage::helper('inchoo_socialconnect')->redirect404($this);
+        }
+    }
 
     protected function _disconnectCallback(Mage_Customer_Model_Customer $customer) {
+        $this->referer = Mage::getUrl('socialconnect/account/google');        
+        
         Mage::helper('inchoo_socialconnect/google')->disconnect($customer);
-
+        
         Mage::getSingleton('core/session')
             ->addSuccess(
                 $this->__('You have successfully disconnected your Google account from our store account.')
@@ -49,22 +84,24 @@ class Inchoo_SocialConnect_GoogleController extends Inchoo_SocialConnect_Control
         $state = $this->getRequest()->getParam('state');
         if(!($errorCode || $code) && !$state) {
             // Direct route access - deny
-            return $this;
+            return;
         }
+        
+        $this->referer = Mage::getSingleton('core/session')->getGoogleRedirect();
 
         if(!$state || $state != Mage::getSingleton('core/session')->getGoogleCsrf()) {
-            return $this;
+            return;
         }
 
         if($errorCode) {
-            // Google API red light - abort
+            // Google API read light - abort
             if($errorCode === 'access_denied') {
                 Mage::getSingleton('core/session')
                     ->addNotice(
                         $this->__('Google Connect process aborted.')
                     );
 
-                return $this;
+                return;
             }
 
             throw new Exception(
@@ -73,29 +110,30 @@ class Inchoo_SocialConnect_GoogleController extends Inchoo_SocialConnect_Control
                     $errorCode
                 )
             );
+
+            return;
         }
 
         if ($code) {
             // Google API green light - proceed
+            $client = Mage::getSingleton('inchoo_socialconnect/google_client');
 
-            $info = Mage::getModel('inchoo_socialconnect/google_info')->load();
-            /* @var $info Inchoo_SocialConnect_Model_Google_Info */
-
-            $token = $info->getClient()->getAccessToken();
+            $userInfo = $client->api('/userinfo');
+            $token = $client->getAccessToken();
 
             $customersByGoogleId = Mage::helper('inchoo_socialconnect/google')
-                ->getCustomersByGoogleId($info->getId());
+                ->getCustomersByGoogleId($userInfo->id);
 
             if(Mage::getSingleton('customer/session')->isLoggedIn()) {
                 // Logged in user
-                if($customersByGoogleId->getSize()) {
+                if($customersByGoogleId->count()) {
                     // Google account already connected to other account - deny
                     Mage::getSingleton('core/session')
                         ->addNotice(
                             $this->__('Your Google account is already connected to one of our store accounts.')
                         );
 
-                    return $this;
+                    return;
                 }
 
                 // Connect from account dashboard - attach
@@ -103,18 +141,18 @@ class Inchoo_SocialConnect_GoogleController extends Inchoo_SocialConnect_Control
 
                 Mage::helper('inchoo_socialconnect/google')->connectByGoogleId(
                     $customer,
-                    $info->getId(),
+                    $userInfo->id,
                     $token
                 );
 
                 Mage::getSingleton('core/session')->addSuccess(
-                    $this->__('Your Google account is now connected to your store account. You can now login using our Google Login button or using store account credentials you will receive to your email address.')
+                    $this->__('Your Google account is now connected to your store accout. You can now login using our Google Connect button or using store account credentials you will receive to your email address.')
                 );
 
-                return $this;
+                return;
             }
 
-            if($customersByGoogleId->getSize()) {
+            if($customersByGoogleId->count()) {
                 // Existing connected user - login
                 $customer = $customersByGoogleId->getFirstItem();
 
@@ -125,19 +163,19 @@ class Inchoo_SocialConnect_GoogleController extends Inchoo_SocialConnect_Control
                         $this->__('You have successfully logged in using your Google account.')
                     );
 
-                return $this;
+                return;
             }
 
-            $customersByEmail = Mage::helper('inchoo_socialconnect/google')
-                ->getCustomersByEmail($info->getEmail());
+            $customersByEmail = Mage::helper('inchoo_socialconnect/facebook')
+                ->getCustomersByEmail($userInfo->email);
 
-            if($customersByEmail->getSize())  {
+            if($customersByEmail->count())  {
                 // Email account already exists - attach, login
                 $customer = $customersByEmail->getFirstItem();
-
+                
                 Mage::helper('inchoo_socialconnect/google')->connectByGoogleId(
                     $customer,
-                    $info->getId(),
+                    $userInfo->id,
                     $token
                 );
 
@@ -145,34 +183,32 @@ class Inchoo_SocialConnect_GoogleController extends Inchoo_SocialConnect_Control
                     $this->__('We have discovered you already have an account at our store. Your Google account is now connected to your store account.')
                 );
 
-                return $this;
+                return;
             }
 
             // New connection - create, attach, login
-            $givenName = $info->getGivenName();
-            if(empty($givenName)) {
+            if(empty($userInfo->given_name)) {
                 throw new Exception(
                     $this->__('Sorry, could not retrieve your Google first name. Please try again.')
                 );
             }
 
-            $familyName = $info->getFamilyName();
-            if(empty($familyName)) {
+            if(empty($userInfo->family_name)) {
                 throw new Exception(
                     $this->__('Sorry, could not retrieve your Google last name. Please try again.')
                 );
             }
 
             Mage::helper('inchoo_socialconnect/google')->connectByCreatingAccount(
-                $info->getEmail(),
-                $info->getGivenName(),
-                $info->getFamilyName(),
-                $info->getId(),
+                $userInfo->email,
+                $userInfo->given_name,
+                $userInfo->family_name,
+                $userInfo->id,
                 $token
             );
 
             Mage::getSingleton('core/session')->addSuccess(
-                $this->__('Your Google account is now connected to your new user account at our store. Now you can login using our Google Login button.')
+                $this->__('Your Google account is now connected to your new user accout at our store. Now you can login using our Google Connect button or using store account credentials you will receive to your email address.')
             );
         }
     }

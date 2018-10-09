@@ -1,0 +1,113 @@
+<div class="content-header">
+<table cellspacing="0">
+    <tr>
+        <td style="width:50%;"><h3 class="icon-head head-posts"><?php echo Mage::helper('winwin_opsintegration')->__('Execution History Info') ?></h3></td>
+        <td class="a-right">
+            <?php echo $this->getButtonsHtml() ?>
+        </td>
+    </tr>
+</table>
+</div>
+
+<div>
+
+<?php $obj = $this->getInfoObject();
+?>
+<table>
+<tr>
+<td>ID</td><td><?php echo $obj->getId();?></td>
+</tr>
+<tr>
+<td>Integration name</td><td><?php echo $obj->getIntegrationName()?></td>
+</tr>
+<tr>
+<td>Executed at</td><td><?php echo $obj->getExecutedAt()?></td>
+</tr>
+<tr>
+<td>Processed file name</td><td><?php echo $obj->getProcessedFileName()?></td>
+</tr>
+<tr>
+<td>Records passed</td><td><?php echo $obj->getRecordsProcessedCorrectly()?></td>
+</tr>
+<tr>
+<td>Total records</td><td><?php echo $obj->getTotalRecords()?></td>
+</tr>
+<tr>
+<td>Execution type</td><td><?php echo $obj->getExecutionType()?></td>
+</tr>
+<tr>
+<td>User name</td><td><?php echo $obj->getUsername()?></td>
+</tr>
+<tr>
+<td>Execution status</td><td><?php echo $obj->getExecutionStatus()?></td>
+</tr>
+<tr><td>
+<?php
+
+$website_code = 'base';
+
+/*if ($obj->getIntegrationName() !== 'Estados_Import'){
+$website_code = $obj->getProcessedFileName();
+
+$website_code = explode('-', $website_code);
+
+
+$website_code = $website_code[1];
+$website_code = explode('.', $website_code);
+$website_code = $website_code[0];
+
+
+}
+else {
+    
+}*/
+
+if ($obj->getIntegrationName() === 'Ordenes_Export') {
+	echo "<a href='".$this->getFileDownload('integracion_ordenes', 'Executions', $website_code)."'>".'integracion_ordenes.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Precios_Import') {
+	echo "<a href='".$this->getFileDownload('integracion_precios', 'Executions', $website_code)."'>".'integracion_precios.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Stocks_Import'){
+	echo "<a href='".$this->getFileDownload('integracion_stock', 'Executions', $website_code)."'>".'integracion_stock.log</a>';
+}
+
+else if ($obj->getIntegrationName() === 'Stocksinc_Import'){
+	echo "<a href='".$this->getFileDownload('integracion_stockinc', 'Executions', $website_code)."'>".'integracion_stockinc.log</a>';
+}
+
+else if ($obj->getIntegrationName() === 'Estados_Import'){
+	echo "<a href='".$this->getFileDownload('integracion_estados', 'Executions', '')."'>".'integracion_estados.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Shipments_Import'){
+	echo "<a href='".$this->getFileDownload('integracion_shipments', 'Executions', '')."'>".'integracion_shipments.log</a>';
+}
+
+?>
+</td>
+<td>
+<?php
+if ($obj->getIntegrationName() === 'Ordenes_Export') {
+	echo "<a href='".$this->getFileDownload('errores_ordenes', 'Errors', $website_code)."'>".'errores_ordenes.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Precios_Import') {
+	echo "<a href='".$this->getFileDownload('errores_precios', 'Errors', $website_code)."'>".'errores_precios.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Stocks_Import'){
+	echo "<a href='".$this->getFileDownload('errores_stock', 'Errors', $website_code)."'>".'errores_stock.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Stocksinc_Import'){
+	echo "<a href='".$this->getFileDownload('errores_stockinc', 'Errors', $website_code)."'>".'errores_stockinc.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Estados_Import'){
+	echo "<a href='".$this->getFileDownload('errores_estados', 'Errors', '')."'>".'error_estados.log</a>';
+}
+else if ($obj->getIntegrationName() === 'Shipments_Import'){
+	echo "<a href='".$this->getFileDownload('errores_shipments', 'Errors', '')."'>".'errores_shipments.log</a>';
+}
+?>
+</td>
+</tr>
+</table>
+<?php //echo $this->getFormHtml() ?>
+</div>

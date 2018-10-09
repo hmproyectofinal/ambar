@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Brandlive_MercadoPago>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <MercadoPago_Core />
+            </depends>
+        </Brandlive_MercadoPago>
+    </modules>
+</config>

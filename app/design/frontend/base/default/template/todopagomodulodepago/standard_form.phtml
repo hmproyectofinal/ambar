@@ -1,0 +1,119 @@
+﻿<?php
+// /pasar todo al block
+$quoteid = Mage::getSingleton('checkout/session')->getQuoteId();
+$_code = $this->getMethodCode(); ?>
+<img src="http://www.todopago.com.ar/sites/todopago.com.ar/files/pluginstarjeta.jpg" alt="imagen_todopago" />
+<ul class="form-list" id="payment_form_<?php echo $_code; ?>"
+	style="display: none;">
+	<input type="hidden" id="tpcheckout" name='payment[tpcheckout]' value="<?php echo Mage::app()->getFrontController()->getRequest()->getControllerModule(); ?>">
+	<input type="hidden" id="quote" name='payment[quote]'
+	value="<?php echo $quoteid ?>"></input>
+	<p>Al continuar con la compra, estarás ingresando a un sitio seguro de Todo Pago</p>
+<?php if(Mage::getStoreConfig('payment/modulodepago2/hibrido') == 1): ?>
+<?php if(Mage::app()->getFrontController()->getRequest()->getControllerModule() == "Mage_Checkout"): ?>
+<style>
+#overlay{width:100%;background:#000; text-align:center; opacity:1; position:absolute;top:0px;z-index:1000; padding 20px;}
+#lightbox{width:35%; height:75%;text-align:center; position:relative; top:30px; z-index:1001;background:#FFF;margin: 0px auto;}
+#lightbox a{cursor:pointer; color:#fff; position:relative; display:block;}
+</style>
+<script type="text/javascript">
+if (!Object.prototype.watch) {
+	Object.defineProperty(Object.prototype, "watch", {
+		  enumerable: false
+		, configurable: true
+		, writable: false
+		, value: function (prop, handler) {
+			var
+			  oldval = this[prop]
+			, newval = oldval
+			, getter = function () {
+				return newval;
+			}
+			, setter = function (val) {
+				oldval = newval;
+				return newval = handler.call(this, prop, oldval, val);
+			}
+			;
+			
+			if (delete this[prop]) { // can't watch constants
+				Object.defineProperty(this, prop, {
+					  get: getter
+					, set: setter
+					, enumerable: true
+					, configurable: true
+				});
+			}
+		}
+	});
+}
+
+// object.unwatch
+if (!Object.prototype.unwatch) {
+	Object.defineProperty(Object.prototype, "unwatch", {
+		  enumerable: false
+		, configurable: true
+		, writable: false
+		, value: function (prop) {
+			var val = this[prop];
+			delete this[prop]; // remove accessors
+			this[prop] = val;
+		}
+	});
+}
+
+originalSave = Review.prototype.save;
+payment.watch("currentMethod",function(a,b,c){
+	if(c == "modulodepago2") {
+		Review.prototype.save = Review.prototype.save.wrap(function(save) {
+			if (checkout.loadWaiting!=false) return;
+			checkout.setLoadWaiting('review');
+			var params = Form.serialize(payment.form);
+			if (this.agreementsForm) {
+				params += '&'+Form.serialize(this.agreementsForm);
+			}
+			params.save = true;
+			var request = new Ajax.Request(
+				this.saveUrl,
+				{
+					method:'post',
+					parameters:params,
+					onComplete: this.onComplete,
+					onSuccess: function(data) {
+						redirectUrl = data.responseText.evalJSON().redirect
+						var requestSAR = new Ajax.Request(
+							redirectUrl,
+							{
+								method:'get',
+								onSuccess: function(a) {
+									var body = document.body,
+										html = document.documentElement;
+
+									var height = Math.max( body.scrollHeight, body.offsetHeight,
+														   html.clientHeight, html.scrollHeight, html.offsetHeight );
+									$$('body > .wrapper')[0].insert("<div id='overlay'></div>");
+									$('overlay').setStyle({'height':height+'px'});
+									new Effect.Opacity('overlay',{from:0.0,to:1.0,duration:0.3,transition:Effect.Transitions.sinoidal,afterFinish:function(){
+											$('overlay').insert("<div id='lightbox'></div>");
+											$('lightbox').insert('<iframe width="100%" height="100%" '+ ((a.responseJSON != null) ? ('src="' + a.responseJSON.url) : ('srcdoc="' + a.responseText))+'"></iframe>');
+									}});
+								},
+								onFailure: function(data) {
+									window.location = data.responseText.evalJSON().url;
+								}
+							}
+						);
+					},
+					onFailure: function(data) {
+							window.location = data.responseText.evalJSON().url;
+					}
+				}
+			);
+		});
+	} else {
+		Review.prototype.save = originalSave;
+	}
+});
+</script>
+<?php endif; ?>
+<?php endif; ?>
+</ul>

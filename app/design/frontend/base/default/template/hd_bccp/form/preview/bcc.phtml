@@ -1,0 +1,54 @@
+<?php /* @var $this Hd_Bccp_Block_Form_Preview_Bcc */ ?>
+<?php $_code = $this->getMethodCode() ?>
+<div>
+    <h3><?php echo $this->__('Payments Plan Preview') ?></h3>
+    <ul class="form-list" id="payment_form_<?php echo $_code ?>">
+        <li class="hidden">
+            <div>
+                <input type="hidden" id="<?php echo $_code ?>_cc_payment_id" name="payment[cc_payment_id]" value=""/>
+            </div>
+        </li>
+        
+        <?php if ($_options['bcc']['order'] == 'ccb'):?>
+        <li>
+            <label for="<?php echo $_code ?>_cc_id"><?php echo $this->__('Credit Card') ?></label>
+            <div class="input-box">
+                <select id="<?php echo $_code ?>_cc_id" name="payment[cc_id]" class="required-entry"></select>
+            </div>
+        </li>
+        <?php endif;?>
+
+        <li>
+            <label for="<?php echo $_code ?>_bank_id"><?php echo $this->__('Bank') ?></label>
+            <div class="input-box">
+                <select id="<?php echo $_code ?>_bank_id" name="payment[bank_id]" class="required-entry"></select>
+            </div>
+        </li>
+        
+        <?php if ($_options['bcc']['order'] == 'bcc'):?>
+        <li>
+            <label for="<?php echo $_code ?>_cc_id"><?php echo $this->__('Credit Card') ?></label>
+            <div class="input-box">
+                <select id="<?php echo $_code ?>_cc_id" name="payment[cc_id]" class="required-entry"></select>
+            </div>
+        </li>
+        <?php endif;?>
+
+        <li>
+            <label for="<?php echo $_code ?>_payments"><?php echo $this->__('Available Payments') ?></label>
+            <div class="input-box">
+                <select id="<?php echo $_code ?>_payments" name="payment[payments]" class="required-entry"></select>
+            </div>
+        </li>
+        <script type="text/javascript">
+        //<![CDATA[
+        (function($){
+
+            window['paymentForm_<?php echo $_code ?>'] = 
+                new Hd.Bccp.FormBcc(<?php echo $this->getPaymentOptionsJson(); ?>);
+
+        }(jQuery));
+        //]]>
+        </script>
+    </ul>
+</div>

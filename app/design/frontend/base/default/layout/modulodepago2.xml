@@ -1,0 +1,11 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <moudlodepago2_formulariocustom_insite>
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>
+    <reference name="content">   
+      <block type="modulodepago2/formulariocustom2" name="formulariocustom2" template="modulodepago2/formulariocustom.phtml"/>
+    </reference>  
+  </moudlodepago2_formulariocustom_insite>
+</layout>  

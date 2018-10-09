@@ -1,0 +1,30 @@
+<?php /* @var $this Hd_Nps_Block_Checkout_Redirect_Form */ ?>
+<div>
+    
+    <?php if(!$this->getHideMessage()): ?>
+    <h2>
+        <?php echo $this->__('Usted esta siendo redirigido al sitio de NPS') ?>        
+    </h2>
+    <?php endif; ?>
+    
+    <div>
+        <?php echo $this->_getForm()->toHtml() ?> 
+    </div>
+    
+    <?php if($this->isDebug()): ?>
+    <div>
+        <?php echo $this->_getDebugFormReturn()->toHtml() ?> 
+    </div>
+    <div>
+        <?php echo $this->_getDebugFormDecline()->toHtml() ?> 
+    </div>
+    <?php endif; ?>
+    
+</div>
+<?php if(!$this->isDebug()): ?>
+<script type="text/javascript">
+//<![CDATA[
+    document.getElementById("nps_redirect_form").submit();
+//]]>
+</script>
+<?php endif; ?>

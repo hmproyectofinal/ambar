@@ -1,0 +1,114 @@
+<?php /* @var $this Hd_Bccp_Block_Adminhtml_Payment_Creditcard_Edit_Tab_Payment_Tier */ ?>
+<?php /* @todo REFACTOR GENERAL DEL JAVASCRIPT PARA PERMITIR MULTIPLES BLOQUES (COUNTRY SUPPORT)*/ ?>
+<?php 
+
+    $_htmlId    = $this->getElement()->getHtmlId();
+    $_htmlClass = $this->getElement()->getClass();
+    $_htmlName  = $this->getElement()->getName();
+    $_countryId = $this->getCountryId();
+    
+?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td class="grid tier">
+        <table cellspacing="0" class="data border" id="tiers_table">
+            <col width="200" />
+            <col width="200" />
+            <col width="700" />
+            <col width="100" />
+            <thead>
+                <tr class="headings">
+                    <th> <span class="required">*</span> <?php echo $this->_helper()->__('Payments')?></th>
+                    <th> <span class="required">*</span> <?php echo $this->_helper()->__('Coefficient')?></th>
+                    <th><?php echo $this->_helper()->__('Note') ?></th>
+                    <th class="last"><?php echo $this->_helper()->__('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <script type="text/javascript">
+        //<![CDATA[
+
+        var tierPaymentRowTemplate<?php echo $_countryId;?> = '<tr>'
+            + '<td>'
+            + '    <input class="hidden" type="hidden" name="<?php echo $_htmlName ?>[{{index}}][payment_id]" value="{{payment_id}}" id="<?php echo $_htmlId ?>_{{index}}_payment_id" />'
+            + '    <input class="hidden" type="hidden" name="<?php echo $_htmlName ?>[{{index}}][country_id]" value="{{country_id}}" id="<?php echo $_htmlId ?>_{{index}}_country_id" />'
+            + '    <input class="hidden" type="hidden" name="<?php echo $_htmlName ?>[{{index}}][creditcard_id]" value="{{creditcard_id}}" id="<?php echo $_htmlId ?>_{{index}}_creditcard_id" />'
+            + '    <input class="<?php echo $_htmlClass ?> validate-digits validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][payments]" value="{{payments}}" id="<?php echo $_htmlId ?>_{{index}}_payments"/>'
+            + '</td>'
+
+            + '<td>'
+            + '    <input class="<?php echo $_htmlClass ?> validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][coefficient]" value="{{coefficient}}" id="<?php echo $_htmlId ?>_{{index}}_coefficient" />'
+            + '</td>'
+
+            + '<td>'
+            + '    <input class="input-text" type="text" name="<?php echo $_htmlName ?>[{{index}}][note]" value="{{note}}" id="<?php echo $_htmlId ?>_{{index}}_note" />'
+            + '</td>'
+    
+            + '<td class="last a-center">'
+            + '    <input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="{{delete}}" id="<?php echo $_htmlId ?>_{{index}}_delete" />'
+            + '    <button title="<?php echo $this->_helper()->__("Delete Payment") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="<?php echo $_htmlId ?>_{{index}}_delete_button" onclick="return tierPaymentsControl.deleteItem(event);">'
+            + '    <span><?php echo $this->_helper()->__("Delete") ?></span></button>'
+            + '</td>'
+            + '</tr>';
+
+        var tierPaymentsControl<?php echo $_countryId;?> = {
+
+            itemsCount: 0,
+
+            template: new Template(tierPaymentRowTemplate<?php echo $_countryId;?>, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+
+            addItem : function () {
+                // Defaults
+                var data = {
+                    payment_id: '',
+                    creditcard_id: '<?php echo $this->getCreditcardId();?>',
+                    country_id: '<?php echo $this->getCountryId();?>',
+                    payments: '',
+                    coefficient: '',
+                    note: '',
+                    readOnly: false,
+                    index: this.itemsCount++
+                };
+
+                if(arguments.length > 0) {
+                    var payment = arguments[0];
+                    for (var property in payment) { 
+                        data[property] = payment[property]; 
+                    }
+                }
+
+                Element.insert($('<?php echo $_htmlId ?>_container'), {
+                    bottom : this.template.evaluate(data)
+                });
+            },
+            disableElement: function(el) {
+                el.disabled = true;
+                el.addClassName('disabled');
+            },
+            deleteItem: function(event) {
+                var tr = Event.findElement(event, 'tr');
+                if (tr) {
+                    Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+                    Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                    Element.hide(tr);
+                    Element.addClassName(tr, 'no-display template');
+                }
+                return false;
+            }
+        };
+
+        <?php foreach ($this->getJsonTierPayments() as $payment): ?>
+            tierPaymentsControl<?php echo $_countryId;?>.addItem(<?php echo $payment ?>);
+        <?php endforeach; ?>
+
+        //]]>
+        </script>
+    </td>
+</tr>
